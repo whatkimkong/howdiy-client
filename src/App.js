@@ -1,25 +1,64 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { Component } from "react";
+import { Route, Switch } from "react-router";
+import Signup from "./components/Signup";
+import Login from "./components/Login";
+import authService from "./components/services/auth-services";
 
-function App() {
-  return (
+class App extends Component {
+  state = {
+    isLoggedIn: null,
+    user: null,
+  };
+
+  setUser = (user, loggedInStatus) => {
+    this.setState({
+      user,
+      isLoggedIn: loggedInStatus,
+    });
+  };
+
+  getUser = () => {
+    if (this.state.user === null) {
+      authService
+        .loggedin()
+        .then((response) => {
+          this.setState({
+            user: response.data.user,
+            isLoggedIn: true,
+          });
+        })
+        .catch((error) => {
+          this.setState({
+            isLoggedIn: false,
+          });
+        });
+    }
+  };
+
+  componentDidMount() {
+    this.getUser();
+  }
+
+  render() {
+    return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Switch>
+        <Signup />
+        <Route
+          exact
+          path="/signup"
+          render={() => <Signup setUser={this.setUser} />}
+        />
+        <Route
+          exact
+          path="/login"
+          render={() => <Login setUser={this.setUser} />}
+        />
+      </Switch>
     </div>
-  );
+  )}
 }
+
 
 export default App;
