@@ -18,11 +18,11 @@ class AuthService {
     });
   };
 
-  login = (username, password) => {
-    return this.service.post("/login", { username, password });
+  login = (email, password) => {
+    return this.service.post("/login", { email, password });
   };
 
-  logout = (username, password) => {
+  logout = (email, password) => {
     return this.service.post("/logout");
   };
 
