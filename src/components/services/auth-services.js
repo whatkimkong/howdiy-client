@@ -22,12 +22,12 @@ class AuthService {
     return this.service.post("/login", { email, password });
   };
 
-  logout = (email, password) => {
+  logout = () => {
     return this.service.post("/logout");
   };
 
   loggedin = () => {
-    return this.service.get("/loggedin", { withCredentials: true });
+    return this.service.get("/loggedin");
   };
 }
 
