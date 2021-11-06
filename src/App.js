@@ -1,9 +1,10 @@
 import "./App.css";
 import { Component } from "react";
-import { Route, Switch } from "react-router";
+import { Route, Routes } from "react-router-dom";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 import authService from "./components/services/auth-services";
+import Navbar from "./components/Navbar";
 
 class App extends Component {
   state = {
@@ -43,19 +44,19 @@ class App extends Component {
   render() {
     return (
     <div className="App">
-      <Switch>
-        <Signup />
+      <Navbar/>
+      <Routes>
         <Route
           exact
           path="/signup"
-          render={() => <Signup setUser={this.setUser} />}
+          element={<Signup setUser={this.setUser}/>}
         />
         <Route
           exact
           path="/login"
-          render={() => <Login setUser={this.setUser} />}
+          element={<Login setUser={this.setUser}/>}
         />
-      </Switch>
+      </Routes>
     </div>
   )}
 }
