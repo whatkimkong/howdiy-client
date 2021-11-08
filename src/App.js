@@ -5,6 +5,7 @@ import Signup from "./components/Signup";
 import Login from "./components/Login";
 import authService from "./components/services/auth-services";
 import Navbar from "./components/Navbar";
+import Profile from "./components/Profile";
 
 class App extends Component {
   state = {
@@ -42,9 +43,10 @@ class App extends Component {
   }
 
   render() {
+    const { user, isLoggedIn } = this.state;
     return (
     <div className="App">
-      <Navbar/>
+      <Navbar isLoggedIn={isLoggedIn} user={user} setUser={this.setUser} />
       <Routes>
         <Route
           exact
@@ -56,6 +58,11 @@ class App extends Component {
           path="/login"
           element={<Login setUser={this.setUser}/>}
         />
+        <Route
+            exact
+            path="/profile"
+            render={<Profile isLoggedIn={isLoggedIn}/>}
+          />
       </Routes>
     </div>
   )}
