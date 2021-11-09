@@ -1,39 +1,40 @@
-import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
-import recipeService from './services/recipe-services';
+import React, { Component } from "react";
+import { NavLink } from "react-router-dom";
 
+//change the categories from null to an array /w enum
+// no loading
 export class Categories extends Component {
+  state = {
+    categories: ["Facecare", "Bodycare", "Housecare", "Play", "Food", "Drink"],
+  };
 
-    state = {
-        categories: null,
-        isLoading: true,
-    }
-    
-    componentDidMount() {
-        recipeService.getCategories
-        .then( (response) => {
-          this.setState({ categories: response.data, isLoading: false })
-        })
-        .catch( (err) => {
-          this.props.history.push("/500")
-        });
-      }
+  /*   componentDidMount() {
+    recipeService.getCategories
+      .then((response) => {
+        this.setState({ categories: response.data, isLoading: false });
+      })
+      .catch((err) => {
+        this.props.history.push("/500");
+      });
+  } */
 
-    render() {
-        const { categories, isLoading } = this.state
-        return (
-            <ul>
-                {categories.map((eachCategory) => {
-                    return(
-                        <li key={eachCategory}>
-                        <NavLink to={`/${eachCategory}/howdiy`}>{eachCategory}</NavLink>
-                        </li>
-                    )
-                })
-                }
-            </ul>
-        )
-    }
+  render() {
+    const { categories } = this.state;
+    return (
+      <ul>
+        <h1>Categories</h1>
+        {categories.map((eachCategory) => {
+          return (
+            <li key={eachCategory}>
+              <NavLink to={`/${eachCategory.toLowerCase()}/howdiy`}>
+                {eachCategory}
+              </NavLink>
+            </li>
+          );
+        })}
+      </ul>
+    );
+  }
 }
 
 export default Categories;

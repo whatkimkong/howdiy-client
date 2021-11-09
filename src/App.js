@@ -1,12 +1,13 @@
 import "./App.css";
 import { Component } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 import authService from "./components/services/auth-services";
 import Navbar from "./components/Navbar";
 import Profile from "./components/Profile";
 import Categories from "./components/Categories";
+import CategoryList from "./components/CategoryList";
 
 class App extends Component {
   state = {
@@ -45,34 +46,40 @@ class App extends Component {
 
   render() {
     const { user, isLoggedIn } = this.state;
-    return (
-    <div className="App">
-      <Navbar isLoggedIn={isLoggedIn} user={user} setUser={this.setUser} />
-      <Routes>
-        <Route
-          exact
-          path="/signup"
-          element={<Signup setUser={this.setUser}/>}
-        />
-        <Route
-          exact
-          path="/login"
-          element={<Login setUser={this.setUser}/>}
-        />
-        <Route
-            exact
-            path="/profile"
-            render={<Profile isLoggedIn={isLoggedIn} user={user} setUser={this.setUser}/>}
-          />
-        <Route
-            exact
-            path="/categories"
-            render={<Categories isLoggedIn={isLoggedIn} user={user} setUser={this.setUser}/>}
-          />  
-      </Routes>
-    </div>
-  )}
-}
 
+    return (
+      <div className="App">
+        <Navbar isLoggedIn={isLoggedIn} user={user} setUser={this.setUser} />
+
+        <Switch>
+          <Route
+            path="/signup"
+            render={(props) => <Signup {...props} setUser={this.setUser} />}
+          />
+          <Route
+            path="/login"
+            render={(props) => <Login {...props} setUser={this.setUser} />}
+          />
+          <Route
+            path="/profile"
+            render={(props) => (
+              <Profile {...props} isLoggedIn={isLoggedIn} user={user} />
+            )}
+          />
+          <Route
+            path="/categories"
+            render={(props) => (
+              <Categories {...props} isLoggedIn={isLoggedIn} />
+            )}
+          />
+          <Route
+            path={`/${Categories.category}/howdiy`}
+            render={(props) => <CategoryList {...props} />}
+          />
+        </Switch>
+      </div>
+    );
+  }
+}
 
 export default App;
