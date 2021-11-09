@@ -23,9 +23,11 @@ function Navbar({ isLoggedIn, user, setUser }) {
               </NavLink>
             </li>
             <li>
-              <NavLink to="/profile">Profile</NavLink>
+              <NavLink to="/profile">{user.username}'s Profile</NavLink>
             </li>
-            <li>{user.username}</li>
+            <li>
+              <NavLink to="/categories">Categories</NavLink>
+            </li>
           </>
         )}
         {!isLoggedIn && (

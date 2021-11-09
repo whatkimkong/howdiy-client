@@ -6,6 +6,7 @@ import Login from "./components/Login";
 import authService from "./components/services/auth-services";
 import Navbar from "./components/Navbar";
 import Profile from "./components/Profile";
+import Categories from "./components/Categories";
 
 class App extends Component {
   state = {
@@ -61,8 +62,13 @@ class App extends Component {
         <Route
             exact
             path="/profile"
-            render={<Profile isLoggedIn={isLoggedIn}/>}
+            render={<Profile isLoggedIn={isLoggedIn} user={user} setUser={this.setUser}/>}
           />
+        <Route
+            exact
+            path="/categories"
+            render={<Categories isLoggedIn={isLoggedIn} user={user} setUser={this.setUser}/>}
+          />  
       </Routes>
     </div>
   )}
