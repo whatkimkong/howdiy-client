@@ -73,7 +73,7 @@ class App extends Component {
             )}
           />
           <Route
-            path={`/${Categories.category}/howdiy`}
+            path="/:category/howdiy" // where they are receiving the request to visit - are they trying to get to ...
             render={(props) => <CategoryList {...props} />}
           />
         </Switch>

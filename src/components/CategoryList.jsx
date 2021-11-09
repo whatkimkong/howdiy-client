@@ -6,8 +6,12 @@ class CategoryList extends Component {
     return (
       <div>
         <h1>Lorem Ipsum</h1>
+        <h1>{category}</h1>
       </div>
     );
   }
 }
 export default CategoryList;
+
+
+// fetches information

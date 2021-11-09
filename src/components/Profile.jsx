@@ -19,8 +19,6 @@ class Profile extends Component {
       console.log(err.response.status) // => the error message status code
       if (err.response.status === 403) {
         this.props.history.push("/login");
-
-
       }
     });
   }
