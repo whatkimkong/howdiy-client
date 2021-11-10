@@ -8,6 +8,7 @@ import Navbar from "./components/Navbar";
 import Profile from "./components/Profile";
 import Categories from "./components/Categories";
 import CategoryList from "./components/CategoryList";
+import HowdiyCreate from "./components/howdiys/HowdiyCreate";
 
 class App extends Component {
   state = {
@@ -75,6 +76,12 @@ class App extends Component {
           <Route
             path="/:category/howdiy" // where they are receiving the request to visit - are they trying to get to ...
             render={(props) => <CategoryList {...props} />}
+          />
+          <Route
+            path="/create"
+            render={(props) => (
+              <HowdiyCreate {...props} />
+            )}
           />
         </Switch>
       </div>

@@ -10,9 +10,36 @@ class RecipeService {
     });
   }
 
-  getCategories = (category) => {
-    return this.service.get("/categories", { category });
+  getCategoryList = ({ productImg, funName, descriptiveName }) => {
+    return this.service.get("/categorylist", { productImg, funName, descriptiveName });
   };
+  
+  createHowdiy = ({
+    category,
+    descriptiveName,
+    ingredients,
+    preparation,
+    productImg,
+    isGiftable,
+    gallery,
+    timeOfPreparation,
+    costRating,
+    difficultyRating,
+  }) => {
+    return this.service.post("/create", {
+      category,
+      descriptiveName,
+      ingredients,
+      preparation,
+      productImg,
+      isGiftable,
+      gallery,
+      timeOfPreparation,
+      costRating,
+      difficultyRating,
+    });
+  };
+
 }
 
 const recipeService = new RecipeService();

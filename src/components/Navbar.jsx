@@ -28,6 +28,9 @@ function Navbar({ isLoggedIn, user, setUser }) {
             <li>
               <NavLink to="/categories">Categories</NavLink>
             </li>
+            <li>
+              <NavLink to="/create">Create a Howdiy!</NavLink>
+            </li>
           </>
         )}
         {!isLoggedIn && (
