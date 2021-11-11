@@ -6,7 +6,15 @@ import React, { Component } from "react";
 
 class HowdiyCreate extends Component {
   state = {
-    category: ["Facecare", "Bodycare", "Housecare", "Play", "Food", "Drink"],
+    categoryList: [
+      "facecare",
+      "bodycare",
+      "housecare",
+      "play",
+      "food",
+      "drink",
+    ],
+    category: "",
     descriptiveName: "",
     ingredients: [
       {
@@ -21,8 +29,8 @@ class HowdiyCreate extends Component {
     timeOfPreparation: 0, // specify mins in form
     costRating: 0, // TIP on how to calculate in form
     difficultyRating: 0,
-    createdBy: null, // add THIS username's name here 
-    isOwner: false,  // change this to true or shall we already say TRUE?? since its a create
+    createdBy: null, // add THIS username's name here
+    isOwner: false, // change this to true or shall we already say TRUE?? since its a create
   };
 
   handleChange = (event) => {
@@ -32,45 +40,51 @@ class HowdiyCreate extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     const {
-        category,
-        descriptiveName,
-        ingredients,
-        preparation,
-        productImg,
-        isGiftable,
-        gallery,
-        timeOfPreparation,
-        costRating,
-        difficultyRating,
-      } = this.state
-    axios.post(`${process.env.REACT_APP_API_HOST}/recipes`, {
-        category,
-        descriptiveName,
-        ingredients,
-        preparation,
-        productImg,
-        isGiftable,
-        gallery,
-        timeOfPreparation,
-        costRating,
-        difficultyRating,
-      }, {withCredentials: true}).then( () => this.props.history.push("/"))
-    .catch( () => this.props.history.push("/500"));
-  } // this.setState({ categories: response.data, isLoading: false });
+      category,
+      descriptiveName,
+      ingredients,
+      preparation,
+      productImg,
+      isGiftable,
+      gallery,
+      timeOfPreparation,
+      costRating,
+      difficultyRating,
+    } = this.state;
+    axios
+      .post(
+        `${process.env.REACT_APP_API_HOST}/recipes/create`,
+        {
+          category,
+          descriptiveName,
+          ingredients,
+          preparation,
+          productImg,
+          isGiftable,
+          gallery,
+          timeOfPreparation,
+          costRating,
+          difficultyRating,
+        },
+        { withCredentials: true }
+      )
+      .then(() => this.props.history.push("/"))
+      .catch(() => this.props.history.push("/500"));
+  }; // this.setState({ categories: response.data, isLoading: false });
 
   render() {
     const {
-        category,
-        descriptiveName,
-        ingredients,
-        preparation,
-        productImg,
-        isGiftable,
-        gallery,
-        timeOfPreparation,
-        costRating,
-        difficultyRating,
-      } = this.state;
+      category,
+      descriptiveName,
+      ingredients,
+      preparation,
+      productImg,
+      isGiftable,
+      gallery,
+      timeOfPreparation,
+      costRating,
+      difficultyRating,
+    } = this.state;
 
     return (
       <div>
@@ -82,6 +96,16 @@ class HowdiyCreate extends Component {
             name="descriptiveName"
             value={descriptiveName}
           />
+          <br />
+          <label htmlFor="category">Category</label>
+          <select name="category" id="category-select">
+            <option value="facecare">Facecare</option>
+            <option value="bodycare">Bodycare</option>
+            <option value="housecare">Housecare</option>
+            <option value="play">Play</option>
+            <option value="food">Food</option>
+            <option value="drink">Drink</option>
+          </select>
           <br />
           <label htmlFor="description">Cost Rating</label>
           <input
@@ -98,5 +122,7 @@ class HowdiyCreate extends Component {
     );
   }
 }
+
+// hardcoded is okay but otherwise loop with a map
 
 export default HowdiyCreate;

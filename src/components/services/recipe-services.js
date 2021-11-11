@@ -10,8 +10,8 @@ class RecipeService {
     });
   }
 
-  getCategoryList = ({ productImg, funName, descriptiveName }) => {
-    return this.service.get("/categorylist", { productImg, funName, descriptiveName });
+  getCategoryList = (category) => {
+    return this.service.get(`/categorylist/${category}`);
   };
   
   createHowdiy = ({
