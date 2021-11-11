@@ -29,7 +29,7 @@ function Navbar({ isLoggedIn, user, setUser }) {
               <NavLink to="/categories">Categories</NavLink>
             </li>
             <li>
-              <NavLink to="/create">Create a Howdiy!</NavLink>
+              <NavLink to="/howdiy/create">Create a Howdiy!</NavLink>
             </li>
           </>
         )}

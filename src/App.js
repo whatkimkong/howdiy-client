@@ -78,7 +78,7 @@ class App extends Component {
             render={(props) => <CategoryList {...props} />}
           />
           <Route
-            path="/create"
+            path="/howdiy/create"
             render={(props) => (
               <HowdiyCreate {...props} />
             )}

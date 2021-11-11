@@ -1,3 +1,5 @@
+// this URL will be "/howdiy/create"
+
 import axios from "axios";
 import React, { Component } from "react";
 // import recipeService from "../services/recipe-services";
@@ -19,6 +21,8 @@ class HowdiyCreate extends Component {
     timeOfPreparation: 0, // specify mins in form
     costRating: 0, // TIP on how to calculate in form
     difficultyRating: 0,
+    createdBy: null, // add THIS username's name here 
+    isOwner: false,  // change this to true or shall we already say TRUE?? since its a create
   };
 
   handleChange = (event) => {
