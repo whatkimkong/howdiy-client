@@ -110,14 +110,6 @@ class HowdiyEdit extends Component {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          <label htmlFor="title">Descriptive Name</label>
-          <input
-            onChange={this.handleChange}
-            type="text"
-            name="descriptiveName"
-            value={descriptiveName}
-          />
-          <br />
           <label htmlFor="category">Category</label>
           <select name="category" id="category-select">
             <option value="facecare">Facecare</option>
@@ -128,12 +120,86 @@ class HowdiyEdit extends Component {
             <option value="drink">Drink</option>
           </select>
           <br />
-          <label htmlFor="description">Cost Rating</label>
+          <label htmlFor="title">Descriptive Name</label>
+          <input
+            onChange={this.handleChange}
+            type="text"
+            name="descriptiveName"
+            value={descriptiveName}
+          />
+          <br />
+          <label htmlFor="ingredients">Ingredients</label>
+          <input
+            onChange={this.handleChange}
+            type="text"
+            name="ingredients"
+            value={ingredients}
+          />
+          <br />
+          <label htmlFor="preparation">Preparation</label>
+          <input
+            onChange={this.handleChange}
+            type="text"
+            name="preparation"
+            value={preparation}
+          />
+          <br />
+          <label htmlFor="productImg" alt="Product Image">
+            Product Image
+          </label>
+          <input
+            onChange={this.handleChange}
+            type="text"
+            name="productImg"
+            value={productImg}
+          />
+          <br />
+          <label htmlFor="gallery" alt="Your uploaded Howdiys">
+            Gallery of your Howdiys
+          </label>
+          <input
+            onChange={this.handleChange}
+            type="text"
+            name="gallery"
+            value={gallery}
+          />
+          <br />
+          <label htmlFor="isGiftable">is Giftable</label>
+          <input
+            onChange={this.handleChange}
+            type="radio"
+            name="isGiftable"
+            value={isGiftable}
+          />
+          <br />
+          <label htmlFor="timeOfPreparation">
+            Rate how time consuming the Howdiy is
+          </label>
+          <input
+            onChange={this.handleChange}
+            type="number"
+            name="timeOfPreparation"
+            value={timeOfPreparation}
+          />
+          <br />
+          <label htmlFor="costRating">
+            Rate how cost intense the Howdiy is
+          </label>
           <input
             onChange={this.handleChange}
             type="number"
             name="costRating"
             value={costRating}
+          />
+          <br />
+          <label htmlFor="difficultyRating">
+            Rate how difficult the Howdiy is
+          </label>
+          <input
+            onChange={this.handleChange}
+            type="number"
+            name="difficultyRating"
+            value={difficultyRating}
           />
           <br />
           <br />
