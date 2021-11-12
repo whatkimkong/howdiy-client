@@ -1,10 +1,28 @@
 import React, { Component, Fragment } from "react";
 import recipeService from "./services/recipe-services"; // has to be the same?
+import Search from "./Search";
 
 class CategoryList extends Component {
   state = {
     howdiyList: null,
+    filteredList: null,
     isLoading: true,
+  };
+
+  /*   handleFilter = () => {
+    const { howdiyList } = this.state;
+    return howdiyList.filter((howdiy) => howdiyList.includes(howdiy));
+  }; */
+
+  handleFilter = (filter) => {
+    const filteredList = this.state.howdiyList.filter((eachHowdiy) => {
+      return eachHowdiy.descriptiveName
+        .toLowerCase()
+        .includes(filter.toLowerCase());
+    });
+    this.setState({
+      filteredList: filteredList,
+    });
   };
 
   componentDidMount() {
@@ -21,10 +39,10 @@ class CategoryList extends Component {
 
   render() {
     const { category } = this.props.match.params;
-    const { howdiyList, isLoading } = this.state;
+    const { howdiyList, filteredList, isLoading } = this.state;
     return (
       <div>
-        <h1> SEARCH BAR </h1>
+        <Search handleFilter={this.handleFilter} />
         {isLoading && <h1>is loading</h1>}
         {!isLoading &&
           howdiyList.map((eachHowdiy) => {
@@ -42,5 +60,5 @@ class CategoryList extends Component {
 }
 export default CategoryList;
 
-// whole element clickable in return
-// fetches information
+//whole element clickable in return
+//fetches information
