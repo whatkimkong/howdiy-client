@@ -6,10 +6,9 @@ import Login from "./components/Login";
 import authService from "./components/services/auth-services";
 import Navbar from "./components/Navbar";
 import Profile from "./components/Profile";
-import Categories from "./components/Categories";
-import CategoryList from "./components/CategoryList";
+import Categories from "./components/categories/Categories";
+import CategoryList from "./components/categories/CategoryList";
 import HowdiyCreate from "./components/howdiys/HowdiyCreate";
-
 
 class App extends Component {
   state = {

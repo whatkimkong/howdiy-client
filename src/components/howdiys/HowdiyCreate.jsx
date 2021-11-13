@@ -37,6 +37,10 @@ class HowdiyCreate extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
+  updateCategory = (event) => {
+    this.setState({ category: event.target.value });
+  }
+
   handleSubmit = (event) => {
     event.preventDefault();
     const {
@@ -90,7 +94,7 @@ class HowdiyCreate extends Component {
       <div>
         <form onSubmit={this.handleSubmit}>
           <label htmlFor="category">Category</label>
-          <select name="category" id="category-select">
+          <select onChange={this.updateCategory} name="category" id="category-select">
             <option value="facecare">Facecare</option>
             <option value="bodycare">Bodycare</option>
             <option value="housecare">Housecare</option>

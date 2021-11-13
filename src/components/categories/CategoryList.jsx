@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import recipeService from "./services/recipe-services"; // has to be the same?
+import recipeService from "../services/recipe-services"; // has to be the same?
 import Search from "./Search";
 
 class CategoryList extends Component {
@@ -7,16 +7,14 @@ class CategoryList extends Component {
     howdiyList: null,
     filteredList: null,
     isLoading: true,
+    searchParam: "",
   };
 
-  /*   handleFilter = () => {
-    const { howdiyList } = this.state;
-    return howdiyList.filter((howdiy) => howdiyList.includes(howdiy));
-  }; */
-
   handleFilter = (filter) => {
+    const searchParam = this.state
     const filteredList = this.state.howdiyList.filter((eachHowdiy) => {
       return eachHowdiy.descriptiveName
+        .toString() 
         .toLowerCase()
         .includes(filter.toLowerCase());
     });
@@ -30,7 +28,7 @@ class CategoryList extends Component {
     recipeService
       .getCategoryList(category)
       .then((response) => {
-        this.setState({ howdiyList: response.data, isLoading: false });
+        this.setState({ howdiyList: response.data, filteredList: response.data, isLoading: false });
       })
       .catch((err) => {
         this.props.history.push("/500");
@@ -62,3 +60,12 @@ export default CategoryList;
 
 //whole element clickable in return
 //fetches information
+
+
+
+/*   
+handleFilter = () => {
+    const { howdiyList } = this.state;
+    return howdiyList.filter((howdiy) => howdiyList.includes(howdiy));
+}
+*/
