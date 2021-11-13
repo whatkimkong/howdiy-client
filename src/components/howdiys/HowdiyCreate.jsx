@@ -24,7 +24,7 @@ class HowdiyCreate extends Component {
     ],
     preparation: [],
     productImg: "",
-    isGiftable: false,
+    isGiftable: true,
     gallery: [],
     timeOfPreparation: 0, // specify mins in form
     costRating: 0, // TIP on how to calculate in form
@@ -34,12 +34,10 @@ class HowdiyCreate extends Component {
   };
 
   handleChange = (event) => {
-    this.setState({ [event.target.name]: event.target.value });
+      const { name, type, checked, value } = event.target
+    this.setState({ [name]: type === "checkbox" ? checked : value });
   };
 
-  updateCategory = (event) => {
-    this.setState({ category: event.target.value });
-  }
 
   handleSubmit = (event) => {
     event.preventDefault();
@@ -94,7 +92,8 @@ class HowdiyCreate extends Component {
       <div>
         <form onSubmit={this.handleSubmit}>
           <label htmlFor="category">Category</label>
-          <select onChange={this.updateCategory} name="category" id="category-select">
+          <select onChange={this.handleChange} name="category" id="category-select">
+            <option value="">Please select the category of your product</option>
             <option value="facecare">Facecare</option>
             <option value="bodycare">Bodycare</option>
             <option value="housecare">Housecare</option>
@@ -150,9 +149,9 @@ class HowdiyCreate extends Component {
           <label htmlFor="isGiftable">is Giftable</label>
           <input
             onChange={this.handleChange}
-            type="radio"
+            type="checkbox"
             name="isGiftable"
-            value={isGiftable}
+            checked={isGiftable}
           />
           <br />
           <label htmlFor="timeOfPreparation">

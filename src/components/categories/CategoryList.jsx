@@ -7,14 +7,11 @@ class CategoryList extends Component {
     howdiyList: null,
     filteredList: null,
     isLoading: true,
-    searchParam: "",
   };
 
   handleFilter = (filter) => {
-    const searchParam = this.state
     const filteredList = this.state.howdiyList.filter((eachHowdiy) => {
-      return eachHowdiy.descriptiveName
-        .toString() 
+      return eachHowdiy.descriptiveName 
         .toLowerCase()
         .includes(filter.toLowerCase());
     });
@@ -40,10 +37,11 @@ class CategoryList extends Component {
     const { howdiyList, filteredList, isLoading } = this.state;
     return (
       <div>
+        <h1>{category}</h1>
         <Search handleFilter={this.handleFilter} />
         {isLoading && <h1>is loading</h1>}
         {!isLoading &&
-          howdiyList.map((eachHowdiy) => {
+          filteredList.map((eachHowdiy) => {
             return (
               <>
                 <h1> product image {eachHowdiy.productImg} </h1>

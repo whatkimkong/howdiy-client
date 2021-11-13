@@ -5,18 +5,20 @@ class Search extends Component {
     search: "",
   };
   handleChange = ({ target: { name, value } }) => {
-    this.props.handleFilter(value);
+    console.log(name)
     this.setState({ [name]: value });
+    this.props.handleFilter(value);
   };
+  
   render() {
     const { search } = this.state;
 
     return (
       <div>
-          <label htmlFor="search-form">
+          <label htmlFor="search">
           <input
-            type="search"
-            name="search-form"
+            type="text"
+            name="search"
             id="search-form"
             className="search-input"
             placeholder="Search for..."
