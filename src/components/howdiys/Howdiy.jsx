@@ -68,3 +68,23 @@ export class Howdiy extends Component {
 }
 
 export default Howdiy;
+
+
+/* 
+getComment = (comment) => { 
+    commentService
+      .getComment(comment)
+      .then((response) => {
+        this.setState({ commentList: response.data, isLoading: false });
+      })
+      .catch((err) => {
+        this.props.history.push("/500");
+      });
+
+ // in commentService base: /comments
+  getComment = (comment) => {
+    return this.service.get('/all')
+  };
+
+// routes in comment.routes 
+} */

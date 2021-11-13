@@ -29,18 +29,12 @@ class HowdiyCreate extends Component {
     timeOfPreparation: 0, // specify mins in form
     costRating: 0, // TIP on how to calculate in form
     difficultyRating: 0,
-    createdBy: null, // add THIS username's name here
-    isOwner: true, // change this to true or shall we already say TRUE?? since its a create
   };
 
   handleChange = (event) => {
-      const { name, type, checked, value } = event.target
+    const { name, type, checked, value } = event.target
     this.setState({ [name]: type === "checkbox" ? checked : value });
   };
-
-  updateUser = (user) => {
-    // go to the User model and get this info
-  }
 
 
   handleSubmit = (event) => {
@@ -199,5 +193,22 @@ class HowdiyCreate extends Component {
 }
 
 // hardcoded is okay but otherwise loop with a map
+
+/* 
+updateUser = (user) => { 
+    recipeService
+      .getUser(user)
+      .then((response) => {
+        this.setState({ createdBy: response.data, isLoading: false });
+      })
+      .catch((err) => {
+        this.props.history.push("/500");
+      });
+
+ // in recipeService - contacting the BE uses the route recipe.routes.js
+  getUser = (user) => {
+    return this.service.get('/user');
+  };
+} */
 
 export default HowdiyCreate;

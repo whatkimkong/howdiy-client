@@ -7,15 +7,15 @@ import axios from "axios";
 class Profile extends Component {
 
   state = {
-    profileData: null,
-    isLoading: true,
-  }
+    myHowdiys: null,
+    isLoadingHowdiy: true,
+  } // can have multiple isLoadings !! spinners in different // can have multiple axios.bla's
 
-    // Use axios to fetch the DATA! -- credentials gives BE access to this request session. Authorization!
+  // Use axios to fetch the DATA! -- credentials gives BE access to this request session. Authorization!
   componentDidMount() {
-    axios.get(`${process.env.REACT_APP_API_HOST}/profile`, { withCredentials: true })
+    axios.get(`${process.env.REACT_APP_API_HOST}/profile/recipes`, { withCredentials: true })
     .then( (response) => {
-      this.setState({ profileData:response.data, isLoading: false })
+      this.setState({ myHowdiys: response.data, isLoadingHowdiy: false })
     })
     .catch( (err) => {
       console.log(err.response.status) // => the error message status code
@@ -26,21 +26,29 @@ class Profile extends Component {
   }
 
   render() {
-    const { profileData, isLoading} = this.state;
+    const { profileData, myHowdiys, isLoadingHowdiy } = this.state;
     const { user } = this.props;
     return (
       <div>
-        {isLoading && <h1>...isLoading!</h1>}
-        {!isLoading && 
-          <>
-          <h1>Howdiy {user.username}! Here is your Profile</h1>
-          <h5> /extra feature/ User Avatar - Cowboy Themed Add to User Model</h5>
-          <h3> First Name: {user.firstName}</h3>
-          <h3> Last Name: {user.lastName}</h3>
-          <hr></hr>
-          <h1> My Howdiys map??? list - on this list - edit and delete</h1>
-        </>
-        }
+        <h1>Howdiy {user.username}! Here is your Profile</h1>
+        <h5> /extra feature/ User Avatar - Cowboy Themed Add to User Model</h5>
+        <h3> First Name: {user.firstName}</h3>
+        <h3> Last Name: {user.lastName}</h3>
+        <hr></hr>
+        <h1> My Howdiys</h1>
+        {isLoadingHowdiy && <h1>...isLoading!</h1>}
+        {!isLoadingHowdiy && 
+          myHowdiys.map((eachHowdiy) => {
+            return (
+              <>
+                <h1> product image {eachHowdiy.productImg} </h1>
+                <h1> Fun name {eachHowdiy.funName} </h1>
+                <h1> descriptive name {eachHowdiy.descriptiveName} </h1>
+                <hr></hr>
+              </>
+            );
+          }
+        )}
       </div>
     )
   }
@@ -48,3 +56,7 @@ class Profile extends Component {
 
 export default Profile;
 
+
+{/* 
+
+*/}
