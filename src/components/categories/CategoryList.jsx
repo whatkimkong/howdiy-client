@@ -34,7 +34,7 @@ class CategoryList extends Component {
 
   render() {
     const { category } = this.props.match.params;
-    const { howdiyList, filteredList, isLoading } = this.state;
+    const { filteredList, isLoading } = this.state;
     return (
       <div>
         <h1>{category}</h1>
@@ -47,6 +47,7 @@ class CategoryList extends Component {
                 <h1> product image {eachHowdiy.productImg} </h1>
                 <h1> Fun name {eachHowdiy.funName} </h1>
                 <h1> descriptive name {eachHowdiy.descriptiveName} </h1>
+                <hr></hr>
               </>
             );
           })}

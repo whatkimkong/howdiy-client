@@ -30,13 +30,17 @@ class HowdiyCreate extends Component {
     costRating: 0, // TIP on how to calculate in form
     difficultyRating: 0,
     createdBy: null, // add THIS username's name here
-    isOwner: false, // change this to true or shall we already say TRUE?? since its a create
+    isOwner: true, // change this to true or shall we already say TRUE?? since its a create
   };
 
   handleChange = (event) => {
       const { name, type, checked, value } = event.target
     this.setState({ [name]: type === "checkbox" ? checked : value });
   };
+
+  updateUser = (user) => {
+    // go to the User model and get this info
+  }
 
 
   handleSubmit = (event) => {
@@ -52,6 +56,7 @@ class HowdiyCreate extends Component {
       timeOfPreparation,
       costRating,
       difficultyRating,
+      createdBy,
     } = this.state;
     axios
       .post(
@@ -67,6 +72,7 @@ class HowdiyCreate extends Component {
           timeOfPreparation,
           costRating,
           difficultyRating,
+          createdBy,
         },
         { withCredentials: true }
       )

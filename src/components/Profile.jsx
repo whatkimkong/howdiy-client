@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import axios from "axios";
 
+// like CategoryList = howdiyList, filteredList (filtered by user creation)
+// get info of Howdiys and Info of User 
 
 class Profile extends Component {
 
@@ -25,11 +27,20 @@ class Profile extends Component {
 
   render() {
     const { profileData, isLoading} = this.state;
+    const { user } = this.props;
     return (
       <div>
-        <h1>Profile Page</h1>
         {isLoading && <h1>...isLoading!</h1>}
-        {!isLoading && <h3>{profileData.message}</h3>}
+        {!isLoading && 
+          <>
+          <h1>Howdiy {user.username}! Here is your Profile</h1>
+          <h5> /extra feature/ User Avatar - Cowboy Themed Add to User Model</h5>
+          <h3> First Name: {user.firstName}</h3>
+          <h3> Last Name: {user.lastName}</h3>
+          <hr></hr>
+          <h1> My Howdiys map??? list - on this list - edit and delete</h1>
+        </>
+        }
       </div>
     )
   }
