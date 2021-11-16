@@ -11,6 +11,7 @@ export class Howdiy extends Component {
       {
         name: null,
         quantity: null,
+        measure: null,
       },
     ],
     preparation: [],
@@ -51,23 +52,37 @@ export class Howdiy extends Component {
   componentDidMount() {
     // how to destructure properly?
     axios
-      .get(
-        `${process.env.REACT_APP_API_HOST}/recipes/howdiy/${this.props.match.params.id}`
-      )
+      .get(`${process.env.REACT_APP_API_HOST}/recipes/howdiy/${this.props.match.params.id}`, {withCredentials: true
+        })
       .then((response) => {
+        const {
+          funName,
+          descriptiveName,
+          ingredients,
+          preparation,
+          productImg,
+          isGiftable,
+          gallery,
+          timeOfPreparation,
+          costRating,
+          difficultyRating,
+          createdBy,
+          input,
+          commentList
+        } = response.data;
         this.setState({
-          funName: response.data,
-          descriptiveName: response.data,
-          ingredients: response.data,
-          preparation: response.data,
-          productImg: response.data,
-          isGiftable: response.data,
-          gallery: response.data,
-          timeOfPreparation: response.data,
-          costRating: response.data,
-          difficultyRating: response.data,
-          createdBy: response.data,
-          isLoadingHowdiy: false,
+          funName,
+          descriptiveName,
+          ingredients,
+          preparation,
+          productImg,
+          isGiftable,
+          gallery,
+          timeOfPreparation,
+          costRating,
+          difficultyRating,
+          createdBy,
+          isLoadingHowdiy: false
         });
       })
       .catch((err) => {
@@ -122,22 +137,22 @@ export class Howdiy extends Component {
               http://react.tips/checkboxes-in-react/{" "}
             </h5>
 
-            <h5>Ingredients: --- NEEDS A MAP for {ingredients} </h5>
+            {/* <h5>Ingredients: --- NEEDS A MAP for {ingredients} </h5>
             <ul>
               <li>
-                {" "}
-                Here instead of ingredient would be eachIngredient{" "}
-                {ingredients.name} {ingredients.quantity}
+                {name} {quantity}
               </li>
             </ul>
             <h5>Preparation: --- NEEDS A MAP for {preparation} Step</h5>
             <ul>
               <li>eachPreparation</li>
             </ul>
-
+                
             <h5>Product image: {productImg} </h5>
 
             <h5> A Dropdown here for Gallery Below {gallery} </h5>
+          
+             */}
           </>
         )}
         <hr></hr>
@@ -194,6 +209,5 @@ then in the render section below the create form:
             );
           }
         )}
-
 
 */

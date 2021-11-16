@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import axios from "axios";
+import { NavLink } from "react-router-dom";
 
 // like CategoryList = howdiyList, filteredList (filtered by user creation)
 // get info of Howdiys and Info of User 
@@ -44,6 +45,7 @@ class Profile extends Component {
                 <h1> product image {eachHowdiy.productImg} </h1>
                 <h1> Fun name {eachHowdiy.funName} </h1>
                 <h1> descriptive name {eachHowdiy.descriptiveName} </h1>
+                <NavLink key={eachHowdiy._id}to={`/howdiy/${eachHowdiy._id}`}>VIEW</NavLink>
                 <hr></hr>
               </>
             );
