@@ -13,7 +13,7 @@ class RecipeService {
   getCategoryList = (category) => {
     return this.service.get(`/categorylist/${category}`);
   };
-  
+
   createHowdiy = ({
     category,
     descriptiveName,
@@ -40,6 +40,9 @@ class RecipeService {
     });
   };
 
+  /* deleteHowdiy = (id) => {
+    return this.service.delete(`/delete/${id}`);
+  }; */
 }
 
 const recipeService = new RecipeService();
