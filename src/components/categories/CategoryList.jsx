@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from "react";
 import recipeService from "../services/recipe-services"; // has to be the same?
 import Search from "./Search";
+import { NavLink } from "react-router-dom";
+
 
 class CategoryList extends Component {
   state = {
@@ -37,7 +39,7 @@ class CategoryList extends Component {
     const { filteredList, isLoading } = this.state;
     return (
       <div>
-        <h1>{category}</h1>
+        <h1>{`${category[0].toUpperCase()}${category.slice(1)}`}</h1>
         <Search handleFilter={this.handleFilter} />
         {isLoading && <h1>is loading</h1>}
         {!isLoading &&
@@ -47,6 +49,7 @@ class CategoryList extends Component {
                 <h1> product image {eachHowdiy.productImg} </h1>
                 <h1> Fun name {eachHowdiy.funName} </h1>
                 <h1> descriptive name {eachHowdiy.descriptiveName} </h1>
+                <NavLink key={eachHowdiy._id}to={`/howdiy/${eachHowdiy._id}`}>VIEW</NavLink>
                 <hr></hr>
               </>
             );

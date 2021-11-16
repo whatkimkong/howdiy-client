@@ -102,7 +102,7 @@ class HowdiyCreate extends Component {
             <option value="drink">Drink</option>
           </select>
           <br />
-          <label htmlFor="title">Descriptive Name</label>
+          <label htmlFor="descriptiveName">Descriptive Name</label>
           <input
             onChange={this.handleChange}
             type="text"
