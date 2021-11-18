@@ -4,6 +4,11 @@
 // edit delete buttons
 // how to make delete 2-step (approval via " kim and sina")
 
+
+
+
+
+
 /* 
   deleteHowdiy = (theOneToDelete) => {
     const clonedList = [...this.state.howdiyList];

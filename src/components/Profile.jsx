@@ -45,7 +45,10 @@ class Profile extends Component {
                 <h1> product image {eachHowdiy.productImg} </h1>
                 <h1> Fun name {eachHowdiy.funName} </h1>
                 <h1> descriptive name {eachHowdiy.descriptiveName} </h1>
-                <NavLink key={eachHowdiy._id}to={`/howdiy/${eachHowdiy._id}`}>VIEW</NavLink>
+                <NavLink key={eachHowdiy._id} to={`/howdiy/${eachHowdiy._id}`}>VIEW</NavLink>
+                <br>
+                </br>
+                <NavLink key={eachHowdiy} to={`/howdiy/edit/${eachHowdiy._id}`}>EDIT</NavLink>
                 <hr></hr>
               </>
             );

@@ -10,6 +10,7 @@ import Categories from "./components/categories/Categories";
 import CategoryList from "./components/categories/CategoryList";
 import HowdiyCreate from "./components/howdiys/HowdiyCreate";
 import Howdiy from "./components/howdiys/Howdiy";
+import HowdiyEdit from "./components/howdiys/HowdiyEdit";
 
 class App extends Component {
   state = {
@@ -88,6 +89,12 @@ class App extends Component {
             path="/howdiy/:id"
             render={(props) => (
               <Howdiy {...props} />
+            )}
+          />
+          <Route
+            path="/howdiy/edit/:id"
+            render={(props) => (
+              <HowdiyEdit {...props} />
             )}
           />
         </Switch>

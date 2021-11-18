@@ -28,8 +28,7 @@ class HowdiyEdit extends Component {
     timeOfPreparation: 0, // specify mins in form
     costRating: 0, // TIP on how to calculate in form
     difficultyRating: 0,
-    createdBy: null, // add THIS username's name here
-    isOwner: false, // change this to true or shall we already say TRUE?? since its a create
+    isLoadingHowdiy: true,
   };
 
   handleChange = (event) => {
@@ -52,7 +51,7 @@ class HowdiyEdit extends Component {
     } = this.state;
     axios
       .post(
-        `${process.env.REACT_APP_API_HOST}/recipes/${this.props.match.params.id}/edit`,
+        `${process.env.REACT_APP_API_HOST}/recipes/edit/${this.props.match.params.id}`,
         {
           category,
           descriptiveName,
@@ -74,20 +73,31 @@ class HowdiyEdit extends Component {
   componentDidMount() {
     axios
       .get(
-        `${process.env.REACT_APP_API_HOST}/recipes/${this.props.match.params.id}/edit`
+        `${process.env.REACT_APP_API_HOST}/recipes/edit/${this.props.match.params.id}`
       )
       .then((response) => {
+        const {category,
+          descriptiveName,
+          ingredients,
+          preparation,
+          productImg,
+          isGiftable,
+          gallery,
+          timeOfPreparation,
+          costRating,
+          difficultyRating} = response.data
         this.setState({
-          category: response.data.category,
-          descriptiveName: response.data.descriptiveName,
-          ingredients: response.data.ingredients,
-          preparation: response.data.preparation,
-          productImg: response.data.productImg,
-          isGiftable: response.data.isGiftable,
-          gallery: response.data.gallery,
-          timeOfPreparation: response.data.timeOfPreparation,
-          costRating: response.data.costRating,
-          difficultyRating: response.data.difficultyRating,
+          category,
+          descriptiveName,
+          ingredients,
+          preparation,
+          productImg,
+          isGiftable,
+          gallery,
+          timeOfPreparation,
+          costRating,
+          difficultyRating,
+          isLoadingHowdiy: false,
         });
       })
       .catch((err) => {});
@@ -95,7 +105,7 @@ class HowdiyEdit extends Component {
 
   render() {
     const {
-      category,
+      category, // does it go in the label maybe?
       descriptiveName,
       ingredients,
       preparation,
@@ -110,7 +120,7 @@ class HowdiyEdit extends Component {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          <label htmlFor="category">Category</label>
+          <label htmlFor="category">Previous category: {category}</label>
           <select name="category" id="category-select">
             <option value="facecare">Facecare</option>
             <option value="bodycare">Bodycare</option>
@@ -203,7 +213,7 @@ class HowdiyEdit extends Component {
           />
           <br />
           <br />
-          <button type="submit">Create your Howdiy!!</button>
+          <button type="submit">Edit your Howdiy</button>
         </form>
       </div>
     );
