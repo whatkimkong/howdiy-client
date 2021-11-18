@@ -50,7 +50,7 @@ class HowdiyEdit extends Component {
       difficultyRating,
     } = this.state;
     axios
-      .post(
+      .patch(
         `${process.env.REACT_APP_API_HOST}/recipes/edit/${this.props.match.params.id}`,
         {
           category,
@@ -66,7 +66,10 @@ class HowdiyEdit extends Component {
         },
         { withCredentials: true }
       )
-      .then(() => this.props.history.push("/"))
+      .then((response) => {
+        console.log(response, "this is the axios post in edit page")
+        this.props.history.push("/")
+      })
       .catch(() => this.props.history.push("/500"));
   }; // this.setState({ categories: response.data, isLoading: false });
 
@@ -77,7 +80,7 @@ class HowdiyEdit extends Component {
           withCredentials: true,
       })
       .then((response) => {
-        console.log(response)
+        console.log(response.data, "this is the axios get in the edit page")
         const {category,
           descriptiveName,
           ingredients,
@@ -124,7 +127,7 @@ class HowdiyEdit extends Component {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          <label htmlFor="category">Previous category: {category}</label>
+          <label htmlFor="category">Previous category: {category}, change to: </label>
           <select name="category" id="category-select">
             <option value="facecare">Facecare</option>
             <option value="bodycare">Bodycare</option>

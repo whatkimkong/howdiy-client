@@ -7,13 +7,7 @@ export class Howdiy extends Component {
   state = {
     funName: null,
     descriptiveName: null,
-    ingredients: [
-      {
-        name: null,
-        quantity: null,
-        measure: null,
-      },
-    ],
+    ingredients: [],
     preparation: [],
     productImg: null,
     isGiftable: false,
@@ -26,6 +20,9 @@ export class Howdiy extends Component {
     isLoadingComments: true,
     input: "",
     commentList: null,
+    name: "",
+    quantity: "",
+    measure: "",
   };
 
   handleChange = (event) => {
@@ -33,7 +30,7 @@ export class Howdiy extends Component {
     this.setState({ [name]: value });
   };
 
-  handleSubmit = (event) => {
+  handleCommentSubmit = (event) => {
     event.preventDefault();
     const { input, createdBy } = this.state;
     axios
@@ -49,11 +46,39 @@ export class Howdiy extends Component {
       .catch(() => this.props.history.push("/500"));
   };
 
+  handleIngredientSubmit = (event) => {
+    event.preventDefault();
+    const { name,
+      quantity,
+      measure, 
+      ingredients } = this.state;
+    const newIngredientAdded = [...ingredients, {name, quantity, measure}]
+    
+    // we need to see the changes both in the STATE and the BE
+
+    // BE route needs id of the recipe/:id/addIngredient :id params .post
+    // push req.body into ingredients array
+
+    // FE - push those 3 things into the BE route
+    axios.post(
+      `${process.env.REACT_APP_API_HOST}/recipes/${this.props.match.params.id}/addIngredient`,
+      { name,
+        quantity,
+        measure, 
+      },
+      { withCredentials: true }
+    )
+    .then(() => this.setState({ ingredients: newIngredientAdded}))
+    .catch(() => this.props.history.push("/500"));
+  }
+
   componentDidMount() {
     // how to destructure properly?
     axios
-      .get(`${process.env.REACT_APP_API_HOST}/recipes/howdiy/${this.props.match.params.id}`, {withCredentials: true
-        })
+      .get(
+        `${process.env.REACT_APP_API_HOST}/recipes/howdiy/${this.props.match.params.id}`,
+        { withCredentials: true }
+      )
       .then((response) => {
         const {
           funName,
@@ -68,7 +93,7 @@ export class Howdiy extends Component {
           difficultyRating,
           createdBy,
           input,
-          commentList
+          commentList,
         } = response.data;
         this.setState({
           funName,
@@ -82,7 +107,7 @@ export class Howdiy extends Component {
           costRating,
           difficultyRating,
           createdBy,
-          isLoadingHowdiy: false
+          isLoadingHowdiy: false,
         });
       })
       .catch((err) => {
@@ -107,7 +132,10 @@ export class Howdiy extends Component {
       isLoadingHowdiy,
       isLoadingComments,
       input,
-      commentList
+      commentList,
+      name,
+      quantity,
+      measure
     } = this.state;
     return (
       <>
@@ -118,14 +146,12 @@ export class Howdiy extends Component {
               Descriptive Name: Orange Lavendar Bath Bomb {descriptiveName}
             </h5>
             <h5>Also Known As: Gobbley FloopMaster {funName} </h5>
-
             <h5>
               {" "}
               Cost Rating xxx {costRating} / Difficulty Rating xxx{" "}
               {difficultyRating}{" "}
             </h5>
             <h5> Created By: {createdBy} </h5>
-
             <h5>
               {" "}
               Time to prepare: {timeOfPreparation} mins (to show in hours divide
@@ -136,23 +162,35 @@ export class Howdiy extends Component {
               is Giftable: {isGiftable} we will need this --
               http://react.tips/checkboxes-in-react/{" "}
             </h5>
-
-            {/* <h5>Ingredients: --- NEEDS A MAP for {ingredients} </h5>
+            <h5>Ingredients:</h5>
             <ul>
-              <li>
-                {name} {quantity}
-              </li>
+              {ingredients.map((eachIngredient) => {
+               return <li key={eachIngredient}>
+                  {eachIngredient.name} {eachIngredient.quantity}
+                  {eachIngredient.measure}
+                      </li>
+              })}
             </ul>
-            <h5>Preparation: --- NEEDS A MAP for {preparation} Step</h5>
+            <form onSubmit={this.handleIngredientSubmit}>
+              <input
+                onChange={this.handleChange}
+                placeholder="Your ingredient here"
+                type="text"
+                name="name"
+                value={name}
+              />
+              <input onChange={this.handleChange} placeholder="Its quantity here" type="text" name="quantity" value={quantity} />
+              <input onChange={this.handleChange} placeholder="Unit of measure" type="text" name="measure" value={measure} />
+              <button type="submit">Add</button>
+            </form>
+
+            {/* <h5>Preparation: --- NEEDS A MAP for {preparation} Step</h5>
             <ul>
               <li>eachPreparation</li>
             </ul>
-                
             <h5>Product image: {productImg} </h5>
-
             <h5> A Dropdown here for Gallery Below {gallery} </h5>
-          
-             */}
+           */}
           </>
         )}
         <hr></hr>
@@ -193,7 +231,7 @@ axios
 
 will it have all the inputs and all the info in the commentList?
 
-
+remember to use handleCommentSubmit in the form for comment creation
 
 
 then in the render section below the create form:
