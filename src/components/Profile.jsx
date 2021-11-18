@@ -72,7 +72,7 @@ class Profile extends Component {
                 <NavLink key={eachHowdiy._id} to={`/howdiy/${eachHowdiy._id}`}>VIEW</NavLink>
                 <br>
                 </br>
-                <NavLink key={eachHowdiy} to={`/howdiy/edit/${eachHowdiy._id}`}>EDIT</NavLink>
+                <NavLink to={`/howdiy/edit/${eachHowdiy._id}`}>EDIT</NavLink>
                 <button
                   onClick={() => {
                     this.deleteHowdiy(eachHowdiy._id);

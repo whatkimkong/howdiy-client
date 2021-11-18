@@ -73,9 +73,11 @@ class HowdiyEdit extends Component {
   componentDidMount() {
     axios
       .get(
-        `${process.env.REACT_APP_API_HOST}/recipes/edit/${this.props.match.params.id}`
-      )
+        `${process.env.REACT_APP_API_HOST}/recipes/edit/${this.props.match.params.id}`, {
+          withCredentials: true,
+      })
       .then((response) => {
+        console.log(response)
         const {category,
           descriptiveName,
           ingredients,
@@ -100,7 +102,9 @@ class HowdiyEdit extends Component {
           isLoadingHowdiy: false,
         });
       })
-      .catch((err) => {});
+      .catch((err) => {
+        console.log("error in the edit - axios get")
+      });
   }
 
   render() {
