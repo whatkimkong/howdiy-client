@@ -127,35 +127,6 @@ class HowdiyCreate extends Component {
             value={descriptiveName}
           />
           <br />
-
-          <label htmlFor="preparation">Preparation</label>
-          <input
-            onChange={this.handleChange}
-            type="text"
-            name="preparation"
-            value={preparation}
-          />
-
-          <br />
-          <label htmlFor="productImg" alt="Product Image">
-            Product Image
-          </label>
-          <input
-            onChange={this.handleChange}
-            type="text"
-            name="productImg"
-            value={productImg}
-          />
-          <br />
-          <label htmlFor="gallery" alt="Your uploaded Howdiys">
-            Gallery of your Howdiys
-          </label>
-          <input
-            onChange={this.handleChange}
-            type="text"
-            name="gallery"
-            value={gallery}
-          />
           <br />
           <label htmlFor="isGiftable">is Giftable</label>
           <input
@@ -196,6 +167,19 @@ class HowdiyCreate extends Component {
           />
           <br />
           <br />
+          <label for="productImg">Display Image for your Product:</label>
+          <input class="form-control" type="file" name={productImg} />
+          <br/>
+          <label htmlFor="gallery" alt="Your uploaded Howdiys">
+            Gallery of your Howdiys
+          </label>
+          <input
+            onChange={this.handleChange}
+            type="text"
+            name="gallery"
+            value={gallery}
+          />
+          <br/>
           <button type="submit">Create your Howdiy</button>
         </form>
         <br />
@@ -210,6 +194,7 @@ class HowdiyCreate extends Component {
                 name="description"
                 value={description}
             />
+            
             <button type="submit">Add a Preparation Step</button>
         </form>
       </div>
