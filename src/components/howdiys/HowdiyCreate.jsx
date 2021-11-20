@@ -24,6 +24,7 @@ class HowdiyCreate extends Component {
     productImg: "",
     isGiftable: true,
     gallery: [],
+    galleryImg: "",
     timeOfPreparation: 0, // specify mins in form
     costRating: 0, // TIP on how to calculate in form
     difficultyRating: 0,
@@ -88,6 +89,14 @@ class HowdiyCreate extends Component {
     this.setState({ preparation: newPreparationAdded })
   }
 
+  handleGallerySubmit = (event) => {
+    event.preventDefault();
+    const { galleryImg,
+      gallery } = this.state;
+    const newGallery = [...gallery, galleryImg]
+    this.setState({ gallery: newGallery})
+  }
+
   render() {
     const {
       descriptiveName,
@@ -95,6 +104,7 @@ class HowdiyCreate extends Component {
       productImg,
       isGiftable,
       gallery,
+      galleryImg,
       timeOfPreparation,
       costRating,
       difficultyRating,
@@ -170,15 +180,6 @@ class HowdiyCreate extends Component {
           <label for="productImg">Display Image for your Product:</label>
           <input class="form-control" type="file" name={productImg} />
           <br/>
-          <label htmlFor="gallery" alt="Your uploaded Howdiys">
-            Gallery of your Howdiys
-          </label>
-          <input
-            onChange={this.handleChange}
-            type="text"
-            name="gallery"
-            value={gallery}
-          />
           <br/>
           <button type="submit">Create your Howdiy</button>
         </form>
@@ -197,6 +198,13 @@ class HowdiyCreate extends Component {
             
             <button type="submit">Add a Preparation Step</button>
         </form>
+        <form onSubmit={this.handleGallerySubmit}>
+        <label for="galleryImg" htmlFor="gallery" alt="Your-uploaded-Howdiys">Gallery of your Howdiys:
+          </label>
+          <input onChange={this.handleChange} type="file" name={galleryImg} />
+        <button type="submit">Add a Photo to your Gallery</button>
+        </form>
+
       </div>
     );
   }
