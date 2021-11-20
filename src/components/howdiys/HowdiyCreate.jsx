@@ -19,6 +19,8 @@ class HowdiyCreate extends Component {
     descriptiveName: "",
     ingredients: [],
     preparation: [],
+    step: 0,
+    description: "",
     productImg: "",
     isGiftable: true,
     gallery: [],
@@ -75,11 +77,20 @@ class HowdiyCreate extends Component {
     this.setState({ ingredients: newIngredients });
   };
 
+  handlePreparationSubmit = (event) => {
+    event.preventDefault();
+    const { step,
+      description, 
+      preparation } = this.state;
+    const newStep = preparation.length + 1
+    this.setState({ step: newStep})
+    const newPreparationAdded = [...preparation, {step: newStep, description}];
+    this.setState({ preparation: newPreparationAdded })
+  }
+
   render() {
     const {
-      category,
       descriptiveName,
-      ingredients,
       preparation,
       productImg,
       isGiftable,
@@ -87,6 +98,7 @@ class HowdiyCreate extends Component {
       timeOfPreparation,
       costRating,
       difficultyRating,
+      description
     } = this.state;
 
     return (
@@ -184,11 +196,22 @@ class HowdiyCreate extends Component {
           />
           <br />
           <br />
-          <br />
-          <br />
           <button type="submit">Create your Howdiy</button>
         </form>
+        <br />
+        <br />
         <AddIngredients handleAddIngredient={this.handleAddIngredient} />
+        <br/>
+        <form onSubmit={this.handlePreparationSubmit}>
+            <input
+                onChange={this.handleChange}
+                placeholder="Please explain this step here ... "
+                type="text"
+                name="description"
+                value={description}
+            />
+            <button type="submit">Add a Preparation Step</button>
+        </form>
       </div>
     );
   }
