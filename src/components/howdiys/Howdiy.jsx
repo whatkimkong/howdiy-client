@@ -32,17 +32,16 @@ export class Howdiy extends Component {
 
   handleCommentSubmit = (event) => {
     event.preventDefault();
-    const { input, createdBy } = this.state;
+    const { input, commentList } = this.state;
     axios
       .post(
-        `${process.env.REACT_APP_API_HOST}/comments/create`,
-        {
-          input,
-          createdBy,
-        },
+        `${process.env.REACT_APP_API_HOST}/comments/create/${this.props.match.params.id}`,
+          {input},
         { withCredentials: true }
       )
-      .then(() => this.props.history.push("/"))
+      .then((response) => {
+      const newCommentList = [...commentList, response.data]
+      this.setState({commentList: newCommentList})})
       .catch(() => this.props.history.push("/500"));
   };
 
@@ -92,8 +91,6 @@ export class Howdiy extends Component {
           costRating,
           difficultyRating,
           createdBy,
-          input,
-          commentList,
         } = response.data;
         this.setState({
           funName,
@@ -113,7 +110,15 @@ export class Howdiy extends Component {
       .catch((err) => {
         this.props.history.push("/500");
       });
-    // add another axios here once we can create a comment
+    axios
+      .get(`${process.env.REACT_APP_API_HOST}/comments/all/${this.props.match.params.id}` ,
+      { withCredentials: true })
+      .then((response) => {
+        this.setState({ commentList: response.data, isLoadingComments: false });
+        })
+        .catch((err) => {
+          this.props.history.push("/500");
+        });
   }
 
   render() {
@@ -194,19 +199,29 @@ export class Howdiy extends Component {
           </>
         )}
         <hr></hr>
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor="input">Add a comment:</label>
+        <form onSubmit={this.handleCommentSubmit}>
           <input
             onChange={this.handleChange}
+            placeholder="write here..."
             type="text"
             name="input"
             value={input}
           />
-          <button type="submit">Send</button>
+          <button type="submit">Add a comment</button>
         </form>
 
         {isLoadingComments && <h1>...isLoading!</h1>}
-        {!isLoadingComments && <h3> COMMENTS SECTION </h3>}
+        {!isLoadingComments && 
+          commentList.map((eachComment) => {
+            return (
+              <>
+                <h1> {eachComment.input} </h1>
+                <h1> {eachComment.createdBy} </h1>
+                <hr></hr>
+              </>
+            );
+          }
+        )}
       </>
     );
   }
@@ -227,7 +242,8 @@ axios
       this.props.history.push("/500");
     });
 
-
+input,
+          commentList,
 
 will it have all the inputs and all the info in the commentList?
 

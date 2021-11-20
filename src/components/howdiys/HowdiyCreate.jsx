@@ -1,7 +1,7 @@
 // this URL will be "/howdiy/create"
 
 import axios from "axios";
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import AddIngredients from "../AddIngredient/AddIngredients";
 // import recipeService from "../services/recipe-services";
 
@@ -28,6 +28,7 @@ class HowdiyCreate extends Component {
     timeOfPreparation: 0, // specify mins in form
     costRating: 0, // TIP on how to calculate in form
     difficultyRating: 0,
+    imageUrl: "",
   };
 
   handleChange = (event) => {
@@ -89,6 +90,24 @@ class HowdiyCreate extends Component {
     this.setState({ preparation: newPreparationAdded })
   }
 
+  handleImageUpload = (event) => {
+    // console.log(event.target.files[0]);
+    this.setState({ imageIsUploading: true });
+
+    const uploadData = new FormData();
+    uploadData.append('imageUrl', event.target.files[0]);
+
+    axios
+      .post(`${process.env.REACT_APP_API_HOST}/upload`, uploadData)
+      .then((result) => {
+        // console.log(result.data);
+        this.setState({
+          imageUrl: result.data.imagePath,
+        });
+      })
+      .catch(() => this.props.history.push('/500'));
+  };
+
   handleGallerySubmit = (event) => {
     event.preventDefault();
     const { galleryImg,
@@ -108,7 +127,9 @@ class HowdiyCreate extends Component {
       timeOfPreparation,
       costRating,
       difficultyRating,
-      description
+      description,
+      ingredients,
+      imageUrl
     } = this.state;
 
     return (
@@ -178,15 +199,37 @@ class HowdiyCreate extends Component {
           <br />
           <br />
           <label for="productImg">Display Image for your Product:</label>
-          <input class="form-control" type="file" name={productImg} />
+          {imageUrl && <img src={imageUrl} alt="imageUrl"/>}
+          <input onChange={this.handleImageUpload} type="file" />
           <br/>
           <br/>
           <button type="submit">Create your Howdiy</button>
         </form>
         <br />
         <br />
+        <label htmlFor="ingredientsTable">
+            Here are your ingredients:
+          </label>
+        <ul>
+          {ingredients.map((eachIngredient) => {
+            return  <React.Fragment key={eachIngredient.name+eachIngredient.quantity}>
+                      <li>{eachIngredient.name} {eachIngredient.quantity} {eachIngredient.measure} </li>
+                    </React.Fragment>
+          })}
+        </ul>
         <AddIngredients handleAddIngredient={this.handleAddIngredient} />
         <br/>
+        <label htmlFor="preparationTable">
+            Here are your Preparation Steps:
+          </label>
+        <ul>
+          {preparation.map((eachStep) => {
+            return  <React.Fragment key={eachStep.step+eachStep.description}>
+                      <li>{eachStep.step}</li>
+                      <li>{eachStep.description}</li>
+                    </React.Fragment>
+          })}
+        </ul>
         <form onSubmit={this.handlePreparationSubmit}>
             <input
                 onChange={this.handleChange}
@@ -198,6 +241,16 @@ class HowdiyCreate extends Component {
             
             <button type="submit">Add a Preparation Step</button>
         </form>
+        <label htmlFor="galleryTable">
+            Here is your Gallery:
+          </label>
+        <ul>
+          {gallery.map((eachImg) => {
+            return  <>
+                      <li key={eachImg}><img src={eachImg} alt="galleryImg"/></li>
+                    </>
+          })}
+        </ul>
         <form onSubmit={this.handleGallerySubmit}>
         <label for="galleryImg" htmlFor="gallery" alt="Your-uploaded-Howdiys">Gallery of your Howdiys:
           </label>
