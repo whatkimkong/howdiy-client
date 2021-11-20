@@ -40,7 +40,7 @@ class RecipeService {
     });
   };
 
-  /* deleteHowdiy = (id) => {
+  /* deleteHowdiy = (id) => 
     return this.service.delete(`/delete/${id}`);
   }; */
 }

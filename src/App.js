@@ -11,6 +11,7 @@ import CategoryList from "./components/categories/CategoryList";
 import HowdiyCreate from "./components/howdiys/HowdiyCreate";
 import Howdiy from "./components/howdiys/Howdiy";
 import HowdiyEdit from "./components/howdiys/HowdiyEdit";
+import AddIngredients from "./components/AddIngredient/AddIngredients";
 
 class App extends Component {
   state = {
@@ -81,22 +82,16 @@ class App extends Component {
           />
           <Route
             path="/howdiy/create"
-            render={(props) => (
-              <HowdiyCreate {...props} />
-            )}
+            render={(props) => <HowdiyCreate {...props} />}
           />
           <Route
             exact
             path="/howdiy/:id"
-            render={(props) => (
-              <Howdiy {...props} />
-            )}
+            render={(props) => <Howdiy {...props} />}
           />
           <Route
             path="/howdiy/edit/:id"
-            render={(props) => (
-              <HowdiyEdit {...props} />
-            )}
+            render={(props) => <HowdiyEdit {...props} />}
           />
         </Switch>
       </div>

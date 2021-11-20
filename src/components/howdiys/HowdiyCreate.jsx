@@ -2,6 +2,7 @@
 
 import axios from "axios";
 import React, { Component } from "react";
+import AddIngredients from "../AddIngredient/AddIngredients";
 // import recipeService from "../services/recipe-services";
 
 class HowdiyCreate extends Component {
@@ -16,12 +17,7 @@ class HowdiyCreate extends Component {
     ],
     category: "",
     descriptiveName: "",
-    ingredients: [
-      {
-        name: "",
-        quantity: "",
-      },
-    ],
+    ingredients: [],
     preparation: [],
     productImg: "",
     isGiftable: true,
@@ -32,10 +28,9 @@ class HowdiyCreate extends Component {
   };
 
   handleChange = (event) => {
-    const { name, type, checked, value } = event.target
+    const { name, type, checked, value } = event.target;
     this.setState({ [name]: type === "checkbox" ? checked : value });
   };
-
 
   handleSubmit = (event) => {
     event.preventDefault();
@@ -74,6 +69,12 @@ class HowdiyCreate extends Component {
       .catch(() => this.props.history.push("/500"));
   }; // this.setState({ categories: response.data, isLoading: false });
 
+  handleAddIngredient = (ingredientObj) => {
+    const { ingredients } = this.state;
+    const newIngredients = [...ingredients, ingredientObj];
+    this.setState({ ingredients: newIngredients });
+  };
+
   render() {
     const {
       category,
@@ -92,7 +93,11 @@ class HowdiyCreate extends Component {
       <div>
         <form onSubmit={this.handleSubmit}>
           <label htmlFor="category">Category</label>
-          <select onChange={this.handleChange} name="category" id="category-select">
+          <select
+            onChange={this.handleChange}
+            name="category"
+            id="category-select"
+          >
             <option value="">Please select the category of your product</option>
             <option value="facecare">Facecare</option>
             <option value="bodycare">Bodycare</option>
@@ -110,14 +115,7 @@ class HowdiyCreate extends Component {
             value={descriptiveName}
           />
           <br />
-          <label htmlFor="ingredients">Ingredients</label>
-          <input
-            onChange={this.handleChange}
-            type="text"
-            name="ingredients"
-            value={ingredients}
-          />
-          <br />
+
           <label htmlFor="preparation">Preparation</label>
           <input
             onChange={this.handleChange}
@@ -125,6 +123,7 @@ class HowdiyCreate extends Component {
             name="preparation"
             value={preparation}
           />
+
           <br />
           <label htmlFor="productImg" alt="Product Image">
             Product Image
@@ -185,8 +184,11 @@ class HowdiyCreate extends Component {
           />
           <br />
           <br />
-          <button type="submit">Create your Howdiy!!</button>
+          <br />
+          <br />
+          <button type="submit">Create your Howdiy</button>
         </form>
+        <AddIngredients handleAddIngredient={this.handleAddIngredient} />
       </div>
     );
   }

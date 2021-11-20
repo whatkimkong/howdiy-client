@@ -67,8 +67,8 @@ class HowdiyEdit extends Component {
         { withCredentials: true }
       )
       .then((response) => {
-        console.log(response, "this is the axios post in edit page")
-        this.props.history.push("/")
+        console.log(response, "this is the axios post in edit page");
+        this.props.history.push("/");
       })
       .catch(() => this.props.history.push("/500"));
   }; // this.setState({ categories: response.data, isLoading: false });
@@ -76,12 +76,15 @@ class HowdiyEdit extends Component {
   componentDidMount() {
     axios
       .get(
-        `${process.env.REACT_APP_API_HOST}/recipes/edit/${this.props.match.params.id}`, {
+        `${process.env.REACT_APP_API_HOST}/recipes/edit/${this.props.match.params.id}`,
+        {
           withCredentials: true,
-      })
+        }
+      )
       .then((response) => {
-        console.log(response.data, "this is the axios get in the edit page")
-        const {category,
+        console.log(response.data, "this is the axios get in the edit page");
+        const {
+          category,
           descriptiveName,
           ingredients,
           preparation,
@@ -90,7 +93,8 @@ class HowdiyEdit extends Component {
           gallery,
           timeOfPreparation,
           costRating,
-          difficultyRating} = response.data
+          difficultyRating,
+        } = response.data;
         this.setState({
           category,
           descriptiveName,
@@ -106,7 +110,7 @@ class HowdiyEdit extends Component {
         });
       })
       .catch((err) => {
-        console.log("error in the edit - axios get")
+        console.log("error in the edit - axios get");
       });
   }
 
@@ -127,7 +131,9 @@ class HowdiyEdit extends Component {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          <label htmlFor="category">Previous category: {category}, change to: </label>
+          <label htmlFor="category">
+            Previous category: {category}, change to:{" "}
+          </label>
           <select name="category" id="category-select">
             <option value="facecare">Facecare</option>
             <option value="bodycare">Bodycare</option>
@@ -169,16 +175,6 @@ class HowdiyEdit extends Component {
             type="text"
             name="productImg"
             value={productImg}
-          />
-          <br />
-          <label htmlFor="gallery" alt="Your uploaded Howdiys">
-            Gallery of your Howdiys
-          </label>
-          <input
-            onChange={this.handleChange}
-            type="text"
-            name="gallery"
-            value={gallery}
           />
           <br />
           <label htmlFor="isGiftable">is Giftable</label>
