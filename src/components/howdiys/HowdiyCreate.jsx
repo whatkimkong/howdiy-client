@@ -4,9 +4,12 @@ import axios from "axios";
 import React, { Component, Fragment } from "react";
 import AddIngredients from "../AddIngredient/AddIngredients";
 // import recipeService from "../services/recipe-services";
+// let generateName = require("sillyname");
+import generateName from "sillyname";
 
 class HowdiyCreate extends Component {
   state = {
+    funName: "",
     categoryList: [
       "facecare",
       "bodycare",
@@ -31,6 +34,11 @@ class HowdiyCreate extends Component {
     imageUrl: "",
   };
 
+  componentDidMount() {
+    let funName = generateName();
+    this.setState({ funName });
+  }
+
   handleChange = (event) => {
     const { name, type, checked, value } = event.target;
     this.setState({ [name]: type === "checkbox" ? checked : value });
@@ -51,11 +59,13 @@ class HowdiyCreate extends Component {
       difficultyRating,
       createdBy,
     } = this.state;
+    const funName = generateName();
     axios
       .post(
         `${process.env.REACT_APP_API_HOST}/recipes/create`,
         {
           category,
+          funName,
           descriptiveName,
           ingredients,
           preparation,
@@ -86,9 +96,11 @@ class HowdiyCreate extends Component {
       })
       .then((response) => {
         //find the element in the state manually and remove it
-        const newIngredients = this.state.commentList.filter((eachIngredient) => {
-          return eachIngredient._id !== id;
-        });
+        const newIngredients = this.state.commentList.filter(
+          (eachIngredient) => {
+            return eachIngredient._id !== id;
+          }
+        );
         this.setState({ ingredients: newIngredients });
       })
       .catch((err) => {
@@ -101,21 +113,22 @@ class HowdiyCreate extends Component {
 
   handlePreparationSubmit = (event) => {
     event.preventDefault();
-    const { step,
-      description, 
-      preparation } = this.state;
-    const newStep = preparation.length + 1
-    this.setState({ step: newStep})
-    const newPreparationAdded = [...preparation, {step: newStep, description}];
-    this.setState({ preparation: newPreparationAdded })
-  }
+    const { step, description, preparation } = this.state;
+    const newStep = preparation.length + 1;
+    this.setState({ step: newStep });
+    const newPreparationAdded = [
+      ...preparation,
+      { step: newStep, description },
+    ];
+    this.setState({ preparation: newPreparationAdded });
+  };
 
   handleImageUpload = (event) => {
     // console.log(event.target.files[0]);
     this.setState({ imageIsUploading: true });
 
     const uploadData = new FormData();
-    uploadData.append('imageUrl', event.target.files[0]);
+    uploadData.append("imageUrl", event.target.files[0]);
 
     axios
       .post(`${process.env.REACT_APP_API_HOST}/upload`, uploadData)
@@ -125,19 +138,19 @@ class HowdiyCreate extends Component {
           imageUrl: result.data.imagePath,
         });
       })
-      .catch(() => this.props.history.push('/500'));
+      .catch(() => this.props.history.push("/500"));
   };
 
   handleGallerySubmit = (event) => {
     event.preventDefault();
-    const { galleryImg,
-      gallery } = this.state;
-    const newGallery = [...gallery, galleryImg]
-    this.setState({ gallery: newGallery})
-  }
+    const { galleryImg, gallery } = this.state;
+    const newGallery = [...gallery, galleryImg];
+    this.setState({ gallery: newGallery });
+  };
 
   render() {
     const {
+      funName,
       descriptiveName,
       preparation,
       productImg,
@@ -149,7 +162,7 @@ class HowdiyCreate extends Component {
       difficultyRating,
       description,
       ingredients,
-      imageUrl
+      imageUrl,
     } = this.state;
 
     return (
@@ -178,6 +191,8 @@ class HowdiyCreate extends Component {
             value={descriptiveName}
           />
           <br />
+          <label htmlFor="funName">Fun Name</label>
+          <input value={funName} readonly />
           <br />
           <label htmlFor="isGiftable">is Giftable</label>
           <input
@@ -219,73 +234,85 @@ class HowdiyCreate extends Component {
           <br />
           <br />
           <label htmlFor="productImg">Display Image for your Product:</label>
-          {imageUrl && <img htmlFor="productImg" src={imageUrl} alt="productImg"/>}
+          {imageUrl && (
+            <img htmlFor="productImg" src={imageUrl} alt="productImg" />
+          )}
           <input onChange={this.handleImageUpload} type="file" />
-          <br/>
-          <br/>
+          <br />
+          <br />
           <button type="submit">Create your Howdiy</button>
         </form>
         <br />
         <br />
-        <label htmlFor="ingredientsTable">
-            Here are your ingredients:
-          </label>
+        <label htmlFor="ingredientsTable">Here are your ingredients:</label>
         <ul>
           {ingredients.map((eachIngredient) => {
-            return  <React.Fragment key={eachIngredient.name+eachIngredient.quantity}>
-                      <li>{eachIngredient.name} {eachIngredient.quantity} {eachIngredient.measure} {(
-                  <button
-                  onClick={() => {
-                    this.handleDeleteIngredient(eachIngredient._id);
-                  }}
-                >
-                  Delete
-                </button>
-                )}</li>
-                    </React.Fragment>
+            return (
+              <React.Fragment
+                key={eachIngredient.name + eachIngredient.quantity}
+              >
+                <li>
+                  {eachIngredient.name} {eachIngredient.quantity}{" "}
+                  {eachIngredient.measure}{" "}
+                  {
+                    <button
+                      onClick={() => {
+                        this.handleDeleteIngredient(eachIngredient._id);
+                      }}
+                    >
+                      Delete
+                    </button>
+                  }
+                </li>
+              </React.Fragment>
+            );
           })}
         </ul>
         <AddIngredients handleAddIngredient={this.handleAddIngredient} />
-        <br/>
+        <br />
         <label htmlFor="preparationTable">
-            Here are your Preparation Steps:
-          </label>
+          Here are your Preparation Steps:
+        </label>
         <ul>
           {preparation.map((eachStep) => {
-            return  <React.Fragment key={eachStep.step+eachStep.description}>
-                      <li>{eachStep.step}</li>
-                      <li>{eachStep.description}</li>
-                    </React.Fragment>
+            return (
+              <React.Fragment key={eachStep.step + eachStep.description}>
+                <li>{eachStep.step}</li>
+                <li>{eachStep.description}</li>
+              </React.Fragment>
+            );
           })}
         </ul>
         <form onSubmit={this.handlePreparationSubmit}>
-            <input
-                onChange={this.handleChange}
-                placeholder="Please explain this step here ... "
-                type="text"
-                name="description"
-                value={description}
-            />
-            
-            <button type="submit">Add a Preparation Step</button>
+          <input
+            onChange={this.handleChange}
+            placeholder="Please explain this step here ... "
+            type="text"
+            name="description"
+            value={description}
+          />
+
+          <button type="submit">Add a Preparation Step</button>
         </form>
-        <label htmlFor="galleryTable">
-            Here is your Gallery:
-          </label>
+        <label htmlFor="galleryTable">Here is your Gallery:</label>
         <ul>
           {gallery.map((eachImg) => {
-            return  <>
-                      <li key={eachImg}><img src={eachImg} alt="galleryImg"/></li>
-                    </>
+            return (
+              <>
+                <li key={eachImg}>
+                  <img src={eachImg} alt="galleryImg" />
+                </li>
+              </>
+            );
           })}
         </ul>
         <form onSubmit={this.handleGallerySubmit}>
-        <label for="galleryImg" htmlFor="gallery" alt="Your-uploaded-Howdiys">Gallery of your Howdiys:
+          <label for="galleryImg" htmlFor="gallery" alt="Your-uploaded-Howdiys">
+            Gallery of your Howdiys:
           </label>
           <input onChange={this.handleChange} type="file" name={galleryImg} />
-        <button type="submit">Add a Photo to your Gallery</button>
+          <button type="submit">Add a Photo to your Gallery</button>
         </form>
-
       </div>
     );
   }
