@@ -36,45 +36,40 @@ export class Howdiy extends Component {
     axios
       .post(
         `${process.env.REACT_APP_API_HOST}/comments/create/${this.props.match.params.id}`,
-          {input},
+        { input },
         { withCredentials: true }
       )
       .then((response) => {
-        const addedComment = {...response.data}
-        addedComment.createdBy = {...this.props.user} // this is replacing that key with another
+        const addedComment = { ...response.data };
+        addedComment.createdBy = { ...this.props.user }; // this is replacing that key with another
         // replace the createdBy key with this.props.user within the response.data object
-        console.log(addedComment)
-        const newCommentList = [...commentList, addedComment]
-        this.setState({commentList: newCommentList})
+        console.log(addedComment);
+        const newCommentList = [...commentList, addedComment];
+        this.setState({ commentList: newCommentList });
       })
       .catch(() => this.props.history.push("/500"));
   };
 
   handleIngredientSubmit = (event) => {
     event.preventDefault();
-    const { name,
-      quantity,
-      measure, 
-      ingredients } = this.state;
-    const newIngredientAdded = [...ingredients, {name, quantity, measure}]
-    
+    const { name, quantity, measure, ingredients } = this.state;
+    const newIngredientAdded = [...ingredients, { name, quantity, measure }];
+
     // we need to see the changes both in the STATE and the BE
 
     // BE route needs id of the recipe/:id/addIngredient :id params .post
     // push req.body into ingredients array
 
     // FE - push those 3 things into the BE route
-    axios.post(
-      `${process.env.REACT_APP_API_HOST}/recipes/${this.props.match.params.id}/addIngredient`,
-      { name,
-        quantity,
-        measure, 
-      },
-      { withCredentials: true }
-    )
-    .then(() => this.setState({ ingredients: newIngredientAdded}))
-    .catch(() => this.props.history.push("/500"));
-  }
+    axios
+      .post(
+        `${process.env.REACT_APP_API_HOST}/recipes/${this.props.match.params.id}/addIngredient`,
+        { name, quantity, measure },
+        { withCredentials: true }
+      )
+      .then(() => this.setState({ ingredients: newIngredientAdded }))
+      .catch(() => this.props.history.push("/500"));
+  };
 
   handleDeleteComment = (id) => {
     axios
@@ -136,14 +131,16 @@ export class Howdiy extends Component {
         this.props.history.push("/500");
       });
     axios
-      .get(`${process.env.REACT_APP_API_HOST}/comments/all/${this.props.match.params.id}` ,
-      { withCredentials: true })
+      .get(
+        `${process.env.REACT_APP_API_HOST}/comments/all/${this.props.match.params.id}`,
+        { withCredentials: true }
+      )
       .then((response) => {
         this.setState({ commentList: response.data, isLoadingComments: false });
-        })
-        .catch((err) => {
-          this.props.history.push("/500");
-        });
+      })
+      .catch((err) => {
+        this.props.history.push("/500");
+      });
   }
 
   render() {
@@ -165,7 +162,7 @@ export class Howdiy extends Component {
       commentList,
       name,
       quantity,
-      measure
+      measure,
     } = this.state;
     const { user } = this.props;
     return (
@@ -173,10 +170,8 @@ export class Howdiy extends Component {
         {isLoadingHowdiy && <h1>...isLoading!</h1>}
         {!isLoadingHowdiy && (
           <>
-            <h5>
-              Descriptive Name: Orange Lavendar Bath Bomb {descriptiveName}
-            </h5>
-            <h5>Also Known As: Gobbley FloopMaster {funName} </h5>
+            <h5>Descriptive Name: {descriptiveName}</h5>
+            <h5>Also Known As: {funName} </h5>
             <h5>
               {" "}
               Cost Rating xxx {costRating} / Difficulty Rating xxx{" "}
@@ -188,17 +183,16 @@ export class Howdiy extends Component {
               Time to prepare: {timeOfPreparation} mins (to show in hours divide
               /60){" "}
             </h5>
-            <h5>
-              {" "}
-              is Giftable: {isGiftable ? "Yes!" : "Possibly Not"}
-            </h5>
+            <h5> is Giftable: {isGiftable ? "Yes!" : "Possibly Not"}</h5>
             <h5>Ingredients:</h5>
             <ul>
               {ingredients.map((eachIngredient) => {
-               return <li key={eachIngredient}>
-                  {eachIngredient.name} {eachIngredient.quantity}
-                  {eachIngredient.measure}
-                      </li>
+                return (
+                  <li key={eachIngredient}>
+                    {eachIngredient.name} {eachIngredient.quantity}
+                    {eachIngredient.measure}
+                  </li>
+                );
               })}
             </ul>
             <form onSubmit={this.handleIngredientSubmit}>
@@ -209,8 +203,20 @@ export class Howdiy extends Component {
                 name="name"
                 value={name}
               />
-              <input onChange={this.handleChange} placeholder="Its quantity here" type="text" name="quantity" value={quantity} />
-              <input onChange={this.handleChange} placeholder="Unit of measure" type="text" name="measure" value={measure} />
+              <input
+                onChange={this.handleChange}
+                placeholder="Its quantity here"
+                type="text"
+                name="quantity"
+                value={quantity}
+              />
+              <input
+                onChange={this.handleChange}
+                placeholder="Unit of measure"
+                type="text"
+                name="measure"
+                value={measure}
+              />
               <button type="submit">Add</button>
             </form>
 
@@ -236,7 +242,7 @@ export class Howdiy extends Component {
         </form>
 
         {isLoadingComments && <h1>...isLoading!</h1>}
-        {!isLoadingComments && 
+        {!isLoadingComments &&
           commentList.map((eachComment) => {
             return (
               <>
@@ -245,18 +251,17 @@ export class Howdiy extends Component {
                 <h6>timestamp</h6>
                 {user && eachComment.createdBy._id === user._id && (
                   <button
-                  onClick={() => {
-                    this.handleDeleteComment(eachComment._id);
-                  }}
-                >
-                  Delete
-                </button>
+                    onClick={() => {
+                      this.handleDeleteComment(eachComment._id);
+                    }}
+                  >
+                    Delete
+                  </button>
                 )}
                 <hr></hr>
               </>
             );
-          }
-        )}
+          })}
       </>
     );
   }
