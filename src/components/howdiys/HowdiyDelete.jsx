@@ -5,10 +5,6 @@
 // how to make delete 2-step (approval via " kim and sina")
 
 
-
-
-
-
 /* 
   deleteHowdiy = (theOneToDelete) => {
     const clonedList = [...this.state.howdiyList];
@@ -24,6 +20,46 @@
                 }}
               >
                 Delete
-              </button> */
+              </button> 
+
+
+deleteHowdiy = (id) => {
+    axios
+      .delete(`${process.env.REACT_APP_API_HOST}/recipes/delete/${id}`, {
+        withCredentials: true,
+      })
+      .then((response) => {
+        //find the element in the state manually and remove it
+        const newHowdiys = this.state.myHowdiys.filter((eachHowdiy) => {
+          return eachHowdiy._id !== id;
+        });
+        this.setState({ myHowdiys: newHowdiys });
+      })
+      .catch((err) => {
+        console.log(err.response.status); // => the error message status code
+        if (err.response.status === 403) {
+          this.props.history.push("/login");
+        }
+      });
+  };
+
+
+
+
+
+<button
+                  onClick={() => {
+                    this.deleteHowdiy(eachHowdiy._id);
+                  }}
+                >
+                  Delete
+                </button>
+
+
+
+
+
+
+*/
 
 

@@ -79,6 +79,26 @@ class HowdiyCreate extends Component {
     this.setState({ ingredients: newIngredients });
   };
 
+  handleDeleteIngredient = (id) => {
+    axios
+      .delete(`${process.env.REACT_APP_API_HOST}/addIngredient/delete/${id}`, {
+        withCredentials: true,
+      })
+      .then((response) => {
+        //find the element in the state manually and remove it
+        const newIngredients = this.state.commentList.filter((eachIngredient) => {
+          return eachIngredient._id !== id;
+        });
+        this.setState({ ingredients: newIngredients });
+      })
+      .catch((err) => {
+        console.log(err.response.status); // => the error message status code
+        if (err.response.status === 403) {
+          this.props.history.push("/login");
+        }
+      });
+  };
+
   handlePreparationSubmit = (event) => {
     event.preventDefault();
     const { step,
@@ -198,8 +218,8 @@ class HowdiyCreate extends Component {
           />
           <br />
           <br />
-          <label for="productImg">Display Image for your Product:</label>
-          {imageUrl && <img src={imageUrl} alt="imageUrl"/>}
+          <label htmlFor="productImg">Display Image for your Product:</label>
+          {imageUrl && <img htmlFor="productImg" src={imageUrl} alt="productImg"/>}
           <input onChange={this.handleImageUpload} type="file" />
           <br/>
           <br/>
@@ -213,7 +233,15 @@ class HowdiyCreate extends Component {
         <ul>
           {ingredients.map((eachIngredient) => {
             return  <React.Fragment key={eachIngredient.name+eachIngredient.quantity}>
-                      <li>{eachIngredient.name} {eachIngredient.quantity} {eachIngredient.measure} </li>
+                      <li>{eachIngredient.name} {eachIngredient.quantity} {eachIngredient.measure} {(
+                  <button
+                  onClick={() => {
+                    this.handleDeleteIngredient(eachIngredient._id);
+                  }}
+                >
+                  Delete
+                </button>
+                )}</li>
                     </React.Fragment>
           })}
         </ul>

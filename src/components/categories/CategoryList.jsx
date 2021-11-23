@@ -46,9 +46,9 @@ class CategoryList extends Component {
           filteredList.map((eachHowdiy) => {
             return (
               <>
-                <h1> product image {eachHowdiy.productImg} </h1>
-                <h1> Fun name {eachHowdiy.funName} </h1>
-                <h1> descriptive name {eachHowdiy.descriptiveName} </h1>
+                <p> product image {eachHowdiy.productImg} </p>
+                <h4> Fun name {eachHowdiy.funName} </h4>
+                <h4> descriptive name {eachHowdiy.descriptiveName} </h4>
                 <NavLink key={eachHowdiy._id}to={`/howdiy/${eachHowdiy._id}`}>VIEW</NavLink>
                 <hr></hr>
               </>

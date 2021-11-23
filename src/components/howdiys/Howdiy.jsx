@@ -40,8 +40,13 @@ export class Howdiy extends Component {
         { withCredentials: true }
       )
       .then((response) => {
-      const newCommentList = [...commentList, response.data]
-      this.setState({commentList: newCommentList})})
+        const addedComment = {...response.data}
+        addedComment.createdBy = {...this.props.user} // this is replacing that key with another
+        // replace the createdBy key with this.props.user within the response.data object
+        console.log(addedComment)
+        const newCommentList = [...commentList, addedComment]
+        this.setState({commentList: newCommentList})
+      })
       .catch(() => this.props.history.push("/500"));
   };
 
@@ -70,6 +75,26 @@ export class Howdiy extends Component {
     .then(() => this.setState({ ingredients: newIngredientAdded}))
     .catch(() => this.props.history.push("/500"));
   }
+
+  handleDeleteComment = (id) => {
+    axios
+      .delete(`${process.env.REACT_APP_API_HOST}/comments/delete/${id}`, {
+        withCredentials: true,
+      })
+      .then((response) => {
+        //find the element in the state manually and remove it
+        const newCommentList = this.state.commentList.filter((eachComment) => {
+          return eachComment._id !== id;
+        });
+        this.setState({ commentList: newCommentList });
+      })
+      .catch((err) => {
+        console.log(err.response.status); // => the error message status code
+        if (err.response.status === 403) {
+          this.props.history.push("/login");
+        }
+      });
+  };
 
   componentDidMount() {
     // how to destructure properly?
@@ -142,6 +167,7 @@ export class Howdiy extends Component {
       quantity,
       measure
     } = this.state;
+    const { user } = this.props;
     return (
       <>
         {isLoadingHowdiy && <h1>...isLoading!</h1>}
@@ -156,7 +182,7 @@ export class Howdiy extends Component {
               Cost Rating xxx {costRating} / Difficulty Rating xxx{" "}
               {difficultyRating}{" "}
             </h5>
-            <h5> Created By: {createdBy} </h5>
+            <h5> Created By: {createdBy.username} </h5>
             <h5>
               {" "}
               Time to prepare: {timeOfPreparation} mins (to show in hours divide
@@ -164,8 +190,7 @@ export class Howdiy extends Component {
             </h5>
             <h5>
               {" "}
-              is Giftable: {isGiftable} we will need this --
-              http://react.tips/checkboxes-in-react/{" "}
+              is Giftable: {isGiftable ? "Yes!" : "Possibly Not"}
             </h5>
             <h5>Ingredients:</h5>
             <ul>
@@ -215,8 +240,18 @@ export class Howdiy extends Component {
           commentList.map((eachComment) => {
             return (
               <>
-                <h1> {eachComment.input} </h1>
-                <h1> {eachComment.createdBy} </h1>
+                <p> {eachComment.input} </p>
+                <h6>{eachComment.createdBy.username}</h6>
+                <h6>timestamp</h6>
+                {user && eachComment.createdBy._id === user._id && (
+                  <button
+                  onClick={() => {
+                    this.handleDeleteComment(eachComment._id);
+                  }}
+                >
+                  Delete
+                </button>
+                )}
                 <hr></hr>
               </>
             );

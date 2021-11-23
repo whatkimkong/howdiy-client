@@ -60,15 +60,15 @@ class Profile extends Component {
         <h3> First Name: {user.firstName}</h3>
         <h3> Last Name: {user.lastName}</h3>
         <hr></hr>
-        <h1> My Howdiys</h1>
+        <h2> My Howdiys:</h2>
         {isLoadingHowdiy && <h1>...isLoading!</h1>}
         {!isLoadingHowdiy &&
           myHowdiys.map((eachHowdiy) => {
             return (
               <>
-                <h1> product image {eachHowdiy.productImg} </h1>
-                <h1> Fun name {eachHowdiy.funName} </h1>
-                <h1> descriptive name {eachHowdiy.descriptiveName} </h1>
+                <p> product image {eachHowdiy.productImg} </p>
+                <h4> Fun name {eachHowdiy.funName} </h4>
+                <h4> descriptive name {eachHowdiy.descriptiveName} </h4>
                 <NavLink key={eachHowdiy._id} to={`/howdiy/${eachHowdiy._id}`}>VIEW</NavLink>
                 <br>
                 </br>

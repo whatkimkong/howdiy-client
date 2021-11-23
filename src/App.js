@@ -87,7 +87,7 @@ class App extends Component {
           <Route
             exact
             path="/howdiy/:id"
-            render={(props) => <Howdiy {...props} />}
+            render={(props) => <Howdiy {...props} user={user}/>}
           />
           <Route
             path="/howdiy/edit/:id"
