@@ -51,16 +51,23 @@ class Profile extends Component {
   };
 
   render() {
-    const { profileData, myHowdiys, isLoadingHowdiy } = this.state;
+    const { myHowdiys, isLoadingHowdiy } = this.state;
     const { user } = this.props;
     return (
       <div>
-        <h1>Howdiy {user.username}! Here is your Profile</h1>
-        <h5> /extra feature/ User Avatar - Cowboy Themed Add to User Model</h5>
-        <h3> First Name: {user.firstName}</h3>
-        <h3> Last Name: {user.lastName}</h3>
-        <hr></hr>
-        <h2> My Howdiys:</h2>
+        {user && (
+          <>
+            <h1>Howdiy {user.username}! Here is your Profile</h1>
+            <h5>
+              {" "}
+              /extra feature/ User Avatar - Cowboy Themed Add to User Model
+            </h5>
+            <h3> First Name: {user.firstName}</h3>
+            <h3> Last Name: {user.lastName}</h3>
+            <hr></hr>
+            <h2> My Howdiys:</h2>
+          </>
+        )}
         {isLoadingHowdiy && <h1>...isLoading!</h1>}
         {!isLoadingHowdiy &&
           myHowdiys.map((eachHowdiy) => {
@@ -69,9 +76,10 @@ class Profile extends Component {
                 <p> product image {eachHowdiy.productImg} </p>
                 <h4> Fun name {eachHowdiy.funName} </h4>
                 <h4> descriptive name {eachHowdiy.descriptiveName} </h4>
-                <NavLink key={eachHowdiy._id} to={`/howdiy/${eachHowdiy._id}`}>VIEW</NavLink>
-                <br>
-                </br>
+                <NavLink key={eachHowdiy._id} to={`/howdiy/${eachHowdiy._id}`}>
+                  VIEW
+                </NavLink>
+                <br></br>
                 <NavLink to={`/howdiy/edit/${eachHowdiy._id}`}>EDIT</NavLink>
                 <button
                   onClick={() => {

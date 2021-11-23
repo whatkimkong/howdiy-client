@@ -3,6 +3,10 @@ import { NavLink } from "react-router-dom";
 
 //change the categories from null to an array /w enum
 // no loading
+const buttonStyles = {
+  bgColor: "green",
+}
+
 export class Categories extends Component {
   state = {
     categories: ["Facecare", "Bodycare", "Housecare", "Play", "Food", "Drink"],

@@ -4,7 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 import authService from "./components/services/auth-services";
-import Navbar from "./components/Navbar";
+import NavbarComponent from "./components/NavbarComponent";
 import Profile from "./components/Profile";
 import Categories from "./components/categories/Categories";
 import CategoryList from "./components/categories/CategoryList";
@@ -53,7 +53,7 @@ class App extends Component {
 
     return (
       <div className="App">
-        <Navbar isLoggedIn={isLoggedIn} user={user} setUser={this.setUser} />
+        <NavbarComponent isLoggedIn={isLoggedIn} user={user} setUser={this.setUser} />
 
         <Switch>
           <Route
