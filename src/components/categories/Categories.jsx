@@ -1,25 +1,11 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
+import "./Categories.css";
+import title from "./img/categoriesTitle.png";
+import { Container, Row, Col } from "react-bootstrap";
 
 //change the categories from null to an array /w enum
 // no loading
-const listStyles = {
-  listStyleType: 'none',
-  display: 'flex',
-  justifyContent: 'center'
-}
-
-const buttonStyles = {
-  backgroundColor: '#8eac8c',
-  color: 'white',
-  padding: '20px',
-  textDecoration: 'none',
-  margin: '10px',
-  borderRadius: '5px',
-  width: '10%',
-  display: 'flex',
-  justifyContent: 'center'
-}
 
 export class Categories extends Component {
   state = {
@@ -39,18 +25,28 @@ export class Categories extends Component {
   render() {
     const { categories } = this.state;
     return (
-      <ul>
-        <h1>Categories</h1>
-        {categories.map((eachCategory) => {
-          return (
-            <li style={listStyles} key={eachCategory}>
-              <NavLink  style={buttonStyles} to={`/${eachCategory.toLowerCase()}/howdiy`}>
-                {eachCategory}
-              </NavLink>
-            </li>
-          );
-        })}
-      </ul>
+      <div>
+        <img src={title} alt="title" className="title" />
+        <div className="listContainer">
+          <Container>
+            <Row className="justify-content-md-center">
+              {categories.map((eachCategory) => {
+                return (
+                  <Col xs lg="4" key={eachCategory}>
+                    <NavLink
+                      activeClassName="navlink"
+                      className="buttonStyles"
+                      to={`/${eachCategory.toLowerCase()}/howdiy`}
+                    >
+                      {eachCategory}
+                    </NavLink>
+                  </Col>
+                );
+              })}
+            </Row>
+          </Container>
+        </div>
+      </div>
     );
   }
 }

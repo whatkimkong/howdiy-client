@@ -1,0 +1,28 @@
+.title {
+    margin-top: 20px;
+    margin-left: 20px;
+    width: 25%;
+}
+
+.listContainer {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+
+}
+
+.buttonStyles {
+    background-color: #8eac8c;
+    color: white;
+    padding: 20px;
+    text-decoration: none;
+    margin: 10px;
+    border-radius: 5px;
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+}
+
+.navlink:hover {
+    color:#8eac8c;
+}

@@ -57,6 +57,19 @@ deleteHowdiy = (id) => {
 
 
 
+const buttonStyles = {
+    backgroundColor: '#8eac8c',
+    color: 'white',
+    padding: '20px',
+    textDecoration: 'none',
+    margin: '10px',
+    borderRadius: '5px',
+    width: '10%',
+    display: 'flex',
+    justifyContent: 'center'
+}
+
+ background-color: #fdf3ec;
 
 
 
