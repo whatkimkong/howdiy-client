@@ -6,6 +6,7 @@ import AddIngredients from "../AddIngredient/AddIngredients";
 // import recipeService from "../services/recipe-services";
 // let generateName = require("sillyname");
 import generateName from "sillyname";
+import {Accordion} from 'react-bootstrap';
 
 class HowdiyCreate extends Component {
   state = {
@@ -167,7 +168,11 @@ class HowdiyCreate extends Component {
 
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
+      <Accordion defaultActiveKey="0">
+  <Accordion.Item eventKey="0">
+    <Accordion.Header>Part One</Accordion.Header>
+    <Accordion.Body>
+    <form onSubmit={this.handleSubmit}>
           <label htmlFor="category">Category</label>
           <select
             onChange={this.handleChange}
@@ -193,6 +198,13 @@ class HowdiyCreate extends Component {
           <br />
           <label htmlFor="funName">Fun Name</label>
           <input value={funName} readonly />
+          <label htmlFor="productImg">Display Image for your Product:</label>
+          {imageUrl && (
+            <img htmlFor="productImg" src={imageUrl} alt="productImg" />
+          )}
+          <input onChange={this.handleImageUpload} type="file" />
+          <br />
+          <br />
           <br />
           <label htmlFor="isGiftable">is Giftable</label>
           <input
@@ -231,20 +243,14 @@ class HowdiyCreate extends Component {
             name="difficultyRating"
             value={difficultyRating}
           />
-          <br />
-          <br />
-          <label htmlFor="productImg">Display Image for your Product:</label>
-          {imageUrl && (
-            <img htmlFor="productImg" src={imageUrl} alt="productImg" />
-          )}
-          <input onChange={this.handleImageUpload} type="file" />
-          <br />
-          <br />
           <button type="submit">Create your Howdiy</button>
         </form>
-        <br />
-        <br />
-        <label htmlFor="ingredientsTable">Here are your ingredients:</label>
+    </Accordion.Body>
+  </Accordion.Item>
+  <Accordion.Item eventKey="1">
+    <Accordion.Header>Part Two</Accordion.Header>
+    <Accordion.Body>
+    <label htmlFor="ingredientsTable">Here are your ingredients:</label>
         <ul>
           {ingredients.map((eachIngredient) => {
             return (
@@ -291,10 +297,15 @@ class HowdiyCreate extends Component {
             name="description"
             value={description}
           />
-
-          <button type="submit">Add a Preparation Step</button>
+        
+        <button type="submit">Add a Preparation Step</button>
         </form>
-        <label htmlFor="galleryTable">Here is your Gallery:</label>
+    </Accordion.Body>
+  </Accordion.Item>
+  <Accordion.Item eventKey="2">
+    <Accordion.Header>Part Three</Accordion.Header>
+    <Accordion.Body>
+    <label htmlFor="galleryTable">Here is your Gallery:</label>
         <ul>
           {gallery.map((eachImg) => {
             return (
@@ -313,6 +324,9 @@ class HowdiyCreate extends Component {
           <input onChange={this.handleChange} type="file" name={galleryImg} />
           <button type="submit">Add a Photo to your Gallery</button>
         </form>
+        </Accordion.Body>
+  </Accordion.Item>
+</Accordion>
       </div>
     );
   }
@@ -338,3 +352,7 @@ updateUser = (user) => {
 } */
 
 export default HowdiyCreate;
+
+
+
+

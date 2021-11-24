@@ -3,8 +3,22 @@ import { NavLink } from "react-router-dom";
 
 //change the categories from null to an array /w enum
 // no loading
+const listStyles = {
+  listStyleType: 'none',
+  display: 'flex',
+  justifyContent: 'center'
+}
+
 const buttonStyles = {
-  bgColor: "green",
+  backgroundColor: '#8eac8c',
+  color: 'white',
+  padding: '20px',
+  textDecoration: 'none',
+  margin: '10px',
+  borderRadius: '5px',
+  width: '10%',
+  display: 'flex',
+  justifyContent: 'center'
 }
 
 export class Categories extends Component {
@@ -29,8 +43,8 @@ export class Categories extends Component {
         <h1>Categories</h1>
         {categories.map((eachCategory) => {
           return (
-            <li key={eachCategory}>
-              <NavLink to={`/${eachCategory.toLowerCase()}/howdiy`}>
+            <li style={listStyles} key={eachCategory}>
+              <NavLink  style={buttonStyles} to={`/${eachCategory.toLowerCase()}/howdiy`}>
                 {eachCategory}
               </NavLink>
             </li>
