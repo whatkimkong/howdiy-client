@@ -1,8 +1,8 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
 import authService from "./services/auth-services";
 import { Container, Navbar, Nav, NavDropdown } from "react-bootstrap";
 import './Navbar.css';
+import howdiyImg from './img/howdiyWhite.png';
 
 function NavbarComponent({ isLoggedIn, user, setUser }) {
   const userLogout = () => {
@@ -17,12 +17,12 @@ function NavbarComponent({ isLoggedIn, user, setUser }) {
         <Container className="navbarMain">
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="me-auto" >
+            <Nav className="me-auto">
               <Navbar.Brand href="#home">
                 <img
-                  src="/logo.svg"
-                  width="30"
-                  height="30"
+                  src={howdiyImg}
+                  width="100"
+                  height="50"
                   className="d-inline-block align-top"
                   alt="React Bootstrap logo"
                 />
@@ -30,9 +30,10 @@ function NavbarComponent({ isLoggedIn, user, setUser }) {
               <NavDropdown title="O" id="collasible-nav-dropdown">
                 <NavDropdown.Item href="/">Home</NavDropdown.Item>
                 <NavDropdown.Item href="/">Join the Community</NavDropdown.Item>
-                <NavDropdown.Divider />
+                
                 {isLoggedIn && user && (
                   <>
+                    <NavDropdown.Divider />
                     <NavDropdown.Item href="/categories">
                       Categories
                     </NavDropdown.Item>

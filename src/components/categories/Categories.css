@@ -1,11 +1,12 @@
 .title {
     margin-top: 20px;
     margin-left: 20px;
+    margin-bottom: 20px;
     width: 25%;
 }
 
 .listContainer {
-    margin-top: 10px;
+    margin-bottom: 10px;
     display: flex;
     justify-content: center;
 
@@ -26,3 +27,36 @@
 .navlink:hover {
     color:#8eac8c;
 }
+
+
+.howdiyListed {
+    border: none;
+    margin: 20px 40px 0px 40px;
+    background-color: #e0ecdf;
+    color: rgb(95, 93, 93);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    padding: 20px 0px 20px 0px;
+  }
+
+.howdiyListChild {
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+}
+
+.howdiyListImg {
+    display: flex;
+    justify-content: flex-start;
+    border-radius: 50%;
+    width: 40%;
+}
+
+.howdiyListText {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    justify-content: flex-start;
+    margin-left: 20px;
+  };

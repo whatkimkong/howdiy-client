@@ -1,0 +1,31 @@
+.profileSection {
+    border: none;
+    margin: 20px 40px 0px 40px;
+    background-color: rgb(95, 93, 93);
+    color: #e0ecdf;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    padding: 20px 0px 20px 0px;
+  }
+
+.profileChild {
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+}
+
+.profileImg {
+    display: flex;
+    justify-content: flex-start;
+    border-radius: 50%;
+    width: 40%;
+}
+
+.profileText {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    justify-content: flex-start;
+    margin-left: 20px;
+  };

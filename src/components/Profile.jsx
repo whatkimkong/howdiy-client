@@ -2,6 +2,8 @@ import React, { Component, Fragment } from "react";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
 import recipeService from "./services/recipe-services";
+import "./categories/Categories.css";
+import "./root.css";
 
 // like CategoryList = howdiyList, filteredList (filtered by user creation)
 // get info of Howdiys and Info of User
@@ -57,15 +59,21 @@ class Profile extends Component {
       <div>
         {user && (
           <>
-            <h1>Howdiy {user.username}! Here is your Profile</h1>
-            <h5>
-              {" "}
-              /extra feature/ User Avatar - Cowboy Themed Add to User Model
-            </h5>
-            <h3> First Name: {user.firstName}</h3>
-            <h3> Last Name: {user.lastName}</h3>
+            <div className="profileSection">
+              <h1>Howdiy {user.username}!</h1>
+            </div>
+            <div className="profileChild">
+              <img className="profileImg" src="" alt="productImage" />
+            </div>
+            <div className="profileText">
+              <h6> First Name: {user.firstName}</h6>
+              <h6> Last Name: {user.lastName}</h6>
+              <h6> Username: {user.username}</h6>
+              <h6> Logging in with: {user.email}</h6>
+            </div>
+            <br />
             <hr></hr>
-            <h2> My Howdiys:</h2>
+            <h2 className="profileSection"> Your Howdiys:</h2>
           </>
         )}
         {isLoadingHowdiy && <h1>...isLoading!</h1>}
@@ -73,22 +81,43 @@ class Profile extends Component {
           myHowdiys.map((eachHowdiy) => {
             return (
               <>
-                <p> product image {eachHowdiy.productImg} </p>
-                <h4> Fun name {eachHowdiy.funName} </h4>
-                <h4> descriptive name {eachHowdiy.descriptiveName} </h4>
-                <NavLink key={eachHowdiy._id} to={`/howdiy/${eachHowdiy._id}`}>
-                  VIEW
-                </NavLink>
-                <br></br>
-                <NavLink to={`/howdiy/edit/${eachHowdiy._id}`}>EDIT</NavLink>
-                <button
-                  onClick={() => {
-                    this.deleteHowdiy(eachHowdiy._id);
-                  }}
-                >
-                  Delete
-                </button>
-                <hr></hr>
+                <div className="howdiyListed">
+                  <div className="howdiyListChild">
+                    <img
+                      className="howdiyListImg"
+                      src={eachHowdiy.productImg}
+                      alt="productImage"
+                    />
+                    <div className="howdiyListText">
+                      <h4>{eachHowdiy.funName}</h4>
+                      <h5>{eachHowdiy.descriptiveName}</h5>
+                      <NavLink
+                        className="link"
+                        key={eachHowdiy._id}
+                        to={`/howdiy/${eachHowdiy._id}`}
+                      >
+                        VIEW
+                      </NavLink>
+                      <hr></hr>
+
+                      <NavLink
+                        className="link"
+                        to={`/howdiy/edit/${eachHowdiy._id}`}
+                      >
+                        EDIT
+                      </NavLink>
+                      <br></br>
+                      <button
+                        className="link"
+                        onClick={() => {
+                          this.deleteHowdiy(eachHowdiy._id);
+                        }}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </>
             );
           })}
