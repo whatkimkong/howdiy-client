@@ -67,7 +67,9 @@ export class Howdiy extends Component {
         { name, quantity, measure },
         { withCredentials: true }
       )
-      .then(() => this.setState({ ingredients: newIngredientAdded }))
+      .then(() => {
+        this.setState({ ingredients: newIngredientAdded, name: "" , quantity: "", measure: ""})
+      })
       .catch(() => this.props.history.push("/500"));
   };
 

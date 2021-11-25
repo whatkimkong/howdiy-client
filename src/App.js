@@ -12,6 +12,8 @@ import HowdiyCreate from "./components/howdiys/HowdiyCreate";
 import Howdiy from "./components/howdiys/Howdiy";
 import HowdiyEdit from "./components/howdiys/HowdiyEdit";
 import AddIngredients from "./components/AddIngredient/AddIngredients";
+import Home from "./components/Home";
+import Join from "./components/Join";
 
 class App extends Component {
   state = {
@@ -56,6 +58,14 @@ class App extends Component {
         <NavbarComponent isLoggedIn={isLoggedIn} user={user} setUser={this.setUser} />
 
         <Switch>
+        <Route
+            exact path="/"
+            render={(props) => <Home {...props}/>}
+          />
+          <Route
+            exact path="/join"
+            render={(props) => <Join {...props}/>}
+          />
           <Route
             path="/signup"
             render={(props) => <Signup {...props} setUser={this.setUser} />}

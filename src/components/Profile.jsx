@@ -61,15 +61,13 @@ class Profile extends Component {
           <>
             <div className="profileSection">
               <h1>Howdiy {user.username}!</h1>
-            </div>
-            <div className="profileChild">
-              <img className="profileImg" src="" alt="productImage" />
-            </div>
-            <div className="profileText">
-              <h6> First Name: {user.firstName}</h6>
-              <h6> Last Name: {user.lastName}</h6>
-              <h6> Username: {user.username}</h6>
-              <h6> Logging in with: {user.email}</h6>
+              <div className="profileChild"></div>
+              <div className="profileText">
+                <h6> First Name: {user.firstName}</h6>
+                <h6> Last Name: {user.lastName}</h6>
+                <h6> Username: {user.username}</h6>
+                <h6> Logging in with: {user.email}</h6>
+              </div>
             </div>
             <br />
             <hr></hr>

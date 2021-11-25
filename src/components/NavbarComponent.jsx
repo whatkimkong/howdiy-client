@@ -27,9 +27,10 @@ function NavbarComponent({ isLoggedIn, user, setUser }) {
                   alt="React Bootstrap logo"
                 />
               </Navbar.Brand>
-              <NavDropdown title="O" id="collasible-nav-dropdown">
+              <NavDropdown title={<img src={howdiyImg} alt="navbarimg" width="100"
+                  height="50"/>} id="collasible-nav-dropdown">
                 <NavDropdown.Item href="/">Home</NavDropdown.Item>
-                <NavDropdown.Item href="/">Join the Community</NavDropdown.Item>
+                <NavDropdown.Item href="/join">Join the Community</NavDropdown.Item>
                 
                 {isLoggedIn && user && (
                   <>

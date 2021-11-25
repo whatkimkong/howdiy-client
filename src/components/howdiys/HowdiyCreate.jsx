@@ -198,9 +198,9 @@ class HowdiyCreate extends Component {
           <br />
           <label htmlFor="funName">Fun Name</label>
           <input value={funName} readonly />
-          <label htmlFor="productImg">Display Image for your Product:</label>
+          <label htmlFor="imageUrl">Display Image for your Product:</label>
           {imageUrl && (
-            <img htmlFor="productImg" src={imageUrl} alt="productImg" />
+            <img htmlFor="imageUrl" src={imageUrl} alt="productImg" />
           )}
           <input onChange={this.handleImageUpload} type="file" />
           <br />
@@ -230,6 +230,8 @@ class HowdiyCreate extends Component {
           <input
             onChange={this.handleChange}
             type="number"
+            max={3}
+            min={1}
             name="costRating"
             value={costRating}
           />
