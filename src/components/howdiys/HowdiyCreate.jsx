@@ -52,7 +52,7 @@ class HowdiyCreate extends Component {
       descriptiveName,
       ingredients,
       preparation,
-      productImg,
+      imageUrl,
       isGiftable,
       gallery,
       timeOfPreparation,
@@ -70,7 +70,7 @@ class HowdiyCreate extends Component {
           descriptiveName,
           ingredients,
           preparation,
-          productImg,
+          productImg: imageUrl,
           isGiftable,
           gallery,
           timeOfPreparation,
@@ -129,7 +129,7 @@ class HowdiyCreate extends Component {
     this.setState({ imageIsUploading: true });
 
     const uploadData = new FormData();
-    uploadData.append("imageUrl", event.target.files[0]);
+    uploadData.append("imageUrl", event.target.files[0]); // only one that has to be imageUrl
 
     axios
       .post(`${process.env.REACT_APP_API_HOST}/upload`, uploadData)
@@ -178,6 +178,7 @@ class HowdiyCreate extends Component {
             onChange={this.handleChange}
             name="category"
             id="category-select"
+            required
           >
             <option value="">Please select the category of your product</option>
             <option value="facecare">Facecare</option>
@@ -241,6 +242,8 @@ class HowdiyCreate extends Component {
           </label>
           <input
             onChange={this.handleChange}
+            max={3}
+            min={1}
             type="number"
             name="difficultyRating"
             value={difficultyRating}

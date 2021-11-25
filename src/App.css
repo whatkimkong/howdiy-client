@@ -41,6 +41,22 @@
 
 .link {
   text-decoration: none;
-  color: rgb(119, 84, 84);
+  color: #dbd5d1;
   font-weight: bolder;
+  border: none;
+  background-color: #8eac8c;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  width: 100px;
+  max-width: 150px;
+  padding: 5px, 0px, 5px, 0px;
+}
+
+.link:hover {
+  color:thistle;
+}
+
+button {
+  background-color: transparent;
 }

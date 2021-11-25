@@ -3,7 +3,7 @@ import recipeService from "../services/recipe-services"; // has to be the same?
 import Search from "./Search";
 import { NavLink } from "react-router-dom";
 import "./Categories.css";
-import title from "./img/housecareGrey.png";
+import housecareTitle from "./img/housecareGrey.png";
 
 class CategoryList extends Component {
   state = {
@@ -11,6 +11,7 @@ class CategoryList extends Component {
     filteredList: null,
     isLoading: true,
     difficultyRating: null,
+    timeOfPreparation: null,
     costRating: null,
     createdBy: null,
   };
@@ -37,6 +38,7 @@ class CategoryList extends Component {
           createdBy: response.data,
           costRating: response.data,
           difficultyRating: response.data,
+          timeOfPreparation: response.data,
           isLoading: false,
         });
       })
@@ -47,16 +49,19 @@ class CategoryList extends Component {
 
   render() {
     const { category } = this.props.match.params;
-    const { filteredList, isLoading, costRating, difficultyRating } =
+    const { filteredList, isLoading } =
       this.state;
-    const roundedUpCost = Math.round(costRating);
-    const roundedUpDifficulty = Math.round(difficultyRating);
     const emptyStar = "☆";
     const fullStar = "★";
     return (
       <div>
+        { category === 'facecare' && <img src={housecareTitle} alt="title" className="title" />}
+        { category === 'bodycare' && <img src={housecareTitle} alt="title" className="title" />}
+        { category === 'housecare' && <img src={housecareTitle} alt="title" className="title" />}
+        { category === 'play' && <img src={housecareTitle} alt="title" className="title" />}
+        { category === 'food' && <img src={housecareTitle} alt="title" className="title" />}
+        { category === 'drink' && <img src={housecareTitle} alt="title" className="title" />}
         <h1>{`${category[0].toUpperCase()}${category.slice(1)}`}</h1>
-        <img src={title} alt="title" className="title" />
         <Search handleFilter={this.handleFilter} />
         {isLoading && <h1>is loading</h1>}
         {!isLoading &&
@@ -78,10 +83,15 @@ class CategoryList extends Component {
                         key={eachHowdiy._id}
                         to={`/howdiy/${eachHowdiy._id}`}
                       >
-                        VIEW
+                        View
                       </NavLink>
                       <hr></hr>
                       <p>Created by: {eachHowdiy.createdBy.username}</p>
+                    </div>
+                    <div className="howdiyListText">
+                    <h6> Cost Rating: {fullStar.repeat(Math.round(eachHowdiy.costRating)) + emptyStar.repeat(3 - Math.round(eachHowdiy.costRating))}</h6>
+                    <h6> Difficulty Rating: {fullStar.repeat(Math.round(eachHowdiy.difficultyRating)) + emptyStar.repeat(3 - Math.round(eachHowdiy.difficultyRating))}</h6>
+                    <h6> Time Intensity: {fullStar.repeat(Math.round(eachHowdiy.timeOfPreparation)) + emptyStar.repeat(3 - Math.round(eachHowdiy.timeOfPreparation))}</h6>
                     </div>
                   </div>
                 </div>
@@ -105,7 +115,8 @@ handleFilter = () => {
 
 
 <h2>
-            {fullStar.repeat(roundedUpCost) + emptyStar.repeat(5 - roundedUpCost)}
-            {fullStar.repeat(roundedUpDifficulty) + emptyStar.repeat(5 - roundedUpDifficulty)}
+            {fullStar.repeat(roundedUpCost) + emptyStar.repeat(3 - roundedUpCost)}
+            {fullStar.repeat(roundedUpDifficulty) + emptyStar.repeat(3 - roundedUpDifficulty)}
+            {fullStar.repeat(roundedUpTime) + emptyStar.repeat(3 - roundedUpTime)}
           </h2>
 */

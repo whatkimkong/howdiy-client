@@ -35,7 +35,7 @@ export class Categories extends Component {
                   <Col xs lg="4" key={eachCategory}>
                     <NavLink
                       activeClassName="navlink"
-                      className="buttonStyles"
+                      className="buttonStyles category-link"
                       to={`/${eachCategory.toLowerCase()}/howdiy`}
                     >
                       {eachCategory}

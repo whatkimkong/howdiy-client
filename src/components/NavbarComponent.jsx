@@ -2,7 +2,8 @@ import React from "react";
 import authService from "./services/auth-services";
 import { Container, Navbar, Nav, NavDropdown } from "react-bootstrap";
 import './Navbar.css';
-import howdiyImg from './img/howdiyWhite.png';
+import howdiyLogo from './img/howdiyWhite.png';
+import howdiyHat from './img/cowboyHat.png';
 
 function NavbarComponent({ isLoggedIn, user, setUser }) {
   const userLogout = () => {
@@ -18,16 +19,7 @@ function NavbarComponent({ isLoggedIn, user, setUser }) {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-              <Navbar.Brand href="#home">
-                <img
-                  src={howdiyImg}
-                  width="100"
-                  height="50"
-                  className="d-inline-block align-top"
-                  alt="React Bootstrap logo"
-                />
-              </Navbar.Brand>
-              <NavDropdown title={<img src={howdiyImg} alt="navbarimg" width="100"
+              <NavDropdown title={<img src={howdiyLogo} alt="navbarimg" width="100"
                   height="50"/>} id="collasible-nav-dropdown">
                 <NavDropdown.Item href="/">Home</NavDropdown.Item>
                 <NavDropdown.Item href="/join">Join the Community</NavDropdown.Item>
@@ -58,7 +50,8 @@ function NavbarComponent({ isLoggedIn, user, setUser }) {
               )}
               {isLoggedIn && user && (
                 <>
-                  <NavDropdown title="O" id="collasible-nav-dropdown">
+                  <NavDropdown title={<img src={howdiyHat} alt="navbarimg" width="100"
+                  height="50"/>} id="collasible-nav-dropdown">
                     <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item href="/" onClick={() => userLogout()}>

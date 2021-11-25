@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from "react";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
-import recipeService from "./services/recipe-services";
 import "./categories/Categories.css";
 import "./root.css";
 
@@ -55,6 +54,8 @@ class Profile extends Component {
   render() {
     const { myHowdiys, isLoadingHowdiy } = this.state;
     const { user } = this.props;
+    const emptyStar = "☆";
+    const fullStar = "★";
     return (
       <div>
         {user && (
@@ -94,7 +95,7 @@ class Profile extends Component {
                         key={eachHowdiy._id}
                         to={`/howdiy/${eachHowdiy._id}`}
                       >
-                        VIEW
+                        View
                       </NavLink>
                       <hr></hr>
 
@@ -102,7 +103,7 @@ class Profile extends Component {
                         className="link"
                         to={`/howdiy/edit/${eachHowdiy._id}`}
                       >
-                        EDIT
+                        Edit
                       </NavLink>
                       <br></br>
                       <button
@@ -113,6 +114,11 @@ class Profile extends Component {
                       >
                         Delete
                       </button>
+                    </div>
+                    <div className="howdiyListText">
+                    <h6> Cost Rating: {fullStar.repeat(Math.round(eachHowdiy.costRating)) + emptyStar.repeat(3 - Math.round(eachHowdiy.costRating))}</h6>
+                    <h6> Difficulty Rating: {fullStar.repeat(Math.round(eachHowdiy.difficultyRating)) + emptyStar.repeat(3 - Math.round(eachHowdiy.difficultyRating))}</h6>
+                    <h6> Time Intensity: {fullStar.repeat(Math.round(eachHowdiy.timeOfPreparation)) + emptyStar.repeat(3 - Math.round(eachHowdiy.timeOfPreparation))}</h6>
                     </div>
                   </div>
                 </div>

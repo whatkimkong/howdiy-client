@@ -222,13 +222,22 @@ export class Howdiy extends Component {
               <button type="submit">Add</button>
             </form>
 
-            {/* <h5>Preparation: --- NEEDS A MAP for {preparation} Step</h5>
+            <h5>Preparation:</h5>
             <ul>
-              <li>eachPreparation</li>
+            {preparation.map((eachStep) => {
+              return <>
+              <li>{eachStep.step}</li>
+              <li>{eachStep.description}</li>
+              </>
+            })}
             </ul>
-            <h5>Product image: {productImg} </h5>
+            <h5>Product image:</h5>
+            <img
+                      className="howdiyListImg"
+                      src={productImg}
+                      alt="productImage"
+                    />
             <h5> A Dropdown here for Gallery Below {gallery} </h5>
-           */}
           </>
         )}
         <hr></hr>
