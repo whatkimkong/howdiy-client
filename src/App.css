@@ -39,7 +39,7 @@
   }
 }
 
-.link {
+.button-link {
   text-decoration: none;
   color: #dbd5d1;
   font-weight: bolder;
@@ -53,7 +53,7 @@
   padding: 5px, 0px, 5px, 0px;
 }
 
-.link:hover {
+.button-link:hover {
   color:thistle;
 }
 

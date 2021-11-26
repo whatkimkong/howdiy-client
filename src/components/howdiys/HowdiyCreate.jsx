@@ -6,7 +6,8 @@ import AddIngredients from "../AddIngredient/AddIngredients";
 // import recipeService from "../services/recipe-services";
 // let generateName = require("sillyname");
 import generateName from "sillyname";
-import {Accordion} from 'react-bootstrap';
+import { Accordion } from "react-bootstrap";
+import './Howdiy.css';
 
 class HowdiyCreate extends Component {
   state = {
@@ -92,9 +93,12 @@ class HowdiyCreate extends Component {
 
   handleDeleteIngredient = (id) => {
     axios
-      .delete(`${process.env.REACT_APP_API_HOST}/addIngredient/delete/${id}`, {
-        withCredentials: true,
-      })
+      .delete(
+        `${process.env.REACT_APP_API_HOST}/recipes/ingredients/delete/${id}`,
+        {
+          withCredentials: true,
+        }
+      )
       .then((response) => {
         //find the element in the state manually and remove it
         const newIngredients = this.state.commentList.filter(
@@ -105,16 +109,17 @@ class HowdiyCreate extends Component {
         this.setState({ ingredients: newIngredients });
       })
       .catch((err) => {
-        console.log(err.response.status); // => the error message status code
+        // => the error message status code
         if (err.response.status === 403) {
           this.props.history.push("/login");
         }
       });
   };
 
+  
   handlePreparationSubmit = (event) => {
     event.preventDefault();
-    const { step, description, preparation } = this.state;
+    const { description, preparation } = this.state;
     const newStep = preparation.length + 1;
     this.setState({ step: newStep });
     const newPreparationAdded = [
@@ -122,8 +127,34 @@ class HowdiyCreate extends Component {
       { step: newStep, description },
     ];
     this.setState({ preparation: newPreparationAdded });
+    this.setState({
+      description: "",
+    });
   };
 
+  handleDeletePreparation = (id) => {
+    axios
+      .delete(
+        `${process.env.REACT_APP_API_HOST}/recipes/preparation/delete/${id}`,
+        {
+          withCredentials: true,
+        }
+      )
+      .then((response) => {
+        //find the element in the state manually and remove it
+        const newPreparation = this.state.preparation.filter((eachStep) => {
+          return eachStep._id !== id;
+        });
+        this.setState({ preparation: newPreparation });
+      })
+      .catch((err) => {
+        // => the error message status code
+        if (err.response.status === 403) {
+          this.props.history.push("/login");
+        }
+      });
+  };
+  
   handleImageUpload = (event) => {
     // console.log(event.target.files[0]);
     this.setState({ imageIsUploading: true });
@@ -144,7 +175,8 @@ class HowdiyCreate extends Component {
 
   handleGallerySubmit = (event) => {
     event.preventDefault();
-    const { galleryImg, gallery } = this.state;
+    const { gallery } = this.state;
+    const galleryImg = event.body;
     const newGallery = [...gallery, galleryImg];
     this.setState({ gallery: newGallery });
   };
@@ -154,7 +186,6 @@ class HowdiyCreate extends Component {
       funName,
       descriptiveName,
       preparation,
-      productImg,
       isGiftable,
       gallery,
       galleryImg,
@@ -167,171 +198,242 @@ class HowdiyCreate extends Component {
     } = this.state;
 
     return (
-      <div>
-      <Accordion defaultActiveKey="0">
-  <Accordion.Item eventKey="0">
-    <Accordion.Header>Part One</Accordion.Header>
-    <Accordion.Body>
-    <form onSubmit={this.handleSubmit}>
-          <label htmlFor="category">Category</label>
-          <select
-            onChange={this.handleChange}
-            name="category"
-            id="category-select"
-            required
-          >
-            <option value="">Please select the category of your product</option>
-            <option value="facecare">Facecare</option>
-            <option value="bodycare">Bodycare</option>
-            <option value="housecare">Housecare</option>
-            <option value="play">Play</option>
-            <option value="food">Food</option>
-            <option value="drink">Drink</option>
-          </select>
-          <br />
-          <label htmlFor="descriptiveName">Descriptive Name</label>
-          <input
-            onChange={this.handleChange}
-            type="text"
-            name="descriptiveName"
-            value={descriptiveName}
-          />
-          <br />
-          <label htmlFor="funName">Fun Name</label>
-          <input value={funName} readonly />
-          <label htmlFor="imageUrl">Display Image for your Product:</label>
-          {imageUrl && (
-            <img htmlFor="imageUrl" src={imageUrl} alt="productImg" />
-          )}
-          <input onChange={this.handleImageUpload} type="file" />
-          <br />
-          <br />
-          <br />
-          <label htmlFor="isGiftable">is Giftable</label>
-          <input
-            onChange={this.handleChange}
-            type="checkbox"
-            name="isGiftable"
-            checked={isGiftable}
-          />
-          <br />
-          <label htmlFor="timeOfPreparation">
-            Rate how time consuming the Howdiy is
-          </label>
-          <input
-            onChange={this.handleChange}
-            type="number"
-            name="timeOfPreparation"
-            value={timeOfPreparation}
-          />
-          <br />
-          <label htmlFor="costRating">
-            Rate how cost intense the Howdiy is
-          </label>
-          <input
-            onChange={this.handleChange}
-            type="number"
-            max={3}
-            min={1}
-            name="costRating"
-            value={costRating}
-          />
-          <br />
-          <label htmlFor="difficultyRating">
-            Rate how difficult the Howdiy is
-          </label>
-          <input
-            onChange={this.handleChange}
-            max={3}
-            min={1}
-            type="number"
-            name="difficultyRating"
-            value={difficultyRating}
-          />
-          <button type="submit">Create your Howdiy</button>
-        </form>
-    </Accordion.Body>
-  </Accordion.Item>
-  <Accordion.Item eventKey="1">
-    <Accordion.Header>Part Two</Accordion.Header>
-    <Accordion.Body>
-    <label htmlFor="ingredientsTable">Here are your ingredients:</label>
-        <ul>
-          {ingredients.map((eachIngredient) => {
-            return (
-              <React.Fragment
-                key={eachIngredient.name + eachIngredient.quantity}
-              >
-                <li>
-                  {eachIngredient.name} {eachIngredient.quantity}{" "}
-                  {eachIngredient.measure}{" "}
-                  {
-                    <button
-                      onClick={() => {
-                        this.handleDeleteIngredient(eachIngredient._id);
-                      }}
+      <div className="accordion-bg">
+        <Accordion defaultActiveKey="0">
+          <Accordion.Item className="accordion-inside" eventKey="0">
+            <Accordion.Header>Part One</Accordion.Header>
+            <Accordion.Body className="accordion-inside">
+              <form className="accordion-form" onSubmit={this.handleSubmit}>
+                <label className="accordion-text" htmlFor="category">
+                  Category
+                </label>
+                <select
+                  onChange={this.handleChange}
+                  name="category"
+                  id="category-select"
+                  required
+                >
+                  <option value="">
+                    Please select the category of your product
+                  </option>
+                  <option value="facecare">Facecare</option>
+                  <option value="bodycare">Bodycare</option>
+                  <option value="housecare">Housecare</option>
+                  <option value="play">Play</option>
+                  <option value="food">Food</option>
+                  <option value="drink">Drink</option>
+                </select>
+                <br />
+                <label className="accordion-text" htmlFor="descriptiveName">
+                  Choose a title, please describe your product as clearly as
+                  possible:
+                </label>
+                <input
+                  onChange={this.handleChange}
+                  placeholder="6 words maximum"
+                  type="text"
+                  name="descriptiveName"
+                  value={descriptiveName}
+                />
+                <br />
+                <br />
+                <label className="accordion-link" htmlFor="funName">
+                  Fun Name
+                </label>
+                <input value={funName} readonly />
+                <br />
+                <label className="accordion-text" htmlFor="imageUrl">
+                  Display Image for your Product:
+                </label>
+                {imageUrl && (
+                  <>
+                    <img
+                      className="accordion-img"
+                      htmlFor="imageUrl"
+                      src={imageUrl}
+                      alt="productImg"
+                    />
+                    <br />
+                  </>
+                )}
+                <input
+                  className="accordion-link"
+                  onChange={this.handleImageUpload}
+                  type="file"
+                />
+
+                <label htmlFor="isGiftable">
+                  Is it Giftable?
+                  <input
+                    onChange={this.handleChange}
+                    type="checkbox"
+                    name="isGiftable"
+                    checked={isGiftable}
+                  />
+                </label>
+                <br />
+                <br />
+                <p className="accordion-link">
+                  For the below, please choose a number between 1-3, 1 being
+                  lowest, 3 being highest
+                </p>
+                <label htmlFor="timeOfPreparation">
+                  Rate how time consuming the Howdiy is:
+                </label>
+                <input
+                  onChange={this.handleChange}
+                  type="number"
+                  max={3}
+                  min={1}
+                  name="timeOfPreparation"
+                  value={timeOfPreparation}
+                />
+                <label htmlFor="costRating">
+                  Rate how cost intense the Howdiy is
+                </label>
+                <input
+                  onChange={this.handleChange}
+                  type="number"
+                  max={3}
+                  min={1}
+                  name="costRating"
+                  value={costRating}
+                />
+                <label htmlFor="difficultyRating">
+                  Rate how difficult the Howdiy is
+                </label>
+                <input
+                  onChange={this.handleChange}
+                  max={3}
+                  min={1}
+                  type="number"
+                  name="difficultyRating"
+                  value={difficultyRating}
+                />
+                <br />
+                <br />
+                <label className="accordion-link" htmlFor="create-info">
+                  If you would like to add Part Two and/or Three please do that
+                  before Submitting here:
+                </label>
+                <button className="accordion-submit" type="submit">
+                  Create your Howdiy
+                </button>
+              </form>
+            </Accordion.Body>
+          </Accordion.Item>
+          <Accordion.Item className="accordion-inside" eventKey="1">
+            <Accordion.Header>
+              Part Two <p className="accordion-title-info">(now or later)</p>
+            </Accordion.Header>
+            <Accordion.Body className="accordion-inside">
+              <label htmlFor="ingredientsTable">
+                Here are your ingredients:
+              </label>
+              <ul className="accordion-list">
+                <br />
+                {ingredients.map((eachIngredient) => {
+                  return (
+                    <React.Fragment
+                      key={eachIngredient.name + eachIngredient.quantity}
                     >
-                      Delete
-                    </button>
-                  }
-                </li>
-              </React.Fragment>
-            );
-          })}
-        </ul>
-        <AddIngredients handleAddIngredient={this.handleAddIngredient} />
-        <br />
-        <label htmlFor="preparationTable">
-          Here are your Preparation Steps:
-        </label>
-        <ul>
-          {preparation.map((eachStep) => {
-            return (
-              <React.Fragment key={eachStep.step + eachStep.description}>
-                <li>{eachStep.step}</li>
-                <li>{eachStep.description}</li>
-              </React.Fragment>
-            );
-          })}
-        </ul>
-        <form onSubmit={this.handlePreparationSubmit}>
-          <input
-            onChange={this.handleChange}
-            placeholder="Please explain this step here ... "
-            type="text"
-            name="description"
-            value={description}
-          />
-        
-        <button type="submit">Add a Preparation Step</button>
-        </form>
-    </Accordion.Body>
-  </Accordion.Item>
-  <Accordion.Item eventKey="2">
-    <Accordion.Header>Part Three</Accordion.Header>
-    <Accordion.Body>
-    <label htmlFor="galleryTable">Here is your Gallery:</label>
-        <ul>
-          {gallery.map((eachImg) => {
-            return (
-              <>
-                <li key={eachImg}>
-                  <img src={eachImg} alt="galleryImg" />
-                </li>
-              </>
-            );
-          })}
-        </ul>
-        <form onSubmit={this.handleGallerySubmit}>
-          <label for="galleryImg" htmlFor="gallery" alt="Your-uploaded-Howdiys">
-            Gallery of your Howdiys:
-          </label>
-          <input onChange={this.handleChange} type="file" name={galleryImg} />
-          <button type="submit">Add a Photo to your Gallery</button>
-        </form>
-        </Accordion.Body>
-  </Accordion.Item>
-</Accordion>
+                      <li className="accordion-list-item">
+                        {" "}
+                        {eachIngredient.name} &emsp; {eachIngredient.quantity}{" "}
+                        &emsp; {eachIngredient.measure} &emsp;
+                        {
+                          <button
+                            className="accordion-link"
+                            onClick={() => {
+                              this.handleDeleteIngredient(eachIngredient._id);
+                            }}
+                          >
+                            Delete
+                          </button>
+                        }
+                      </li>
+                    </React.Fragment>
+                  );
+                })}
+              </ul>
+              <AddIngredients handleAddIngredient={this.handleAddIngredient} />
+              <br />
+              <label htmlFor="preparationTable">
+                Here are your Preparation Steps:
+              </label>
+              <ul className="accordion-list">
+                <br />
+                {preparation.map((eachStep) => {
+                  return (
+                    <React.Fragment key={eachStep.step + eachStep.description}>
+                      <li> Step {eachStep.step} </li>
+                      <li>
+                        {eachStep.description}{" "}
+                        <button
+                          className="accordion-link"
+                          onClick={() => {
+                            this.handleDeletePreparation(eachStep._id);
+                          }}
+                        >
+                          Delete
+                        </button>
+                      </li>
+                      <br />
+                    </React.Fragment>
+                  );
+                })}
+              </ul>
+              <form onSubmit={this.handlePreparationSubmit}>
+                <textarea
+                  onChange={this.handleChange}
+                  placeholder="Please explain this step here ... "
+                  type="text"
+                  name="description"
+                  value={description}
+                />
+                <br />
+                <button className="accordion-submit" type="submit">
+                  Add a Preparation Step
+                </button>
+              </form>
+            </Accordion.Body>
+          </Accordion.Item>
+          <Accordion.Item className="accordion-inside" eventKey="2">
+            <Accordion.Header>
+              Part Three <p className="accordion-title-info">(now or later)</p>
+            </Accordion.Header>
+            <Accordion.Body className="accordion-inside">
+              <label htmlFor="galleryTable">Here is your Gallery:</label>
+              <ul>
+                {gallery.length >= 1 &&
+                  gallery.map((eachImg) => {
+                    return (
+                      <>
+                        <li key={eachImg}>
+                          <img
+                            className="accordion-img"
+                            src={eachImg}
+                            alt="galleryImg"
+                          />
+                        </li>
+                      </>
+                    );
+                  })}
+              </ul>
+              <form onSubmit={this.handleGallerySubmit}>
+                <input
+                  className="accordion-link"
+                  onChange={this.handleImageUpload}
+                  type="file"
+                  name={galleryImg}
+                />
+                <button className="accordion-submit" type="submit">
+                  Add a Photo to your Gallery
+                </button>
+              </form>
+            </Accordion.Body>
+          </Accordion.Item>
+        </Accordion>
       </div>
     );
   }
@@ -357,7 +459,3 @@ updateUser = (user) => {
 } */
 
 export default HowdiyCreate;
-
-
-
-

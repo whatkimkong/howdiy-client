@@ -27,15 +27,14 @@ export class Categories extends Component {
     return (
       <div>
         <img src={title} alt="title" className="title" />
-        <div className="listContainer">
+        <div className="list-container">
           <Container>
             <Row className="justify-content-md-center">
               {categories.map((eachCategory) => {
                 return (
                   <Col xs lg="4" key={eachCategory}>
                     <NavLink
-                      activeClassName="navlink"
-                      className="buttonStyles category-link"
+                      className="button-styles category-link"
                       to={`/${eachCategory.toLowerCase()}/howdiy`}
                     >
                       {eachCategory}

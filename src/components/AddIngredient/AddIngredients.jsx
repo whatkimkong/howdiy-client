@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import '../howdiys/Howdiy.css';
 
 class AddIngredients extends Component {
   state = {
@@ -35,7 +36,7 @@ class AddIngredients extends Component {
       <div>
         <form onSubmit={this.handleSubmit}>
           <label htmlFor="name">Name</label>
-          <input
+          <input className="ingredients-item"
             onChange={this.handleChange}
             type="text"
             name="name"
@@ -44,7 +45,7 @@ class AddIngredients extends Component {
           <br />
 
           <label htmlFor="quantity">Quantity</label>
-          <input
+          <input className="ingredients-item"
             onChange={this.handleChange}
             type="number"
             name="quantity"
@@ -53,14 +54,14 @@ class AddIngredients extends Component {
           <br />
 
           <label htmlFor="measure">Measure</label>
-          <input
+          <input className="ingredients-item"
             onChange={this.handleChange}
             type="text"
             name="measure"
             value={measure}
           ></input>
           <br />
-          <button> Add New Ingredient </button>
+          <button className="accordion-submit"> Add New Ingredient </button>
         </form>
       </div>
     );

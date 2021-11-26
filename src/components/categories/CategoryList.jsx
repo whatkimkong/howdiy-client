@@ -14,16 +14,19 @@ class CategoryList extends Component {
     timeOfPreparation: null,
     costRating: null,
     createdBy: null,
+    ingredients: null,
   };
 
   handleFilter = (filter) => {
-    const filteredList = this.state.howdiyList.filter((eachHowdiy) => {
+    const filteredByDescriptList = this.state.howdiyList.filter((eachHowdiy) => {
       return eachHowdiy.descriptiveName
-        .toLowerCase()
-        .includes(filter.toLowerCase());
+      .toLowerCase()
+      .includes(filter.toLowerCase()) || eachHowdiy.funName
+      .toLowerCase()
+      .includes(filter.toLowerCase());
     });
     this.setState({
-      filteredList: filteredList,
+      filteredList: filteredByDescriptList,
     });
   };
 
@@ -39,6 +42,7 @@ class CategoryList extends Component {
           costRating: response.data,
           difficultyRating: response.data,
           timeOfPreparation: response.data,
+          ingredients: response.data,
           isLoading: false,
         });
       })
@@ -79,7 +83,7 @@ class CategoryList extends Component {
                       <h4>{eachHowdiy.funName}</h4>
                       <h5>{eachHowdiy.descriptiveName}</h5>
                       <NavLink
-                        className="link"
+                        className="button-link"
                         key={eachHowdiy._id}
                         to={`/howdiy/${eachHowdiy._id}`}
                       >
@@ -119,4 +123,21 @@ handleFilter = () => {
             {fullStar.repeat(roundedUpDifficulty) + emptyStar.repeat(3 - roundedUpDifficulty)}
             {fullStar.repeat(roundedUpTime) + emptyStar.repeat(3 - roundedUpTime)}
           </h2>
+
+
+          const filteredByFunNameList = this.state.howdiyList.filter((eachHowdiy) => {
+      return eachHowdiy.funName
+      .toLowerCase()
+      .includes(filter.toLowerCase());
+    });
+    this.setState({
+      filteredList: filteredByFunNameList,
+    });
+    const filteredByIngredientsList = this.state.howdiyList.filter((eachHowdiy) => {
+      return eachHowdiy.ingredients.name.toLowerCase()
+      .includes(filter.toLowerCase());
+    });
+    this.setState({
+      filteredList: filteredByIngredientsList,
+    });
 */

@@ -91,7 +91,7 @@ class Profile extends Component {
                       <h4>{eachHowdiy.funName}</h4>
                       <h5>{eachHowdiy.descriptiveName}</h5>
                       <NavLink
-                        className="link"
+                        className="button-link"
                         key={eachHowdiy._id}
                         to={`/howdiy/${eachHowdiy._id}`}
                       >
@@ -100,14 +100,14 @@ class Profile extends Component {
                       <hr></hr>
 
                       <NavLink
-                        className="link"
+                        className="button-link"
                         to={`/howdiy/edit/${eachHowdiy._id}`}
                       >
                         Edit
                       </NavLink>
                       <br></br>
                       <button
-                        className="link"
+                        className="button-link"
                         onClick={() => {
                           this.deleteHowdiy(eachHowdiy._id);
                         }}
