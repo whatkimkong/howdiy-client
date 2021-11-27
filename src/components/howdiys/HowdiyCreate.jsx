@@ -338,8 +338,7 @@ class HowdiyCreate extends Component {
                       key={eachIngredient.name + eachIngredient.quantity}
                     >
                       <li className="accordion-list-item">
-                        {" "}
-                        {eachIngredient.name} &emsp; {eachIngredient.quantity}{" "}
+                        {eachIngredient.name} &emsp; {eachIngredient.quantity}
                         &emsp; {eachIngredient.measure} &emsp;
                         {
                           <button

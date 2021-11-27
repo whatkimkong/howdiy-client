@@ -39,6 +39,13 @@
   margin-right: 20vw;
 }
 
+.root-img-styles {
+  height: 10vw;
+  width: 10vw;
+  max-height: 100px;
+  max-width: 100px;
+}
+
 /* HOME */
 
 /* PROFILE */

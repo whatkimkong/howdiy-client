@@ -67,18 +67,9 @@
 }
 
 .howdiyListText {
-<<<<<<< HEAD
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    justify-content: flex-start;
-    margin-left: 20px;
-};
-=======
   display: flex;
   flex-direction: column;
   text-align: left;
   justify-content: flex-start;
   margin-left: 20px;
 }
->>>>>>> 6467866a88d459514de6f8ad7a2d78dadd059d4e
