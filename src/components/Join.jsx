@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import title from "./img/Join.png";
-import faceLogo from "./img/Face-icon.png";
-import bodyLogo from "./img/Body-icon.png";
-import houseLogo from "./img/House-icon.png";
-import playLogo from "./img/Play-icon.png";
-import foodLogo from "./img/Food-icon.png";
-import drinkLogo from "./img/Drink-icon.png";
+import faceLogo from "./img/Face-dark.png";
+//import bodyLogo from "./img/Body-icon.png";
+import houseLogo from "./img/House-dark.png";
+import playLogo from "./img/Play-dark.png";
+//import foodLogo from "./img/Food-icon.png";
+//import drinkLogo from "./img/Drink-icon.png";
 
 export class Join extends Component {
     render() {
         return (
-            <div className="join-bg">
+            <div>
                 <img src={title} alt="title" className="title title-img" />
                 <div className="root-text">
                     <h5>HOWDiy is an app where like-minded people can come from far and wide to share their favorite DIY recipes in the categories of <br/> cleaning - play - food - drink - bodycare - facecare in fresh new ways.</h5>
