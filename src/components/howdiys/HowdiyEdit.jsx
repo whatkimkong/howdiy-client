@@ -135,7 +135,7 @@ class HowdiyEdit extends Component {
       .then((result) => {
         // console.log(result.data);
         this.setState({
-          imageUrl: result.data.imagePath,
+          productImg: result.data.imagePath,
         });
       })
       .catch(() => this.props.history.push("/500"));
@@ -288,7 +288,7 @@ class HowdiyEdit extends Component {
                   className="accordion-link"
                   onChange={this.handleImageUpload}
                   type="file"
-                />
+                /> 
 
                 <label htmlFor="isGiftable">
                   Is it Giftable?

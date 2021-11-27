@@ -7,7 +7,7 @@ import AddIngredients from "../AddIngredient/AddIngredients";
 // let generateName = require("sillyname");
 import generateName from "sillyname";
 import { Accordion } from "react-bootstrap";
-import './Howdiy.css';
+import "./Howdiy.css";
 
 class HowdiyCreate extends Component {
   state = {
@@ -116,7 +116,6 @@ class HowdiyCreate extends Component {
       });
   };
 
-  
   handlePreparationSubmit = (event) => {
     event.preventDefault();
     const { description, preparation } = this.state;
@@ -154,7 +153,7 @@ class HowdiyCreate extends Component {
         }
       });
   };
-  
+
   handleImageUpload = (event) => {
     // console.log(event.target.files[0]);
     this.setState({ imageIsUploading: true });

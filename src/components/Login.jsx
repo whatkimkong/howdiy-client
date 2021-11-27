@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import authService from "./services/auth-services";
+import './root.css';
+import title from "./img/Login.png";
 
 class Login extends Component {
   state = {
@@ -26,22 +28,28 @@ class Login extends Component {
   render() {
     const { email, password } = this.state;
     return (
-      <div>
+      <div className="login-signup-form">
+      
+        <img src={title} alt="title" className="title title-img" />
+        <div className="root-text">
         <form onSubmit={this.handleSubmit}>
           <input
             onChange={this.handleChange}
             type="text"
             name="email"
+            placeholder="Your email here"
             value={email}
-          />
+          /><br/><br/>
           <input
             onChange={this.handleChange}
             type="text"
             name="password"
+            placeholder="Your password here"
             value={password}
-          />
-          <button type="submit">Login</button>
+          /><br/><br/>
+          <button className="root-submit" type="submit">Login</button>
         </form>
+        </div>
       </div>
     );
   }

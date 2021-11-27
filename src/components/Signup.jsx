@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import authService from "./services/auth-services";
+import './root.css';
+import title from "./img/Signup.png";
 //no axios needed here as Services/Auth-services is the master and does all the work
 
 class Signup extends Component {
@@ -38,7 +40,9 @@ class Signup extends Component {
   render() {
     const { firstName, lastName, email, username, password } = this.state;
     return (
-      <div>
+      <div className="login-signup-form">
+      <img src={title} alt="title" className="title title-img" />
+        <div className="root-text">
         <form onSubmit={this.handleSubmit}>
           <input
             onChange={this.handleChange}
@@ -46,37 +50,38 @@ class Signup extends Component {
             name="firstName"
             placeholder="First Name"
             value={firstName}
-          />
+          /><br/><br/>
           <input
             onChange={this.handleChange}
             type="text"
             name="lastName"
             placeholder="Last Name"
             value={lastName}
-          />
+          /><br/><br/>
           <input
             onChange={this.handleChange}
             type="text"
             name="email"
             placeholder="Email"
             value={email}
-          />
+          /><br/><br/>
           <input
             onChange={this.handleChange}
             type="text"
             name="username"
             placeholder="Username"
             value={username}
-          />
+          /><br/><br/>
           <input
             onChange={this.handleChange}
             type="text"
             name="password"
             placeholder="Password"
             value={password}
-          />
-          <button type="submit">Submit</button>
+          /><br/><br/>
+          <button className="root-submit" type="submit">Submit</button>
         </form>
+        </div>
       </div>
     );
   }
