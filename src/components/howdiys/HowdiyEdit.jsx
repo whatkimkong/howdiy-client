@@ -259,7 +259,8 @@ class HowdiyEdit extends Component {
                 </label>
                 <br />
                 <label className="accordion-text" htmlFor="title">
-                  Descriptive Name
+                Choose a title, please describe your product as clearly as
+                  possible:
                 </label>
                 <input
                   onChange={this.handleChange}
@@ -337,7 +338,7 @@ class HowdiyEdit extends Component {
                   name="difficultyRating"
                   value={difficultyRating}
                 />
-                <button type="submit">Edit your Howdiy</button>
+                <button className="accordion-submit" type="submit">Edit your Howdiy</button>
               </form>
             </Accordion.Body>
           </Accordion.Item>

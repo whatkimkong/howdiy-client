@@ -109,3 +109,20 @@ textarea {
     margin-left: 20px;
     padding-left: 30px;
   };
+
+
+.comment-section {
+    border: none;
+    margin: 20px 40px 0px 40px;
+    background-color: rgb(133, 130, 130);
+    color: #e0ecdf;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    padding: 20px 0px 20px 0px;
+}
+
+.comment-message {
+    display: flex;
+    flex: row;
+}

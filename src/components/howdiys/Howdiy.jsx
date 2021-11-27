@@ -251,26 +251,28 @@ export class Howdiy extends Component {
                   height="25"/><img src={howdiyHat} alt="navbarimg" width="70"
                   height="35"/></h2>
         <form onSubmit={this.handleCommentSubmit}>
-          <input
+        <div className="comment-section">
+          <input 
             onChange={this.handleChange}
             placeholder="write here..."
             type="text"
             name="input"
             value={input}
           />
-          <button type="submit">Add a comment</button>
+          <button className="accordion-submit" type="submit">Add a comment</button>
+          </div>
         </form>
 
         {isLoadingComments && <h1>...isLoading!</h1>}
         {!isLoadingComments &&
           commentList.map((eachComment) => {
             return (
-              <>
+              <React.Fragment className="comment-message" >
                 <p> {eachComment.input} </p>
                 <h6>{eachComment.createdBy.username}</h6>
                 <h6>timestamp</h6>
                 {user && eachComment.createdBy._id === user._id && (
-                  <button
+                  <button className="button-link"
                     onClick={() => {
                       this.handleDeleteComment(eachComment._id);
                     }}
@@ -279,7 +281,7 @@ export class Howdiy extends Component {
                   </button>
                 )}
                 <hr></hr>
-              </>
+              </React.Fragment>
             );
           })}
       </>
