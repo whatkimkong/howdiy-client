@@ -9,14 +9,21 @@
     margin-bottom: 10px;
     display: flex;
     justify-content: center;
-    margin-left: 20%;
+    margin-left: 15%;
     margin-right: 10%;
+}
+
+.icon-img-styles {
+    height: 10vw;
+    width: 10vw;
+    max-height: 100px;
+    max-width: 100px;
 }
 
 .button-styles {
     background-color: #8eac8c;
     color: #dbd5d1;
-    padding: 55px 20px 55px 20px;
+    padding: 40px 100px 40px 100px;
     text-decoration: none;
     margin: 20px 5px 40px 5px;
     border-radius: 50%;

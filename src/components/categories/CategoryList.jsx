@@ -4,6 +4,11 @@ import Search from "./Search";
 import { NavLink } from "react-router-dom";
 import "./Categories.css";
 import housecareTitle from "./img/housecareGrey.png";
+import bodycareTitle from "./img/Bodycare.png";
+import facecareTitle from "./img/Facecare.png";
+import playTitle from "./img/Play.png";
+import foodTitle from "./img/Food.png";
+import drinkTitle from "./img/Drink.png";
 
 class CategoryList extends Component {
   state = {
@@ -59,13 +64,12 @@ class CategoryList extends Component {
     const fullStar = "★";
     return (
       <div>
-        { category === 'facecare' && <img src={housecareTitle} alt="title" className="title" />}
-        { category === 'bodycare' && <img src={housecareTitle} alt="title" className="title" />}
-        { category === 'housecare' && <img src={housecareTitle} alt="title" className="title" />}
-        { category === 'play' && <img src={housecareTitle} alt="title" className="title" />}
-        { category === 'food' && <img src={housecareTitle} alt="title" className="title" />}
-        { category === 'drink' && <img src={housecareTitle} alt="title" className="title" />}
-        <h1>{`${category[0].toUpperCase()}${category.slice(1)}`}</h1>
+        { category === 'facecare' && <img src={facecareTitle} alt="title" className="title title-img" />}
+        { category === 'bodycare' && <img src={bodycareTitle} alt="title" className="title title-img" />}
+        { category === 'housecare' && <img src={housecareTitle} alt="title" className="title title-img" />}
+        { category === 'play' && <img src={playTitle} alt="title" className="title title-img" />}
+        { category === 'food' && <img src={foodTitle} alt="title" className="title title-img" />}
+        { category === 'drink' && <img src={drinkTitle} alt="title" className="title title-img" />}
         <Search handleFilter={this.handleFilter} />
         {isLoading && <h1>is loading</h1>}
         {!isLoading &&
