@@ -28,9 +28,9 @@ class Login extends Component {
   render() {
     const { email, password } = this.state;
     return (
-      <div className="login-signup-form">
+      <div>
       
-        <img src={loginTitle} alt="title" className="title title-img" />
+        <img src={loginTitle} alt="title" className="root-title" />
         <div className="root-text">
         <form onSubmit={this.handleSubmit}>
           <input

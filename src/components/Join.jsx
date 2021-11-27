@@ -13,7 +13,7 @@ export class Join extends Component {
   render() {
     return (
       <div>
-        <img src={title} alt="title" className="title title-img" />
+        <img src={title} alt="title" className="root-title" />
         <div className="root-text">
           <h5>
             HOWDiy is an app where like-minded people can come from far and wide

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import authService from "./services/auth-services";
 import './root.css';
-import title from "./img/Signup.png";
+import signupTitle from "./img/Signup.png";
 //no axios needed here as Services/Auth-services is the master and does all the work
 
 class Signup extends Component {
@@ -40,8 +40,8 @@ class Signup extends Component {
   render() {
     const { firstName, lastName, email, username, password } = this.state;
     return (
-      <div className="login-signup-form">
-      <img src={title} alt="title" className="title title-img" />
+      <div>
+      <img src={signupTitle} alt="title" className="root-title" />
         <div className="root-text">
         <form onSubmit={this.handleSubmit}>
           <input

@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import title from "./img/howdiyGreen.png";
 import allCategories from './img/ROUGHshot.png';
+import './root.css';
 
 export class Home extends Component {
   render() {
     return (
       <div>
-        <img src={title} alt="title" className="title title-img" />
+        <img src={title} alt="title" className="root-title" />
         <h3 className="root-text">DIY straight from your Pantry</h3>
         <p className="root-text"> 6 Categories to choose from:</p>
         <img src={allCategories} alt="little-representatives" width="300px" height="190px"/>
