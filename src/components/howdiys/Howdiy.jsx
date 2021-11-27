@@ -1,12 +1,11 @@
 // THIS url will be - howdiy/:id
 import React, { Component, Fragment } from "react";
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col } from "react-bootstrap";
 // import recipeService from '../services/recipe-services';
 import axios from "axios";
 import "./Howdiy.css";
 import "../root.css";
-import howdiyHat from '../img/cowboyHat.png';
-
+import howdiyHat from "../img/cowboyHat.png";
 
 export class Howdiy extends Component {
   state = {
@@ -156,123 +155,135 @@ export class Howdiy extends Component {
         {isLoadingHowdiy && <h1>...isLoading!</h1>}
         {!isLoadingHowdiy && (
           <React.Fragment>
-          <Container className="howdiy-container">
+            <Container className="howdiy-container">
               <Row className="howdiy-view">
-              <Col sm={8}>
-              <div className="howdiy-view-child">
-                <img
-                  className="howdiy-view-img"
-                  src={productImg}
-                  alt="productImage"
-                />
-                <div className="howdiy-view-text">
-                  <h4>{funName}</h4>
-                  <h5>{descriptiveName}</h5>
-                  <h5> is Giftable: {isGiftable ? "Yes!" : "Possibly Not"}</h5>
-                  <hr></hr>
-                  <p>Created by: {createdBy.username}</p>
+                {/* <Col sm={8}> */}
+                <div className="howdiy-view-child">
+                  <img
+                    className="howdiy-view-img"
+                    src={productImg}
+                    alt="productImage"
+                  />
+                  <div className="howdiy-view-text">
+                    <h4>{funName}</h4>
+                    <h5>{descriptiveName}</h5>
+                    <h5>
+                      {" "}
+                      is Giftable: {isGiftable ? "Yes!" : "Possibly Not"}
+                    </h5>
+                    <hr></hr>
+                    <p>Created by: {createdBy.username}</p>
+                  </div>
                 </div>
-              </div>
-              </Col>
-              <Col sm={4}>
-              <div className="howdiy-view-text">
-                  <h6>
-                    {" "}
-                    Cost Rating:{" "}
-                    {fullStar.repeat(Math.round(costRating)) +
-                      emptyStar.repeat(3 - Math.round(costRating))}
-                  </h6>
-                  <h6>
-                    {" "}
-                    Difficulty Rating:{" "}
-                    {fullStar.repeat(Math.round(difficultyRating)) +
-                      emptyStar.repeat(3 - Math.round(difficultyRating))}
-                  </h6>
-                  <h6>
-                    {" "}
-                    Time Intensity:{" "}
-                    {fullStar.repeat(Math.round(timeOfPreparation)) +
-                      emptyStar.repeat(3 - Math.round(timeOfPreparation))}
-                  </h6>
-                </div>
-              </Col>    
+                {/* </Col> */}
+                <Col sm={4}>
+                  <div className="howdiy-view-text">
+                    <h6>
+                      {" "}
+                      Cost Rating:{" "}
+                      {fullStar.repeat(Math.round(costRating)) +
+                        emptyStar.repeat(3 - Math.round(costRating))}
+                    </h6>
+                    <h6>
+                      {" "}
+                      Difficulty Rating:{" "}
+                      {fullStar.repeat(Math.round(difficultyRating)) +
+                        emptyStar.repeat(3 - Math.round(difficultyRating))}
+                    </h6>
+                    <h6>
+                      {" "}
+                      Time Intensity:{" "}
+                      {fullStar.repeat(Math.round(timeOfPreparation)) +
+                        emptyStar.repeat(3 - Math.round(timeOfPreparation))}
+                    </h6>
+                  </div>
+                </Col>
               </Row>
               <Row className="howdiy-view">
-              <Col sm={4}>
-              <div className="howdiy-view-child">
-                <div>
-                  <h5>Ingredients:</h5>
-                  <ul className="accordion-list">
-                    <br />
-                    {ingredients.map((eachIngredient) => {
-                      return (
-                        <React.Fragment
-                          key={eachIngredient.name + eachIngredient.quantity}
-                        >
-                          <li className="accordion-list-item">
-                            {eachIngredient.name} &emsp;{" "}
-                            {eachIngredient.quantity}
-                            &emsp; {eachIngredient.measure} &emsp;
-                          </li>
-                        </React.Fragment>
-                      );
-                    })}
-                  </ul>
-                </div>
-              </div>
-              </Col>
-              <Col sm={8}>
-              <div className="howdiy-view-child">
-                <div className="howdiy-view-text">
-
-                  <h5>Preparation:</h5>
-                  <ul className="accordion-list">
-                <br />
-                {preparation.map((eachStep) => {
-                  return (
-                    <React.Fragment key={eachStep.step + eachStep.description}>
-                      <li> Step {eachStep.step} </li>
-                      <li>
-                        {eachStep.description}
-                      </li>
-                      <br />
-                    </React.Fragment>
-                  );
-                })}
-              </ul>
-                </div>
-              </div>
-              </Col>
+                <Col sm={4}>
+                  <div className="howdiy-view-child">
+                    <div>
+                      <h5>Ingredients:</h5>
+                      <ul className="accordion-list">
+                        <br />
+                        {ingredients.map((eachIngredient) => {
+                          return (
+                            <React.Fragment
+                              key={
+                                eachIngredient.name + eachIngredient.quantity
+                              }
+                            >
+                              <li className="accordion-list-item">
+                                {eachIngredient.name} &emsp;{" "}
+                                {eachIngredient.quantity}
+                                &emsp; {eachIngredient.measure} &emsp;
+                              </li>
+                            </React.Fragment>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  </div>
+                </Col>
+                <Col sm={8}>
+                  <div className="howdiy-view-child">
+                    <div className="howdiy-view-text">
+                      <h5>Preparation:</h5>
+                      <ul className="accordion-list">
+                        <br />
+                        {preparation.map((eachStep) => {
+                          return (
+                            <React.Fragment
+                              key={eachStep.step + eachStep.description}
+                            >
+                              <li> Step {eachStep.step} </li>
+                              <li>{eachStep.description}</li>
+                              <br />
+                            </React.Fragment>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  </div>
+                </Col>
               </Row>
-          </Container>
+            </Container>
           </React.Fragment>
         )}
-        <h2 className="profileSection"><img src={howdiyHat} alt="navbarimg" width="55"
-                  height="25"/><img src={howdiyHat} alt="navbarimg" width="70"
-                  height="35"/></h2>
-        <form onSubmit={this.handleCommentSubmit}>
+        <h2 className="profileSection">
+          <img src={howdiyHat} alt="navbarimg" width="55" height="25" />
+          <img src={howdiyHat} alt="navbarimg" width="70" height="35" />
+        </h2>
         <div className="comment-section">
-          <input 
-            onChange={this.handleChange}
-            placeholder="write here..."
-            type="text"
-            name="input"
-            value={input}
-          />
-          <button className="accordion-submit" type="submit">Add a comment</button>
-          </div>
-        </form>
+          <form onSubmit={this.handleCommentSubmit}>
+            <input
+              onChange={this.handleChange}
+              placeholder="write here..."
+              type="text"
+              name="input"
+              value={input}
+            />
+            <button className="accordion-submit" type="submit">
+              Add a comment
+            </button>
+          </form>
+        </div>
 
         {isLoadingComments && <h1>...isLoading!</h1>}
         {!isLoadingComments &&
           commentList.map((eachComment) => {
             return (
-              <React.Fragment className="comment-message" >
-                <p> {eachComment.input} </p>
-                <h6>{eachComment.createdBy.username}</h6>
-                <h6>timestamp</h6>
+              <div className="comment-message comment-section">
+                <p>
+                  {" "}
+                  {eachComment.input} <br />
+                  {eachComment.createdBy.username}
+                  <br />
+                  {eachComment.createdAt}
+                </p>
                 {user && eachComment.createdBy._id === user._id && (
-                  <button className="button-link"
+                  <button
+                    className="button-link"
                     onClick={() => {
                       this.handleDeleteComment(eachComment._id);
                     }}
@@ -281,7 +292,7 @@ export class Howdiy extends Component {
                   </button>
                 )}
                 <hr></hr>
-              </React.Fragment>
+              </div>
             );
           })}
       </>
