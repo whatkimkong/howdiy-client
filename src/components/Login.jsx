@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import authService from "./services/auth-services";
 import './root.css';
-import title from "./img/Login.png";
+import loginTitle from "./img/Login.png";
 
 class Login extends Component {
   state = {
@@ -30,7 +30,7 @@ class Login extends Component {
     return (
       <div className="login-signup-form">
       
-        <img src={title} alt="title" className="title title-img" />
+        <img src={loginTitle} alt="title" className="title title-img" />
         <div className="root-text">
         <form onSubmit={this.handleSubmit}>
           <input
