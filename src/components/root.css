@@ -40,6 +40,8 @@
 }
 
 .root-img-styles {
+  justify-content: center;
+  flex-direction: column;
   height: 10vw;
   width: 10vw;
   max-height: 100px;
