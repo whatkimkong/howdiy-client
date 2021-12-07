@@ -40,10 +40,12 @@ class RecipeService {
     });
   };
 
-  /* deleteHowdiy = (id) => 
-    return this.service.delete(`/delete/${id}`);
-  }; */
 }
 
 const recipeService = new RecipeService();
 export default recipeService;
+
+/* 
+DIDNT NEED:
+deleteHowdiy = (id) => return this.service.delete(`/delete/${id}`)
+*/

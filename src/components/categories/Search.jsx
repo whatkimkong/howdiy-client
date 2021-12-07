@@ -33,10 +33,9 @@ class Search extends Component {
 export default Search;
 
 
-{/* <input
+/* <input
           onChange={this.handleChange}
           type="text"
           name="search"
           value={search}
         /> */
-}

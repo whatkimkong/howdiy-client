@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import '../howdiys/Howdiy.css';
+//
+import '../Howdiy.css';
 
 class AddIngredients extends Component {
   state = {

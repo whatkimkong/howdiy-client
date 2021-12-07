@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
 //
-import "./root.css";
+import "../root.css";
 
 class Profile extends Component {
   state = {

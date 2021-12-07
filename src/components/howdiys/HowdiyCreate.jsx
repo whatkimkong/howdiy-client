@@ -1,12 +1,10 @@
 // this URL will be "/howdiy/create"
-
 import axios from "axios";
 import React, { Component, Fragment } from "react";
-import AddIngredients from "../AddIngredient/AddIngredients";
-// import recipeService from "../services/recipe-services";
-// let generateName = require("sillyname");
+import AddIngredients from "./AddIngredient/AddIngredients";
 import generateName from "sillyname";
 import { Accordion } from "react-bootstrap";
+//
 import "./Howdiy.css";
 
 class HowdiyCreate extends Component {
@@ -454,6 +452,10 @@ updateUser = (user) => {
   getUser = (user) => {
     return this.service.get('/user');
   };
+
+  TRIED BUT DID NOT NEED:
+// import recipeService from "../services/recipe-services";
+// let generateName = require("sillyname");
 } */
 
 export default HowdiyCreate;

@@ -143,9 +143,6 @@ export class Howdiy extends Component {
       isLoadingComments,
       input,
       commentList,
-      name,
-      quantity,
-      measure,
     } = this.state;
     const { user } = this.props;
     const emptyStar = "☆";

@@ -16,8 +16,8 @@ function NavbarComponent({ isLoggedIn, user, setUser }) {
 
   return (
     <div>
-      <Navbar collapseOnSelect expand="lg" className="navbarBg">
-        <Container className="navbarMain">
+      <Navbar collapseOnSelect expand="lg" className="navbar-bg">
+        <Container className="navbar-main">
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">

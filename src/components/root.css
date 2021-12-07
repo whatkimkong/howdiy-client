@@ -55,11 +55,11 @@
 }
 
 /* NAVBAR */
-.navbarBg {
+.navbar-bg {
   background-color: #8eac8c;
 }
 
-.navbarMain {
+.navbar-main {
   color: #b1aca8;
 }
 
@@ -135,6 +135,5 @@
   font-weight:500;
   padding: 0px 20px 0px 20px;
 }
-
 
 /* SIGN UP */

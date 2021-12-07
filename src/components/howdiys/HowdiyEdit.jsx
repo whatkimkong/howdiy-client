@@ -2,7 +2,8 @@
 import axios from "axios";
 import React, { Component } from "react";
 import { Accordion } from "react-bootstrap";
-import AddIngredients from "../AddIngredient/AddIngredients";
+import AddIngredients from "./AddIngredient/AddIngredients";
+//
 import "./Howdiy.css";
 
 class HowdiyEdit extends Component {

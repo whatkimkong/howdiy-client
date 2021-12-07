@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
-import "./Categories.css";
 import title from "./img/categoriesTitle.png";
 import { Container, Row, Col } from "react-bootstrap";
+//
+import "./Categories.css";
+//
 import faceLogo from "./img/Face-icon.png";
 import bodyLogo from "./img/Body-icon.png";
 import houseLogo from "./img/House-icon.png";
@@ -10,23 +12,10 @@ import playLogo from "./img/Play-icon.png";
 import foodLogo from "./img/Food-icon.png";
 import drinkLogo from "./img/Drink-icon.png";
 
-//change the categories from null to an array /w enum
-// no loading
-
 export class Categories extends Component {
   state = {
     categories: ["Facecare", "Bodycare", "Housecare", "Play", "Food", "Drink"],
   };
-
-  /*   componentDidMount() {
-    recipeService.getCategories
-      .then((response) => {
-        this.setState({ categories: response.data, isLoading: false });
-      })
-      .catch((err) => {
-        this.props.history.push("/500");
-      });
-  } */
 
   render() {
     const { categories } = this.state;
@@ -100,6 +89,21 @@ export class Categories extends Component {
 
 export default Categories;
 
-// for each --> NavLink with the category to="/:category/howdiy" (this will be the list of that category)
 
-// in the list display we would need after render -- const { category } = this.props.match.params; from the /:category/howdiy URL
+ /*
+ TRIALS:
+    componentDidMount() {
+    recipeService.getCategories
+      .then((response) => {
+        this.setState({ categories: response.data, isLoading: false });
+      })
+      .catch((err) => {
+        this.props.history.push("/500");
+      });
+  }  
+  
+  -- in the list display we would need after render -- const { category } = this.props.match.params; from the /:category/howdiy URL
+
+  -- for each --> NavLink with the category to="/:category/howdiy" (this will be the list of that category)
+  */
+

@@ -1,19 +1,23 @@
 import "./App.css";
 import { Component } from "react";
 import { Route, Switch } from "react-router-dom";
-import Signup from "./components/Signup";
-import Login from "./components/Login";
+// auth
+import Login from "./components/auth/Login";
+import Profile from "./components/auth/Profile";
+import Signup from "./components/auth/Signup";
 import authService from "./components/services/auth-services";
+//
+import Home from "./components/Home";
+import Join from "./components/Join";
 import NavbarComponent from "./components/NavbarComponent";
-import Profile from "./components/Profile";
+//
 import Categories from "./components/categories/Categories";
 import CategoryList from "./components/categories/CategoryList";
+//
 import HowdiyCreate from "./components/howdiys/HowdiyCreate";
 import Howdiy from "./components/howdiys/Howdiy";
 import HowdiyEdit from "./components/howdiys/HowdiyEdit";
-import AddIngredients from "./components/AddIngredient/AddIngredients";
-import Home from "./components/Home";
-import Join from "./components/Join";
+
 
 class App extends Component {
   state = {

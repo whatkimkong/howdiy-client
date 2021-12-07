@@ -2,7 +2,9 @@ import React, { Component, Fragment } from "react";
 import recipeService from "../services/recipe-services"; // has to be the same?
 import Search from "./Search";
 import { NavLink } from "react-router-dom";
+//
 import "./Categories.css";
+//
 import housecareTitle from "./img/housecareGrey.png";
 import bodycareTitle from "./img/Bodycare.png";
 import facecareTitle from "./img/Facecare.png";
@@ -76,14 +78,14 @@ class CategoryList extends Component {
           filteredList.map((eachHowdiy) => {
             return (
               <>
-                <div className="howdiyListed">
-                  <div className="howdiyListChild">
+                <div className="howdiy-listed">
+                  <div className="howdiy-list-child">
                     <img
-                      className="howdiyListImg"
+                      className="howdiy-list-img"
                       src={eachHowdiy.productImg}
                       alt="productImage"
                     />
-                    <div className="howdiyListText">
+                    <div className="howdiy-list-text">
                       <h4>{eachHowdiy.funName}</h4>
                       <h5>{eachHowdiy.descriptiveName}</h5>
                       <NavLink
@@ -96,7 +98,7 @@ class CategoryList extends Component {
                       <hr></hr>
                       <p>Created by: {eachHowdiy.createdBy.username}</p>
                     </div>
-                    <div className="howdiyListText">
+                    <div className="howdiy-list-text">
                     <h6> Cost Rating: {fullStar.repeat(Math.round(eachHowdiy.costRating)) + emptyStar.repeat(3 - Math.round(eachHowdiy.costRating))}</h6>
                     <h6> Difficulty Rating: {fullStar.repeat(Math.round(eachHowdiy.difficultyRating)) + emptyStar.repeat(3 - Math.round(eachHowdiy.difficultyRating))}</h6>
                     <h6> Time Intensity: {fullStar.repeat(Math.round(eachHowdiy.timeOfPreparation)) + emptyStar.repeat(3 - Math.round(eachHowdiy.timeOfPreparation))}</h6>
@@ -112,22 +114,15 @@ class CategoryList extends Component {
 }
 export default CategoryList;
 
-//whole element clickable in return
-//fetches information
-
 /*   
+TRIALS:
+
 handleFilter = () => {
     const { howdiyList } = this.state;
     return howdiyList.filter((howdiy) => howdiyList.includes(howdiy));
 }
 
-
-<h2>
-            {fullStar.repeat(roundedUpCost) + emptyStar.repeat(3 - roundedUpCost)}
-            {fullStar.repeat(roundedUpDifficulty) + emptyStar.repeat(3 - roundedUpDifficulty)}
-            {fullStar.repeat(roundedUpTime) + emptyStar.repeat(3 - roundedUpTime)}
-          </h2>
-
+OR
 
           const filteredByFunNameList = this.state.howdiyList.filter((eachHowdiy) => {
       return eachHowdiy.funName
