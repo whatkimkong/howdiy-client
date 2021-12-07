@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import authService from "./services/auth-services";
+//
 import './root.css';
+//
 import signupTitle from "./img/Signup.png";
+
 //no axios needed here as Services/Auth-services is the master and does all the work
 
 class Signup extends Component {

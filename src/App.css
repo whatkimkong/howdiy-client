@@ -2,7 +2,8 @@
   text-align: center;
   background-color: #dbd5d1;
   min-height: 100vh;
-}
+} /* background-color and min-height used to cover whole app */
+
 
 .App-logo {
   height: 40vmin;
@@ -39,10 +40,13 @@
   }
 }
 
+/* Only the following was added by Kim Kong: */
+
 .button-link {
   text-decoration: none;
   color: #dbd5d1;
-  font-weight: bolder;
+  font-size: 1.2vmax;
+  font-weight: 500;
   border: none;
   background-color: #8eac8c;
   border-radius: 4px;

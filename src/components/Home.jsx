@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
+//
+import './root.css';
+//
 import title from "./img/howdiyGreen.png";
 import allCategories from './img/ROUGHshot.png';
-import './root.css';
+
 
 export class Home extends Component {
   render() {

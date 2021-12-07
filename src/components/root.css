@@ -1,15 +1,7 @@
-/* LOG IN */
-.root-title {
-  margin-top: 20px;
-  margin-left: 20px;
-  margin-bottom: 20px;
-  width: 25%;
-}
+/* HOME */
 
-/* SIGN UP */
 
 /* JOIN */
-
 
 .title-img {
   min-width: 250px;
@@ -53,11 +45,28 @@
   max-width: 100px;
 }
 
-/* HOME */
+
+/* LOG IN */
+.root-title {
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  width: 25%;
+}
+
+/* NAVBAR */
+.navbarBg {
+  background-color: #8eac8c;
+}
+
+.navbarMain {
+  color: #b1aca8;
+}
+
 
 /* PROFILE */
 
-.profileSection {
+.profile-section {
     border: none;
     margin: 20px 40px 0px 40px;
     background-color: rgb(95, 93, 93);
@@ -65,23 +74,23 @@
     border-radius: 10px;
     display: flex;
     justify-content: center;
-    padding: 20px 0px 20px 0px;
+    padding: 20px 20px 20px 20px;
   }
 
-.profileChild {
+.profile-child {
     width: 50%;
     display: flex;
     flex-direction: row;
 }
 
-.profileImg {
+.profile-img {
     display: flex;
     justify-content: flex-start;
     border-radius: 50%;
     width: 40%;
 }
 
-.profileText {
+.profile-text {
     display: flex;
     flex-direction: column;
     text-align: left;
@@ -90,3 +99,42 @@
   };
 
 
+.profile-howdiy-listed {
+    color: rgb(95, 93, 93);
+    display: flex;
+    justify-content: center;
+  }
+  
+.profile-howdiy-list-child {
+    background-color: #e0ecdf;
+    border: none;
+    margin: 20px 40px 0px 40px;
+    padding: 20px 40px 20px 60px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    justify-content: space-around;
+    text-align: left;
+    font-size: 2vmax;
+    font-weight:600;
+  }
+  
+.profile-howdiy-list-img {
+    display: flex;
+    justify-content: flex-start;
+    border-radius: 50%;
+    height: 20vw;
+    width: 20vw;
+    max-height: 200px;
+    max-width: 200px;
+  }
+
+.profile-howdiy-list-ratings {
+  font-size: 1.2vmax;
+  font-weight:500;
+  padding: 0px 20px 0px 20px;
+}
+
+
+/* SIGN UP */

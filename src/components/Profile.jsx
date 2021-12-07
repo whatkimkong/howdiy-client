@@ -1,19 +1,15 @@
 import React, { Component, Fragment } from "react";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
-import "./categories/Categories.css";
+//
 import "./root.css";
-
-// like CategoryList = howdiyList, filteredList (filtered by user creation)
-// get info of Howdiys and Info of User
 
 class Profile extends Component {
   state = {
     myHowdiys: null,
     isLoadingHowdiy: true,
-  }; // can have multiple isLoadings !! spinners in different // can have multiple axios.bla's
+  };
 
-  // Use axios to fetch the DATA! -- credentials gives BE access to this request session. Authorization!
   componentDidMount() {
     axios
       .get(`${process.env.REACT_APP_API_HOST}/profile/recipes`, {
@@ -60,10 +56,10 @@ class Profile extends Component {
       <div>
         {user && (
           <>
-            <div className="profileSection">
+            <div className="profile-section">
               <h1>Howdiy {user.username}!</h1>
-              <div className="profileChild"></div>
-              <div className="profileText">
+              <div className="profile-child"></div>
+              <div className="profile-text">
                 <h6> First Name: {user.firstName}</h6>
                 <h6> Last Name: {user.lastName}</h6>
                 <h6> Username: {user.username}</h6>
@@ -72,7 +68,7 @@ class Profile extends Component {
             </div>
             <br />
             <hr></hr>
-            <h2 className="profileSection"> Your Howdiys:</h2>
+            <h2 className="profile-section"> Your Howdiys:</h2>
           </>
         )}
         {isLoadingHowdiy && <h1>...isLoading!</h1>}
@@ -80,16 +76,18 @@ class Profile extends Component {
           myHowdiys.map((eachHowdiy) => {
             return (
               <>
-                <div className="howdiyListed">
-                  <div className="howdiyListChild">
+                <div className="profile-howdiy-listed">
+                  <div className="profile-howdiy-list-child">
+                    <div>
                     <img
-                      className="howdiyListImg"
+                      className="profile-howdiy-list-img"
                       src={eachHowdiy.productImg}
                       alt="productImage"
                     />
-                    <div className="howdiyListText">
-                      <h4>{eachHowdiy.funName}</h4>
-                      <h5>{eachHowdiy.descriptiveName}</h5>
+                    </div>
+                    <div>
+                      <p>{eachHowdiy.funName}</p>
+                      <p>{eachHowdiy.descriptiveName}</p>
                       <NavLink
                         className="button-link"
                         key={eachHowdiy._id}
@@ -97,9 +95,12 @@ class Profile extends Component {
                       >
                         View
                       </NavLink>
-                      <hr></hr>
-
-                      <NavLink
+                    </div>
+                    <div className="profile-howdiy-list-ratings">
+                    <p> Cost Rating: {fullStar.repeat(Math.round(eachHowdiy.costRating)) + emptyStar.repeat(3 - Math.round(eachHowdiy.costRating))}</p>
+                    <p> Difficulty Rating: {fullStar.repeat(Math.round(eachHowdiy.difficultyRating)) + emptyStar.repeat(3 - Math.round(eachHowdiy.difficultyRating))}</p>
+                    <p> Time Intensity: {fullStar.repeat(Math.round(eachHowdiy.timeOfPreparation)) + emptyStar.repeat(3 - Math.round(eachHowdiy.timeOfPreparation))}</p>
+                    <NavLink
                         className="button-link"
                         to={`/howdiy/edit/${eachHowdiy._id}`}
                       >
@@ -115,11 +116,6 @@ class Profile extends Component {
                         Delete
                       </button>
                     </div>
-                    <div className="howdiyListText">
-                    <h6> Cost Rating: {fullStar.repeat(Math.round(eachHowdiy.costRating)) + emptyStar.repeat(3 - Math.round(eachHowdiy.costRating))}</h6>
-                    <h6> Difficulty Rating: {fullStar.repeat(Math.round(eachHowdiy.difficultyRating)) + emptyStar.repeat(3 - Math.round(eachHowdiy.difficultyRating))}</h6>
-                    <h6> Time Intensity: {fullStar.repeat(Math.round(eachHowdiy.timeOfPreparation)) + emptyStar.repeat(3 - Math.round(eachHowdiy.timeOfPreparation))}</h6>
-                    </div>
                   </div>
                 </div>
               </>
@@ -131,3 +127,25 @@ class Profile extends Component {
 }
 
 export default Profile;
+
+
+/* 
+
+
+<Container>
+  <Row>
+    <Col sm={8}>sm=8</Col>
+    <Col sm={4}>sm=4</Col>
+  </Row>
+</Container>
+
+PROFILE PLANNING WILL BE :
+like CategoryList = howdiyList, filteredList (filtered by user creation)
+get info of all "MY" Howdiys and Info of User's Account
+
+NOTES
+- you can have multiple isLoadings in one class!! spinners in different sections
+- you can have multiple axios.bla's
+- use axios to fetch the DATA! -- credentials gives BE access to this request session. Authorization!
+
+*/

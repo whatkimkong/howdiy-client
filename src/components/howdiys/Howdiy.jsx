@@ -275,11 +275,10 @@ export class Howdiy extends Component {
             return (
               <div className="comment-message comment-section">
                 <p>
-                  {" "}
-                  {eachComment.input} <br />
-                  {eachComment.createdBy.username}
+                  {eachComment.input} <br/>
+                  Commented by: {eachComment.createdBy.username}
                   <br />
-                  {eachComment.createdAt}
+                  {eachComment.createdAt.slice(0,10)} at {eachComment.createdAt.slice(11,16)}
                 </p>
                 {user && eachComment.createdBy._id === user._id && (
                   <button
@@ -304,7 +303,7 @@ export default Howdiy;
 
 /* 
 
-::::::: TAKEN OUT >> NOT SECURE HERE :::::::::
+DRAWING BOARD:: 
 
   handleIngredientSubmit = (event) => {
     event.preventDefault();
@@ -327,9 +326,7 @@ export default Howdiy;
         this.setState({ ingredients: newIngredientAdded, name: "" , quantity: "", measure: ""})
       })
       .catch(() => this.props.history.push("/500"));
-  };
-
-
+  }
 
   <form onSubmit={this.handleIngredientSubmit}>
               <input
@@ -356,9 +353,7 @@ export default Howdiy;
               <button type="submit">Add</button>
             </form>
 
-
-
-          commentList,
+COMMENTS:
 
 will it have all the inputs and all the info in the commentList?
 remember to use handleCommentSubmit in the form for comment creation

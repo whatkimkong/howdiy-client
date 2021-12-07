@@ -1,7 +1,9 @@
 import React from "react";
 import authService from "./services/auth-services";
 import { Container, Navbar, Nav, NavDropdown } from "react-bootstrap";
-import './Navbar.css';
+//
+import './root.css';
+//
 import howdiyLogo from './img/howdiyWhite.png';
 import howdiyHat from './img/cowboyHat.png';
 
