@@ -1,35 +1,40 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 //
-import './root.css';
+import "./root.css";
 //
 import title from "./img/howdiyGreen.png";
-import allCategories from './img/ROUGHshot.png';
-
 
 export class Home extends Component {
   render() {
+    const {user} = this.props;
     return (
       <div>
         <img src={title} alt="title" className="root-title" />
-        <h3 className="root-text">DIY straight from your Pantry</h3>
-        <p className="root-text"> 6 Categories to choose from:</p>
-        <img src={allCategories} alt="little-representatives" width="300px" height="190px"/>
+
         <div className="root-text">
-        <br/>
-        <p>
-          Join our community of DIY lovers who have plenty ideas on how to use
-          the ingredients all around us to create fun useful homemade products!
-          <br /> Find out more about what drives us:
-        </p>
+          <h3>DIY straight from your Pantry</h3>
+          <h5>
+            Sharing our recipes from far and wide in the six categories of{" "}
+          </h5>
+          <br />
+          <h2>CLEANING • PLAY • FOOD • DRINK • BODYCARE • FACECARE</h2>
+          <br />
+          <h5>to meet our needs in fresh new ways.</h5>
+          { !user && (
+            <div className="root-button-container">
+            <NavLink className="root-submit" to="/signup">
+              Sign me up!
+            </NavLink>
+          </div>
+          )}
+          <div className="root-button-container">
+            <NavLink className="root-submit" to="/join">
+              find out more...
+            </NavLink>
+          </div>
+          <h5>Go on, bet Grandma has some wise wisdoms we can rescue....</h5>
         </div>
-        <br/>
-        <NavLink className="root-submit" to="/join">To the Join !!</NavLink>
-        <p className="root-text">Go on, bet grandma even had some of that wise wise wisdoms....</p>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
       </div>
     );
   }

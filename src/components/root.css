@@ -18,6 +18,12 @@
   color: #63605e;
 }
 
+.root-button-container {
+  margin: 1vh 0vw 2vh 0vw;
+  display: flex;
+  justify-content: space-around;
+}
+
 .root-submit {
   background-color: thistle;
   text-decoration: none;
@@ -27,31 +33,41 @@
   color: #63605e;
 }
 
+.root-submit:hover {
+  background-color: thistle;
+  text-decoration: none;
+  border: none;
+  border-radius: 4px;
+  padding: 2px 10px 2px 10px;
+  color: #8eac8c;
+}
+
 .root-text {
   color: rgb(95, 93, 93);
   display: flex;
   justify-content: center;
   flex-direction: column;
-  margin-left: 20vw;
-  margin-right: 20vw;
+  margin: 10vh 26vw 5vh 26vw;
 }
 
 .root-img-styles {
-  justify-content: center;
-  flex-direction: column;
-  height: 10vw;
-  width: 10vw;
-  max-height: 100px;
-  max-width: 100px;
+  height: 40vw;
+  width: 40vw;
+  max-height: 150px;
+  max-width: 150px;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
 }
 
+h5 {
+  margin: 10vh 0vw 5vh 0vw;
+}
 
-/* LOG IN */
+/* LOG IN / SIGN UP / JOIN */
 .root-title {
-  margin-top: 20px;
-  margin-left: 20px;
-  margin-bottom: 20px;
-  width: 25%;
+  margin-top: 10vh;
+  width: 50%;
+  max-width: 300px;
 }
 
 /* NAVBAR */
@@ -106,18 +122,17 @@
   }
   
 .profile-howdiy-list-child {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    justify-content: space-evenly;
     background-color: #e0ecdf;
+    color: rgb(95, 93, 93);
     border: none;
     margin: 20px 40px 0px 40px;
     padding: 20px 40px 20px 60px;
     border-radius: 10px;
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: row;
-    justify-content: space-around;
     text-align: left;
-    font-size: 2vmax;
-    font-weight:600;
   }
   
 .profile-howdiy-list-img {
@@ -131,8 +146,6 @@
   }
 
 .profile-howdiy-list-ratings {
-  font-size: 1.2vmax;
-  font-weight:500;
   padding: 0px 20px 0px 20px;
 }
 

@@ -28,8 +28,7 @@ export class Categories extends Component {
               {categories.map((eachCategory) => {
                 return (
                   <Col xs lg="4" key={eachCategory}>
-                    <NavLink
-                      className="button-styles category-link"
+                    <NavLink className="category-btn"
                       to={`/${eachCategory.toLowerCase()}/howdiy`}
                     >
                       {eachCategory.toLowerCase() === "facecare" && (

@@ -64,11 +64,11 @@ class App extends Component {
         <Switch>
         <Route
             exact path="/"
-            render={(props) => <Home {...props}/>}
+            render={(props) => <Home {...props} user={user}/>}
           />
           <Route
             exact path="/join"
-            render={(props) => <Join {...props}/>}
+            render={(props) => <Join {...props} user={user}/>}
           />
           <Route
             path="/signup"

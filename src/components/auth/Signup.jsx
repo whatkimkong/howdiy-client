@@ -37,6 +37,7 @@ class Signup extends Component {
           password: "",
         });
         this.props.setUser(response.data, true);
+        this.props.history.push(`/profile`)
       });
   };
 

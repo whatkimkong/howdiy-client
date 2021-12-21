@@ -76,7 +76,7 @@ class Profile extends Component {
           myHowdiys.map((eachHowdiy) => {
             return (
               <>
-                <div className="profile-howdiy-listed">
+                <div>
                   <div className="profile-howdiy-list-child">
                     <div>
                     <img
@@ -86,8 +86,8 @@ class Profile extends Component {
                     />
                     </div>
                     <div>
-                      <p>{eachHowdiy.funName}</p>
-                      <p>{eachHowdiy.descriptiveName}</p>
+                      <h4>{eachHowdiy.funName}</h4>
+                      <h5>{eachHowdiy.descriptiveName}</h5>
                       <NavLink
                         className="button-link"
                         key={eachHowdiy._id}
@@ -97,9 +97,9 @@ class Profile extends Component {
                       </NavLink>
                     </div>
                     <div className="profile-howdiy-list-ratings">
-                    <p> Cost Rating: {fullStar.repeat(Math.round(eachHowdiy.costRating)) + emptyStar.repeat(3 - Math.round(eachHowdiy.costRating))}</p>
-                    <p> Difficulty Rating: {fullStar.repeat(Math.round(eachHowdiy.difficultyRating)) + emptyStar.repeat(3 - Math.round(eachHowdiy.difficultyRating))}</p>
-                    <p> Time Intensity: {fullStar.repeat(Math.round(eachHowdiy.timeOfPreparation)) + emptyStar.repeat(3 - Math.round(eachHowdiy.timeOfPreparation))}</p>
+                    <h6> Cost Rating: {fullStar.repeat(Math.round(eachHowdiy.costRating)) + emptyStar.repeat(3 - Math.round(eachHowdiy.costRating))}</h6>
+                    <h6> Difficulty Rating: {fullStar.repeat(Math.round(eachHowdiy.difficultyRating)) + emptyStar.repeat(3 - Math.round(eachHowdiy.difficultyRating))}</h6>
+                    <h6> Time Intensity: {fullStar.repeat(Math.round(eachHowdiy.timeOfPreparation)) + emptyStar.repeat(3 - Math.round(eachHowdiy.timeOfPreparation))}</h6>
                     <NavLink
                         className="button-link"
                         to={`/howdiy/edit/${eachHowdiy._id}`}

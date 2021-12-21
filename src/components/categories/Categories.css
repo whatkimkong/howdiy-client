@@ -1,41 +1,41 @@
 .title {
-  margin-top: 20px;
-  margin-left: 20px;
-  margin-bottom: 20px;
-  width: 25%;
+  margin: 10vh 10vh 5vh 8vh;
+  width: 70%;
+  max-width: 300px;
 }
 
 .list-container {
   margin-bottom: 10px;
   display: flex;
   justify-content: center;
-  margin-left: 15%;
-  margin-right: 10%;
+  margin-left: 5vw;
+  margin-right: 5vw;
 }
 
 .icon-img-styles {
-  height: 10vw;
-  width: 10vw;
-  max-height: 100px;
-  max-width: 100px;
+  height: 13vh;
+  min-height: 100px;
+  min-width: 140px;
+  max-width: 180px;
 }
 
-.button-styles {
-  background-color: #8eac8c;
-  color: #dbd5d1;
-  padding: 40px 100px 40px 100px;
-  text-decoration: none;
-  margin: 20px 5px 40px 5px;
+.category-btn {
+  border: solid;
+  border-color: #8eac8c;
+  background-color: #7c8a7b;
   border-radius: 50%;
-  width: 70%;
-  min-width: 130px;
-  max-width: 130px;
+  color: #dcd6d1;
+  font-weight: bold;
+  font-size: x-large;
+  text-decoration: none;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  padding: 20px 0px 10px 30px;
+  margin: 10px 10px 20px 40px;
 }
-
-.button-styles:hover {
-  color: thistle;
+  
+.category-btn:hover {
+  color: rgb(95, 93, 93);
 }
 
 .howdiy-listed {
@@ -53,7 +53,7 @@
   width: 80%;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-evenly;
 }
 
 .howdiy-list-img {
