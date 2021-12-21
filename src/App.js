@@ -53,7 +53,7 @@ function App() {
         <Route path="/" element={<Home user={user} />} />
         <Route path="/join" element={<Join user={user} />} />
         <Route path="/signup" element={<Signup logUser={logUser} />} />
-        <Route path="/login" element={<Login logUser={logUser} />} />
+        <Route path="/login" element={<Login logUser={logUser}/>} />
         <Route
           path="/profile"
           element={<Profile isLoggedIn={isLoggedIn} user={user} />}

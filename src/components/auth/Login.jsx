@@ -1,42 +1,44 @@
-import React, { Component } from "react";
+import React, {useState} from "react";
 import authService from "../services/auth-services";
 //
 import "../root.css";
 //
 import loginTitle from "../img/Login.png";
+import { useNavigate } from "react-router";
 
-class Login extends Component {
-  state = {
+export function Login({logUser}) {
+  const navigate = useNavigate();
+
+  const [form, setForm] = useState({
     email: "",
-    password: "",
+    password: ""
+  })
+  const { email, password } = form;
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm({...form, [name]: value });
   };
 
-  handleChange = (event) => {
-    const { name, value } = event.target;
-    this.setState({ [name]: value });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    authService.login(email, password).then((res) => {
+      logUser(res.data, true);
+      navigate('/profile')
+    }).catch((err) => {
+      if (err.response.status === 403) {
+        navigate("/login");
+      }
+    })
   };
 
-  handleSubmit = (event) => {
-    event.preventDefault();
-
-    const { email, password } = this.state;
-
-    authService.login(email, password).then((response) => {
-      this.setState({ email: "", password: "" });
-      this.props.setUser(response.data, true);
-      this.props.history.push(`/profile`)
-    });
-  };
-
-  render() {
-    const { email, password } = this.state;
     return (
       <div>
         <img src={loginTitle} alt="title" className="root-title" />
         <div className="root-text">
-          <form onSubmit={this.handleSubmit}>
+          <form onSubmit={handleSubmit}>
             <input
-              onChange={this.handleChange}
+              onChange={handleChange}
               type="text"
               name="email"
               placeholder="Your email here"
@@ -45,7 +47,7 @@ class Login extends Component {
             <br />
             <br />
             <input
-              onChange={this.handleChange}
+              onChange={handleChange}
               type="password"
               name="password"
               placeholder="Your password here"
@@ -60,6 +62,5 @@ class Login extends Component {
         </div>
       </div>
     );
-  }
 }
 export default Login;

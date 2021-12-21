@@ -3,10 +3,8 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate} from "react-router-dom";
 import { Navigate } from "react-router";
 import { Container, Row, Col } from "react-bootstrap";
-// import recipeService from '../services/recipe-services';
 import axios from "axios";
 import "./Howdiy.css";
-import "../root.css";
 import howdiyHat from "../img/cowboyHat.png";
 
 export function Howdiy({ user }) {
@@ -26,11 +24,11 @@ export function Howdiy({ user }) {
     createdBy: null})
   const [isLoadingHowdiy, setIsLoadingHowdiy] = useState(true)
   const [isLoadingComments, setIsLoadingComments] = useState(true)
-  const [commentInput, setCommentInput] = useState("")
+  const [input, setInput] = useState("")
 
   const handleChange = (e) => {
-    const {value } = e.target;
-    setCommentInput(value);
+    const {value} = e.target;
+    setInput(value);
   };
 
   const handleCommentSubmit = (e) => {
@@ -38,14 +36,13 @@ export function Howdiy({ user }) {
     axios
       .post(
         `${process.env.REACT_APP_API_HOST}/comments/create/${params.id}`,
-        { commentInput },
+        { input, createdBy: user},
         { withCredentials: true }
       )
       .then((res) => {
-        const addedComment = { ...res.data };
-        addedComment.createdBy = { ...user }; 
-        const newCommentList = [...commentList, addedComment];
-        setCommentList(newCommentList);
+        const addedComment = {...res.data};
+        setInput("")
+        setCommentList([...commentList, {addedComment}]);
       })
       .catch(() => navigate('/500'));
   };
@@ -100,25 +97,30 @@ export function Howdiy({ user }) {
           costRating,
           difficultyRating,
           createdBy})
-        setIsLoadingHowdiy(false)
+          setIsLoadingHowdiy(false)
       })
       .catch((err) => {
         <Navigate to='/500'/>;
       });
+    }, [setHowdiy]);
+
+    useEffect(() => {
     axios
       .get(
         `${process.env.REACT_APP_API_HOST}/comments/all/${params.id}`,
         { withCredentials: true }
       )
       .then((res) => {
-        setCommentList(prev => prev, res.data);
+        console.log(res.data)
+
+        setCommentList([res.data]);
         setIsLoadingComments(false);
       })
       .catch((err) => {
         <Navigate to='/500'/>;
       });
-  });
-    
+  }, [setCommentList]);
+
     const emptyStar = "☆";
     const fullStar = "★";
 
@@ -221,7 +223,7 @@ export function Howdiy({ user }) {
             </Container>
           </React.Fragment>
         )}
-        <h2 className="profileSection">
+        <h2 className="howdiy-section">
           <img src={howdiyHat} alt="navbarimg" width="55" height="25" />
           <img src={howdiyHat} alt="navbarimg" width="70" height="35" />
         </h2>
@@ -231,8 +233,8 @@ export function Howdiy({ user }) {
               onChange={handleChange}
               placeholder="write here..."
               type="text"
-              name="commentInput"
-              value={commentInput}
+              name="input"
+              value={input}
             />
             <button className="accordion-submit" type="submit">
               Add a comment
@@ -241,12 +243,11 @@ export function Howdiy({ user }) {
         </div>
 
         {isLoadingComments && <h1>...isLoading!</h1>}
-        {!isLoadingComments &&
-          commentList.map((eachComment) => {
+        {!isLoadingComments && (commentList.map((eachComment) => {
             return (
               <div className="comment-message comment-section">
                 <p>
-                  {eachComment.commentInput} <br/>
+                  {eachComment.input} <br/>
                   Commented by: {eachComment.createdBy.username}
                   <br />
                   {eachComment.createdAt.slice(0,10)} at {eachComment.createdAt.slice(11,16)}
@@ -261,9 +262,11 @@ export function Howdiy({ user }) {
                 <hr></hr>
               </div>
             );
-          })}
+          }))}
       </>
   )
 }
 
 export default Howdiy;
+
+//         addedComment.createdBy = { ...user };

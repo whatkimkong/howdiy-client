@@ -78,14 +78,14 @@ class Profile extends Component {
               <>
                 <div>
                   <div className="profile-howdiy-list-child">
-                    <div>
+                    <div className="profile-end-containers">
                     <img
                       className="profile-howdiy-list-img"
                       src={eachHowdiy.productImg}
                       alt="productImage"
                     />
                     </div>
-                    <div>
+                    <div className="profile-middle-container">
                       <h4>{eachHowdiy.funName}</h4>
                       <h5>{eachHowdiy.descriptiveName}</h5>
                       <NavLink
@@ -96,7 +96,7 @@ class Profile extends Component {
                         View
                       </NavLink>
                     </div>
-                    <div className="profile-howdiy-list-ratings">
+                    <div className="profile-end-containers">
                     <h6> Cost Rating: {fullStar.repeat(Math.round(eachHowdiy.costRating)) + emptyStar.repeat(3 - Math.round(eachHowdiy.costRating))}</h6>
                     <h6> Difficulty Rating: {fullStar.repeat(Math.round(eachHowdiy.difficultyRating)) + emptyStar.repeat(3 - Math.round(eachHowdiy.difficultyRating))}</h6>
                     <h6> Time Intensity: {fullStar.repeat(Math.round(eachHowdiy.timeOfPreparation)) + emptyStar.repeat(3 - Math.round(eachHowdiy.timeOfPreparation))}</h6>
