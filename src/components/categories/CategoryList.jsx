@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import recipeService from "../services/recipe-services"; // has to be the same?
+import * as RECIPE_SERVICES from "../services/recipe-services";
 import Search from "./Search";
 import { NavLink } from "react-router-dom";
 //
@@ -39,8 +39,7 @@ class CategoryList extends Component {
 
   componentDidMount() {
     const { category } = this.props.match.params; //destructuring and implementing from the params
-    recipeService
-      .getCategoryList(category)
+    RECIPE_SERVICES.getCategoryList(category)
       .then((response) => {
         this.setState({
           howdiyList: response.data,

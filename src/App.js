@@ -1,6 +1,6 @@
 import "./App.css";
-import { Component } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
+import { useState, useEffect } from "react";
 // auth
 import Login from "./components/auth/Login";
 import Profile from "./components/auth/Profile";
@@ -18,99 +18,60 @@ import HowdiyCreate from "./components/howdiys/HowdiyCreate";
 import Howdiy from "./components/howdiys/Howdiy";
 import HowdiyEdit from "./components/howdiys/HowdiyEdit";
 
+function App() {
+  const [user, setUser] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(null);
 
-class App extends Component {
-  state = {
-    isLoggedIn: null,
-    user: null,
+  const logUser = (user, loggedInStatus) => {
+    setUser(user);
+    setIsLoggedIn(loggedInStatus);
   };
 
-  setUser = (user, loggedInStatus) => {
-    this.setState({
-      user,
-      isLoggedIn: loggedInStatus,
-    });
-  };
-
-  getUser = () => {
-    if (this.state.user === null) {
+  function getUser() {
+    if (user === null) {
       authService
         .loggedin()
-        .then((response) => {
-          this.setState({
-            user: response.data.user,
-            isLoggedIn: true,
-          });
+        .then((res) => {
+          setUser(res.data.user);
+          setIsLoggedIn(true);
         })
         .catch((error) => {
-          this.setState({
-            isLoggedIn: false,
-          });
+          setIsLoggedIn(false);
         });
     }
-  };
-
-  componentDidMount() {
-    this.getUser();
   }
 
-  render() {
-    const { user, isLoggedIn } = this.state;
+  useEffect(() => {
+    getUser();
+  });
 
-    return (
-      <div className="App">
-        <NavbarComponent isLoggedIn={isLoggedIn} user={user} setUser={this.setUser} />
+  return (
+    <div className="App">
+      <NavbarComponent isLoggedIn={isLoggedIn} user={user} logUser={logUser} />
 
-        <Switch>
+      <Routes>
+        <Route path="/" element={<Home user={user} />} />
+        <Route path="/join" element={<Join user={user} />} />
+        <Route path="/signup" element={<Signup logUser={logUser} />} />
+        <Route path="/login" element={<Login logUser={logUser} />} />
         <Route
-            exact path="/"
-            render={(props) => <Home {...props} user={user}/>}
-          />
-          <Route
-            exact path="/join"
-            render={(props) => <Join {...props} user={user}/>}
-          />
-          <Route
-            path="/signup"
-            render={(props) => <Signup {...props} setUser={this.setUser} />}
-          />
-          <Route
-            path="/login"
-            render={(props) => <Login {...props} setUser={this.setUser} />}
-          />
-          <Route
-            path="/profile"
-            render={(props) => (
-              <Profile {...props} isLoggedIn={isLoggedIn} user={user} />
-            )}
-          />
-          <Route
-            path="/categories"
-            render={(props) => (
-              <Categories {...props} isLoggedIn={isLoggedIn} />
-            )}
-          />
-          <Route
-            path="/:category/howdiy" // where they are receiving the request to visit - are they trying to get to ...
-            render={(props) => <CategoryList {...props} />}
-          />
-          <Route
-            path="/howdiy/create"
-            render={(props) => <HowdiyCreate {...props} />}
-          />
-          <Route
-            exact
-            path="/howdiy/:id"
-            render={(props) => <Howdiy {...props} user={user}/>}
-          />
-          <Route
-            path="/howdiy/edit/:id"
-            render={(props) => <HowdiyEdit {...props} />}
-          />
-        </Switch>
-      </div>
-    );
-  }
+          path="/profile"
+          element={<Profile isLoggedIn={isLoggedIn} user={user} />}
+        />
+        <Route
+          path="/categories"
+          element={<Categories isLoggedIn={isLoggedIn} />}
+        />
+        <Route
+          path="/:category/howdiy" // where they are receiving the request to visit - are they trying to get to ...
+          element={<CategoryList />}
+        />
+        <Route path="/howdiy/create" element={<HowdiyCreate />} />
+        <Route path="/howdiy/:id" element={<Howdiy user={user} />} />
+        <Route path="/howdiy/edit/:id" element={<HowdiyEdit />} />
+      </Routes>
+    </div>
+  );
 }
 
 export default App;

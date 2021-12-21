@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 //
 import "./root.css";
@@ -8,13 +8,10 @@ import faceLogo from "./img/Face-dark.png";
 import houseLogo from "./img/House-dark.png";
 import playLogo from "./img/Play-dark.png";
 
-export class Join extends Component {
-  render() {
-    const {user} = this.props;
+export function Join({ user }) {
     return (
       <div>
         <img src={title} alt="title" className="root-title" />
-
         <div className="root-text">
           <div>
             <h5>
@@ -53,7 +50,6 @@ export class Join extends Component {
         </div>
       </div>
     );
-  }
 }
 
 export default Join;

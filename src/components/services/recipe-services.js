@@ -1,20 +1,15 @@
 import axios from "axios";
 
-// URLS are only Backend URLS
-
-class RecipeService {
-  constructor() {
-    this.service = axios.create({
+const RecipeService = axios.create({
       baseURL: `${process.env.REACT_APP_API_HOST}/recipes`,
       withCredentials: true,
     });
-  }
 
-  getCategoryList = (category) => {
-    return this.service.get(`/categorylist/${category}`);
+export function getCategoryList(category) {
+    return RecipeService.get(`/categorylist/${category}`);
   };
 
-  createHowdiy = ({
+export function createHowdiy({
     category,
     descriptiveName,
     ingredients,
@@ -25,8 +20,8 @@ class RecipeService {
     timeOfPreparation,
     costRating,
     difficultyRating,
-  }) => {
-    return this.service.post("/create", {
+  }) {
+    return RecipeService.post("/create", {
       category,
       descriptiveName,
       ingredients,
@@ -38,14 +33,4 @@ class RecipeService {
       costRating,
       difficultyRating,
     });
-  };
-
-}
-
-const recipeService = new RecipeService();
-export default recipeService;
-
-/* 
-DIDNT NEED:
-deleteHowdiy = (id) => return this.service.delete(`/delete/${id}`)
-*/
+};

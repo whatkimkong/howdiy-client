@@ -1,13 +1,11 @@
-import React, { Component } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 //
 import "./root.css";
 //
 import title from "./img/howdiyGreen.png";
 
-export class Home extends Component {
-  render() {
-    const {user} = this.props;
+export function Home({ user }){
     return (
       <div>
         <img src={title} alt="title" className="root-title" />
@@ -37,7 +35,6 @@ export class Home extends Component {
         </div>
       </div>
     );
-  }
 }
 
 export default Home;

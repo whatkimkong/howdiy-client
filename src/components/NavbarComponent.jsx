@@ -7,10 +7,10 @@ import './root.css';
 import howdiyLogo from './img/howdiyWhite.png';
 import howdiyHat from './img/cowboyHat.png';
 
-function NavbarComponent({ isLoggedIn, user, setUser }) {
+function NavbarComponent({ isLoggedIn, user, logUser }) {
   const userLogout = () => {
     authService.logout().then(() => {
-      setUser(null, false);
+      logUser(null, false);
     });
   };
 

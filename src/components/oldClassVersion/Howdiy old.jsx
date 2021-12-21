@@ -1,7 +1,5 @@
 // THIS url will be - howdiy/:id
-import React, { useState, useEffect } from "react";
-import { useParams, useNavigate} from "react-router-dom";
-import { Navigate } from "react-router";
+import React, { Component, Fragment } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 // import recipeService from '../services/recipe-services';
 import axios from "axios";
@@ -9,72 +7,81 @@ import "./Howdiy.css";
 import "../root.css";
 import howdiyHat from "../img/cowboyHat.png";
 
-export function Howdiy({ user }) {
-  const params = useParams();
-  const navigate = useNavigate();
-  const [commentList, setCommentList] = useState(null)
-  const [howdiy, setHowdiy] = useState({ funName: null,
+export class Howdiy extends Component {
+  state = {
+    funName: null,
     descriptiveName: null,
     ingredients: [],
     preparation: [],
     productImg: null,
     isGiftable: false,
     gallery: [],
-    timeOfPreparation: 0, 
-    costRating: 0,
+    timeOfPreparation: 0, // specify mins in form
+    costRating: 0, // TIP on how to calculate in form
     difficultyRating: 0,
-    createdBy: null})
-  const [isLoadingHowdiy, setIsLoadingHowdiy] = useState(true)
-  const [isLoadingComments, setIsLoadingComments] = useState(true)
-  const [commentInput, setCommentInput] = useState("")
-
-  const handleChange = (e) => {
-    const {value } = e.target;
-    setCommentInput(value);
+    createdBy: null,
+    isLoadingHowdiy: true,
+    isLoadingComments: true,
+    input: "",
+    commentList: null,
+    name: "",
+    quantity: "",
+    measure: "",
   };
 
-  const handleCommentSubmit = (e) => {
-    e.preventDefault();
+  handleChange = (event) => {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
+  };
+
+  handleCommentSubmit = (event) => {
+    event.preventDefault();
+    const { input, commentList } = this.state;
     axios
       .post(
-        `${process.env.REACT_APP_API_HOST}/comments/create/${params.id}`,
-        { commentInput },
+        `${process.env.REACT_APP_API_HOST}/comments/create/${this.props.match.params.id}`,
+        { input },
         { withCredentials: true }
       )
-      .then((res) => {
-        const addedComment = { ...res.data };
-        addedComment.createdBy = { ...user }; 
+      .then((response) => {
+        const addedComment = { ...response.data };
+        addedComment.createdBy = { ...this.props.user }; // this is replacing that key with another
+        // replace the createdBy key with this.props.user within the response.data object
+        console.log(addedComment);
         const newCommentList = [...commentList, addedComment];
-        setCommentList(newCommentList);
+        this.setState({ commentList: newCommentList });
       })
-      .catch(() => navigate('/500'));
+      .catch(() => this.props.history.push("/500"));
   };
 
-  const handleDeleteComment = (id) => {
+  handleDeleteComment = (id) => {
     axios
       .delete(`${process.env.REACT_APP_API_HOST}/comments/delete/${id}`, {
         withCredentials: true,
       })
-      .then((res) => {
-        const newCommentList = commentList.filter((eachComment) => {
+      .then((response) => {
+        //find the element in the state manually and remove it
+        const newCommentList = this.state.commentList.filter((eachComment) => {
           return eachComment._id !== id;
         });
-        setCommentList(newCommentList);
+        this.setState({ commentList: newCommentList });
       })
       .catch((err) => {
         console.log(err.response.status); // => the error message status code
         if (err.response.status === 403) {
-          navigate('/login')
+          this.props.history.push("/login");
         }
       });
   };
 
-  useEffect(() => {
+  componentDidMount() {
+    // how to destructure properly?
     axios
       .get(
-        `${process.env.REACT_APP_API_HOST}/recipes/howdiy/${params.id}`,
-        { withCredentials: true })
-      .then((res) => {
+        `${process.env.REACT_APP_API_HOST}/recipes/howdiy/${this.props.match.params.id}`,
+        { withCredentials: true }
+      )
+      .then((response) => {
         const {
           funName,
           descriptiveName,
@@ -87,8 +94,8 @@ export function Howdiy({ user }) {
           costRating,
           difficultyRating,
           createdBy,
-        } = res.data;
-        setHowdiy({
+        } = response.data;
+        this.setState({
           funName,
           descriptiveName,
           ingredients,
@@ -99,29 +106,47 @@ export function Howdiy({ user }) {
           timeOfPreparation,
           costRating,
           difficultyRating,
-          createdBy})
-        setIsLoadingHowdiy(false)
+          createdBy,
+          isLoadingHowdiy: false,
+        });
       })
       .catch((err) => {
-        <Navigate to='/500'/>;
+        this.props.history.push("/500");
       });
     axios
       .get(
-        `${process.env.REACT_APP_API_HOST}/comments/all/${params.id}`,
+        `${process.env.REACT_APP_API_HOST}/comments/all/${this.props.match.params.id}`,
         { withCredentials: true }
       )
-      .then((res) => {
-        setCommentList(prev => prev, res.data);
-        setIsLoadingComments(false);
+      .then((response) => {
+        this.setState({ commentList: response.data, isLoadingComments: false });
       })
       .catch((err) => {
-        <Navigate to='/500'/>;
+        this.props.history.push("/500");
       });
-  });
-    
+  }
+
+  render() {
+    const {
+      funName,
+      descriptiveName,
+      ingredients,
+      preparation,
+      productImg,
+      isGiftable,
+      gallery,
+      timeOfPreparation,
+      costRating,
+      difficultyRating,
+      createdBy,
+      isLoadingHowdiy,
+      isLoadingComments,
+      input,
+      commentList,
+    } = this.state;
+    const { user } = this.props;
     const emptyStar = "☆";
     const fullStar = "★";
-
     return (
       <>
         {isLoadingHowdiy && <h1>...isLoading!</h1>}
@@ -133,39 +158,40 @@ export function Howdiy({ user }) {
                 <div className="howdiy-view-child">
                   <img
                     className="howdiy-view-img"
-                    src={howdiy.productImg}
+                    src={productImg}
                     alt="productImage"
                   />
                   <div className="howdiy-view-text">
-                    <h4>{howdiy.funName}</h4>
-                    <h5>{howdiy.descriptiveName}</h5>
+                    <h4>{funName}</h4>
+                    <h5>{descriptiveName}</h5>
                     <h5>
-                      
-                      is Giftable: {howdiy.isGiftable ? "Yes!" : "Possibly Not"}
+                      {" "}
+                      is Giftable: {isGiftable ? "Yes!" : "Possibly Not"}
                     </h5>
                     <hr></hr>
-                    <p>Created by: {howdiy.createdBy.username}</p>
+                    <p>Created by: {createdBy.username}</p>
                   </div>
                 </div>
                 {/* </Col> */}
                 <Col sm={4}>
                   <div className="howdiy-view-text">
                     <h6>
-                      Cost Rating:
-                      {fullStar.repeat(Math.round(howdiy.costRating)) +
-                        emptyStar.repeat(3 - Math.round(howdiy.costRating))}
+                      {" "}
+                      Cost Rating:{" "}
+                      {fullStar.repeat(Math.round(costRating)) +
+                        emptyStar.repeat(3 - Math.round(costRating))}
                     </h6>
                     <h6>
-                      
-                      Difficulty Rating:
-                      {fullStar.repeat(Math.round(howdiy.difficultyRating)) +
-                        emptyStar.repeat(3 - Math.round(howdiy.difficultyRating))}
+                      {" "}
+                      Difficulty Rating:{" "}
+                      {fullStar.repeat(Math.round(difficultyRating)) +
+                        emptyStar.repeat(3 - Math.round(difficultyRating))}
                     </h6>
                     <h6>
                       {" "}
                       Time Intensity:{" "}
-                      {fullStar.repeat(Math.round(howdiy.timeOfPreparation)) +
-                        emptyStar.repeat(3 - Math.round(howdiy.timeOfPreparation))}
+                      {fullStar.repeat(Math.round(timeOfPreparation)) +
+                        emptyStar.repeat(3 - Math.round(timeOfPreparation))}
                     </h6>
                   </div>
                 </Col>
@@ -177,7 +203,7 @@ export function Howdiy({ user }) {
                       <h5>Ingredients:</h5>
                       <ul className="accordion-list">
                         <br />
-                        {howdiy.ingredients.map((eachIngredient) => {
+                        {ingredients.map((eachIngredient) => {
                           return (
                             <React.Fragment
                               key={
@@ -202,7 +228,7 @@ export function Howdiy({ user }) {
                       <h5>Preparation:</h5>
                       <ul className="accordion-list">
                         <br />
-                        {howdiy.preparation.map((eachStep) => {
+                        {preparation.map((eachStep) => {
                           return (
                             <React.Fragment
                               key={eachStep.step + eachStep.description}
@@ -226,13 +252,13 @@ export function Howdiy({ user }) {
           <img src={howdiyHat} alt="navbarimg" width="70" height="35" />
         </h2>
         <div className="comment-section">
-          <form onSubmit={handleCommentSubmit}>
+          <form onSubmit={this.handleCommentSubmit}>
             <input
-              onChange={handleChange}
+              onChange={this.handleChange}
               placeholder="write here..."
               type="text"
-              name="commentInput"
-              value={commentInput}
+              name="input"
+              value={input}
             />
             <button className="accordion-submit" type="submit">
               Add a comment
@@ -246,7 +272,7 @@ export function Howdiy({ user }) {
             return (
               <div className="comment-message comment-section">
                 <p>
-                  {eachComment.commentInput} <br/>
+                  {eachComment.input} <br/>
                   Commented by: {eachComment.createdBy.username}
                   <br />
                   {eachComment.createdAt.slice(0,10)} at {eachComment.createdAt.slice(11,16)}
@@ -254,7 +280,10 @@ export function Howdiy({ user }) {
                 {user && eachComment.createdBy._id === user._id && (
                   <button
                     className="button-link"
-                    onClick={() => {handleDeleteComment(eachComment._id)}}>
+                    onClick={() => {
+                      this.handleDeleteComment(eachComment._id);
+                    }}
+                  >
                     Delete
                   </button>
                 )}
@@ -263,7 +292,68 @@ export function Howdiy({ user }) {
             );
           })}
       </>
-  )
+    );
+  }
 }
 
 export default Howdiy;
+
+/* 
+
+DRAWING BOARD:: 
+
+  handleIngredientSubmit = (event) => {
+    event.preventDefault();
+    const { name, quantity, measure, ingredients } = this.state;
+    const newIngredientAdded = [...ingredients, { name, quantity, measure }];
+
+    // we need to see the changes both in the STATE and the BE
+
+    // BE route needs id of the recipe/:id/addIngredient :id params .post
+    // push req.body into ingredients array
+
+    // FE - push those 3 things into the BE route
+    axios
+      .post(
+        `${process.env.REACT_APP_API_HOST}/recipes/${this.props.match.params.id}/addIngredient`,
+        { name, quantity, measure },
+        { withCredentials: true }
+      )
+      .then(() => {
+        this.setState({ ingredients: newIngredientAdded, name: "" , quantity: "", measure: ""})
+      })
+      .catch(() => this.props.history.push("/500"));
+  }
+
+  <form onSubmit={this.handleIngredientSubmit}>
+              <input
+                onChange={this.handleChange}
+                placeholder="Your ingredient here"
+                type="text"
+                name="name"
+                value={name}
+              />
+              <input
+                onChange={this.handleChange}
+                placeholder="Its quantity here"
+                type="text"
+                name="quantity"
+                value={quantity}
+              />
+              <input
+                onChange={this.handleChange}
+                placeholder="Unit of measure"
+                type="text"
+                name="measure"
+                value={measure}
+              />
+              <button type="submit">Add</button>
+            </form>
+
+COMMENTS:
+
+will it have all the inputs and all the info in the commentList?
+remember to use handleCommentSubmit in the form for comment creation
+then in the render section below the create form:
+
+*/
