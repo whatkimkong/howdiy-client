@@ -102,7 +102,7 @@ export function Howdiy({ user }) {
       .catch((err) => {
         <Navigate to='/500'/>;
       });
-    }, [setHowdiy]);
+    }, []);
 
     useEffect(() => {
     axios
@@ -119,7 +119,7 @@ export function Howdiy({ user }) {
       .catch((err) => {
         <Navigate to='/500'/>;
       });
-  }, [setCommentList]);
+  }, [setCommentList, setIsLoadingComments]);
 
     const emptyStar = "☆";
     const fullStar = "★";
